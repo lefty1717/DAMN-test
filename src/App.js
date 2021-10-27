@@ -8,6 +8,11 @@ function App() {
       <h1>Damn</h1>
       <AccessAlarmIcon />
       <AddIcon />
+      {/* React Context API */}
+      {/* React Router */}
+      {/* AI 小當家 */}
+      {/* firebase 資料庫建立 */}
+      {/* bottom nav */}
     </div>
   );
 }

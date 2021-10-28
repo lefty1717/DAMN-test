@@ -64,11 +64,25 @@ p {
           flex-direction: column;
 }
 
-.bottomNav .MuiIconButton-label > p {
+.bottomNav .MuiIconButton-label > a > p {
   margin: unset;
 }
 
 .bottomNav .active {
-  background-color: #fe8b83;
+  background-color: #fe8b83 !important;
+}
+
+.bottomNav .active .MuiSvgIcon-root,
+.bottomNav .active p {
+  color: white !important;
+}
+
+.bottomNav .MuiSvgIcon-root {
+  color: #444545;
+}
+
+.bottomNav a {
+  text-decoration: none;
+  display: block;
 }
 /*# sourceMappingURL=all.css.map */

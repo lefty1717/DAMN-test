@@ -1,36 +1,55 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import AccountCircleIcon from "@material-ui/icons//AccountCircle";
 import KitchenIcon from "@material-ui/icons//Kitchen";
 import MenuBookIcon from "@material-ui/icons//MenuBook";
 import { AppBar, IconButton, Toolbar } from "@material-ui/core";
-import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 
 const BottomNav = () => {
+  const btnList = [
+    {
+      id: 1,
+      title: "食譜",
+      icon: <MenuBookIcon />,
+      routeTo: "/",
+    },
+    {
+      id: 2,
+      title: "冰箱管理",
+      icon: <KitchenIcon />,
+      routeTo: "/fridge",
+    },
+    {
+      id: 3,
+      title: "個人",
+      icon: <AccountCircleIcon />,
+      routeTo: "/profile",
+    },
+  ];
+  const [activeBtnId, setActiveBtnId] = useState("");
+
+  const handleActiveClass = (id) => {
+    console.log(id);
+    setActiveBtnId(id);
+  };
   return (
     <div className="bottomNav">
-      <AppBar className="" position="fixed" color="white">
+      <AppBar color="transparent">
         <Toolbar>
-          <IconButton
-            className="bottomNav__button active"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ display: "flex", flexDirection: "column" }}
-          >
-            <MenuBookIcon />
-            <p className="fs-1 m-unset">食譜</p>
-          </IconButton>
-          {/* <StyledFab color="secondary" aria-label="add">
-              <KitchenIcon />
-            </StyledFab> */}
-          {/* <Box sx={{ flexGrow: 1 }} /> */}
-          <IconButton color="inherit" className="bottomNav__button">
-            <KitchenIcon />
-            <p className="fs-1">冰箱管理</p>
-          </IconButton>
-          <IconButton color="inherit" className="bottomNav__button">
-            <AccountCircleIcon />
-            <p className="fs-1"> 個人</p>
-          </IconButton>
+          {btnList.map((btn) => (
+            <IconButton
+              className={`bottomNav__button ${
+                activeBtnId === btn.id && "active"
+              }`}
+              key={btn.id}
+              onClick={() => handleActiveClass(btn.id)}
+            >
+              <Link to={btn.routeTo}>
+                {btn.icon}
+                <p className="fs-1">{btn.title}</p>
+              </Link>
+            </IconButton>
+          ))}
         </Toolbar>
       </AppBar>
     </div>

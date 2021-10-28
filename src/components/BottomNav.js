@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import AccountCircleIcon from "@material-ui/icons//AccountCircle";
 import KitchenIcon from "@material-ui/icons//Kitchen";
 import MenuBookIcon from "@material-ui/icons//MenuBook";
@@ -26,10 +26,10 @@ const BottomNav = () => {
       routeTo: "/profile",
     },
   ];
-  const [activeBtnId, setActiveBtnId] = useState("");
+  const [activeBtnId, setActiveBtnId] = useState(1);
 
   const handleActiveClass = (id) => {
-    console.log(id);
+    // console.log(id);
     setActiveBtnId(id);
   };
   return (

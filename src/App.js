@@ -1,7 +1,5 @@
 import React from "react";
 import "./scss/all.css";
-import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
-import AddIcon from "@material-ui/icons/Add";
 import BottomNav from "./components/BottomNav";
 import RecipeHomePage from "./pages/recipe";
 import LoginPage from "./pages/LoginPage";
@@ -34,7 +32,7 @@ function App() {
       </Router>
 
       {/* React Context API */}
-      {/* React Router */}
+      {/* React Router f */}
       {/* AI 小當家 */}
       {/* firebase 資料庫建立 f */}
       {/* bottom nav f */}

@@ -1,7 +1,14 @@
-import React from "react";
+import React from 'react'
+import IndexTop from './IndexTop'
+import IndexMiddle from './IndexMiddle'
 
-const HomePage = () => {
-  return <div>recipe home</div>;
-};
+function index() {
+  return (
+    <div className="recipe__index">
+        <IndexTop/>
+        <IndexMiddle/>
+    </div>
+  )
+}
 
-export default HomePage;
+export default index

@@ -34,7 +34,7 @@ const BottomNav = () => {
   };
   return (
     <div className="bottomNav">
-      <AppBar color="transparent">
+      <AppBar color="">
         <Toolbar>
           {btnList.map((btn) => (
             <IconButton

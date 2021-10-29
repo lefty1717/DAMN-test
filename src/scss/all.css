@@ -86,11 +86,16 @@ p {
 
 .recipe__index .recipeIndexTop .recipeIndexTop__slogan h4 {
   color: white;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .recipe__index .recipeIndexTop .recipeIndexTop__slogan > .MuiSvgIcon-root {
   color: white;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__slogan .ticker {
+  width: 100%;
 }
 
 .recipe__index .recipeIndexTop .recipeIndexTop__title {
@@ -120,14 +125,14 @@ p {
 .recipe__index .recipeIndexTop .recipeIndexTop__title .recipeIndexTop__input input {
   border: none;
   border-radius: 20px 0 0 20px;
-  color: #C4C4C4;
+  color: #c4c4c4;
   width: 88%;
   padding-left: 10px;
   outline: none;
 }
 
 .recipe__index .recipeIndexTop .recipeIndexTop__title .recipeIndexTop__input > .MuiSvgIcon-root {
-  color: #C4C4C4;
+  color: #c4c4c4;
   padding-right: 10px;
 }
 
@@ -191,7 +196,7 @@ p {
   left: 24px;
   width: 215px;
   height: 105px;
-  background-color: #E9E6E6;
+  background-color: #e9e6e6;
   padding: 15px 10px;
   border-radius: 20px;
 }

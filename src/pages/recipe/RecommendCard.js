@@ -8,14 +8,11 @@ import hamburger from '../../images/hamburger.png'
 function RecommendCard() {
     return (
         <div>
-            <Card sx={{width:'90%',display:'flex', alignItems:'center', margin:'10px'}}>
+            <Card >
                 <CardMedia
                     component="img"
-                    width="100%"
-                    height="104"
                     image={hamburger}
                     alt="hamburger"
-                    sx={{borderRadius:'20px', paddingLeft:'10px'}}
                 />
                 <CardContent>
                     <Typography gutterBottom sx={{fontSize:'18px', fontWeight:'bold'}} component="div">

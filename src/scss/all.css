@@ -30,11 +30,6 @@ p {
   font-family: 'Open Sans', sans-serif;
 }
 
-.recipeItem__container {
-  width: 375px;
-  height: 812px;
-}
-
 .recipeItem__container .recipeItem__wrap {
   position: relative;
 }

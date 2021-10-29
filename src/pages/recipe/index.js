@@ -1,12 +1,12 @@
 import React from 'react'
 import IndexTop from './IndexTop'
 import IndexMiddle from './IndexMiddle'
+import RecipeItem from './RecipeItem'
 
 function index() {
   return (
     <div className="recipe__index">
-        <IndexTop/>
-        <IndexMiddle/>
+        <RecipeItem/>
     </div>
   )
 }

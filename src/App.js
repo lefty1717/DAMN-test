@@ -7,6 +7,7 @@ import SignupPage from "./pages/SignupPage";
 import FridgePage from "./pages/fridge";
 import ProfilePage from "./pages/ProfilePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 function App() {
   return (
     <div className="app">

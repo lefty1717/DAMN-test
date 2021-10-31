@@ -287,6 +287,228 @@ p {
   margin: 20px;
 }
 
+.recipe__index .recipeIndexTop {
+  background-color: #fe8b83;
+  width: 100%;
+  border-radius: 0 0 20px 20px;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__slogan {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__slogan h4 {
+  color: white;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__slogan > .MuiSvgIcon-root {
+  color: white;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__slogan .ticker {
+  width: 100%;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__title {
+  padding: 40px 20px 20px;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__title h4 {
+  color: white;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__title .recipeIndexTop__input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-size: 18px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__title .recipeIndexTop__input input {
+  border: none;
+  border-radius: 20px 0 0 20px;
+  color: #c4c4c4;
+  width: 88%;
+  padding-left: 10px;
+  outline: none;
+}
+
+.recipe__index .recipeIndexTop .recipeIndexTop__title .recipeIndexTop__input > .MuiSvgIcon-root {
+  color: #c4c4c4;
+  padding-right: 10px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px 0;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__title h4 {
+  font-size: 24px;
+  padding-left: 20px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__title .recipeIndexMiddle__more {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 12px;
+  color: #fe8b83;
+  padding-right: 20px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__title .recipeIndexMiddle__more > .MuiSvgIcon-root {
+  font-size: 12px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: auto;
+  width: 100%;
+  height: 300px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards .hotCard {
+  position: relative;
+  padding: 0 20px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards .hotCard .hotCard__img {
+  width: 243px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards .hotCard .MuiCardContent-root {
+  position: absolute;
+  bottom: 15px;
+  left: 24px;
+  width: 215px;
+  height: 105px;
+  background-color: #e9e6e6;
+  padding: 15px 10px;
+  border-radius: 20px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards .hotCard .MuiCardContent-root .MuiTypography-root {
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards .hotCard .MuiCardContent-root span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: black;
+  margin-top: 5px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards .hotCard .MuiCardContent-root .hotCard__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 10px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards .hotCard .MuiCardContent-root .hotCard__item .MuiTypography-root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 5px;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards-1 {
+  width: 100%;
+  height: 100vw;
+  overflow: auto;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards-1 .recipeIndexMiddle__cards-2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards-1 .recipeIndexMiddle__cards-2 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards-1 .recipeIndexMiddle__cards-2 .MuiPaper-root {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 30px 0;
+}
+
+.recipe__index .recipeIndexMiddle .recipeIndexMiddle__cards-1 .recipeIndexMiddle__cards-2 .MuiPaper-root .MuiCardMedia-root {
+  width: 50%;
+  height: 80%;
+  border-radius: 20px !important;
+  margin: 20px;
+}
+
 .bottomNav {
   color: #444545 !important;
 }

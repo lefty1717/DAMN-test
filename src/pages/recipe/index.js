@@ -4,6 +4,9 @@ import IndexMiddle from "./IndexMiddle";
 import RecipeItemPage from "./RecipeItemPage";
 
 function index() {
+
+
+  
   return (
     <div className="recipe__index">
       {/* <RecipeItemPage /> */}

@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import FridgePage from "./pages/fridge";
 import ProfilePage from "./pages/ProfilePage";
+import AddRecipePage from "./pages/recipe/AddRecipePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
           <Route path="/fridge">
             <FridgePage />
           </Route>
+
+          <Route path="/addrecipe">
+            <AddRecipePage />
+          </Route>
           <Route path="/">
             <RecipeHomePage />
           </Route>
@@ -33,10 +38,8 @@ function App() {
       </Router>
 
       {/* React Context API */}
-      {/* React Router f */}
+
       {/* AI 小當家 */}
-      {/* firebase 資料庫建立 f */}
-      {/* bottom nav f */}
     </div>
   );
 }

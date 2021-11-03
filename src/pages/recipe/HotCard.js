@@ -9,8 +9,9 @@ import StarIcon from "@mui/icons-material/Star";
 
 function HotCard({ data }) {
   return (
+      
     <div className="hotCard">
-      <img className="hotCard__img" src={stake} alt="" />
+      <img className="hotCard__img" src={data.imageURL} alt="" />
       <Card>
         <CardContent>
           <Typography variant="h5" component="div">

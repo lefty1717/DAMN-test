@@ -15,14 +15,12 @@ function IndexMiddle() {
   const fetchHitoRecipes = async () => {
     const querySnapshot = await getDocs(query_hitoRecipes);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-
-      setHitoRecipes([...hitoRecipes, { ...doc.data(), id: doc.id }]);
-      console.log({ ...doc.data(), id: doc.id });
+      const data = { ...doc.data(), id: doc.id };
+      setHitoRecipes((oldData) => [...oldData, data]);
+      console.log(data);
     });
-    console.log("ob");
   };
-  console.log(hitoRecipes);
+//   console.log(hitoRecipes);
   useEffect(() => {
     fetchHitoRecipes();
   }, []);

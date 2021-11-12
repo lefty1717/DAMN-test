@@ -15,15 +15,18 @@ const IngredientsSelector = () => {
     { id: 3, name: "漢堡包" },
   ];
 
-  const handleChipList = (option) => {
-    const list = [...chipList];
-    const {name} = option;
-    const isChipInList = list.find((chip) => chip === name);
-    isChipInList ? list.pop(option) : list.push(option);
+  const handleChipList = (selectedOption) => {
+    let list = [...chipList];
+    const isChipInList = list.find((el) => el.name === selectedOption.name)
+      ? true
+      : false;
 
+    isChipInList
+      ? (list = list.filter((el) => el.id !== selectedOption.id))
+      : list.push(selectedOption);
+    // console.log("list: ", list);
     setChipList(list);
   };
-  console.log(chipList);
 
   return (
     <div className="ingredientsSelector">

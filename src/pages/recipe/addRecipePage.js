@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 
+import IngredientsSelector from "../../components/recipe/IngredientsSelector";
 const AddRecipePage = () => {
   const user = {
     name: "cube",
   };
 
-  const materials = [
-    { id: 1, name: "牛肉" },
-    { id: 2, name: "青菜" },
-    { id: 3, name: "漢堡包" },
-  ];
   const [material, setMaterial] = useState("EUR");
 
   const handleChangeMaterial = (event) => {
@@ -19,7 +14,7 @@ const AddRecipePage = () => {
   };
 
   return (
-    <div>
+    <div className="addRecipePage">
       {/* image upload */}
       {/* recipe basic form  like name, author(default is user.name) */}
       <TextField
@@ -30,7 +25,7 @@ const AddRecipePage = () => {
         required
         helperText="請輸入食譜名稱"
       />
-      <TextField
+      {/* <TextField
         required
         maxRows={4}
         id="author"
@@ -38,21 +33,22 @@ const AddRecipePage = () => {
         label="作者"
         variant="standard"
         helperText="請輸入作者"
-      />
+      /> */}
       {/* recipe materials dropdown is a components!! */}
+
       <TextField
-        id="outlined-select-currency"
+        sx={{
+          left: "0px",
+        }}
+        className="ingredients"
         select
-        label="Select"
-        value={materials}
+        label="新增食材標籤"
+        placeholder="新增食材標籤"
+        // value={materials}
         onChange={handleChangeMaterial}
         helperText="Please select your currency"
       >
-        {materials.map((option) => (
-          <MenuItem key={option.id} value={option.name}>
-            {option.name}
-          </MenuItem>
-        ))}
+        <IngredientsSelector />
       </TextField>
       {/* text block use hack.md  */}
       <TextField

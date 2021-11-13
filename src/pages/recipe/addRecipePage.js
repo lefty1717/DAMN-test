@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import Box from "@mui/material/Box";
+import RemoveIcon from "@mui/icons-material/Remove";
 import IngredientsSelector from "../../components/recipe/IngredientsSelector";
 import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+
 const AddRecipePage = () => {
   const user = {
+    id: "itjustauserid8888",
     name: "cube",
   };
 
   const [material, setMaterial] = useState("EUR");
-  const [stepsList, setStepsList] = useState([{}, {}, {}]);
+  const [stepsList, setStepsList] = useState([]);
+  console.log(stepsList);
   const theme = createTheme({
     palette: {
       primary: {
@@ -22,6 +28,12 @@ const AddRecipePage = () => {
     },
   });
 
+  useEffect(() => {
+    const initStepsList = [{ content: "" }, { content: "" }, { content: "" }];
+
+    setStepsList(initStepsList);
+  }, []);
+
   const handleChangeMaterial = (event) => {
     setMaterial(event.target.value);
   };
@@ -29,6 +41,7 @@ const AddRecipePage = () => {
   const createStepInputField = () => {
     /* 
     {  
+      id: 1
       content: "將雞蛋攪拌均勻"
       imageURL: "https:// .....jpg"
       }
@@ -36,14 +49,13 @@ const AddRecipePage = () => {
     setStepsList([...stepsList, { content: "" }]);
   };
 
-  const deleteStepInputField = () =>{
-
-  }
+  const deleteStepInputField = (id) => {
+    setStepsList([...stepsList].filter((_, index) => index !== id));
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <div className="addRecipePage">
-        {/* image upload */}
         {/* 食材名稱 */}
         <TextField
           id="name"
@@ -83,25 +95,35 @@ const AddRecipePage = () => {
         />
         {/* map 所有步驟 透過按鈕新增刪除 inputField */}
         <h3>步驟</h3>
-        {stepsList.map((el, id) => (
-          <TextField
-            id="filled-multiline-flexible"
-            key={id}
-            label={`步驟 ${id + 1}`}
-            multiline
-            margin="normal"
-            // maxRows={4}
-            rows={2}
-            variant="filled"
-          />
+        {stepsList.map((_, id) => (
+          <Box className="stepInputFieldContainer" key={id}>
+            <TextField
+              sx={{ width: "100%" }}
+              id="filled-multiline-flexible"
+              label={`步驟 ${id + 1}`}
+              multiline
+              margin="normal"
+              rows={2}
+              variant="filled"
+            />
+            <Fab
+              className="deleteStepBtn"
+              onClick={() => deleteStepInputField(id)}
+              variant="circle"
+              size="small"
+            >
+              <RemoveIcon />
+            </Fab>
+          </Box>
         ))}
 
-        <Fab color={"#fe8b83"} aria-label="add" onClick={createStepInputField}>
+        <Fab aria-label="add" onClick={createStepInputField}>
           <AddIcon />
         </Fab>
-      
 
         {/* 新增食譜按鈕 submit button */}
+
+        <Button variant="contained">發布食譜</Button>
       </div>
     </ThemeProvider>
   );

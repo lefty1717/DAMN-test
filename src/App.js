@@ -37,7 +37,7 @@ function App() {
               <RecipeHomePage />
             </Route>
           </Switch>
-          <BottomNav />
+          {/* <BottomNav /> */}
         </Router>
       
       {/* React Context API */}

@@ -298,8 +298,15 @@ p {
   padding: 15px;
 }
 
-.addRecipePage #menu- {
-  color: black;
+.addRecipePage .stepInputFieldContainer {
+  position: relative;
+}
+
+.addRecipePage .deleteStepBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 50% !important;
 }
 
 .bottomNav {

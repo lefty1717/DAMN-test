@@ -337,7 +337,7 @@ p {
 }
 
 .login-signup-Page .loginButton Button {
-  background: #FE8B83;
+  background: #fe8b83;
   color: #FFFFFF;
   font-family: Helvetica;
   font-style: normal;
@@ -357,7 +357,7 @@ p {
   font-size: 14px;
 }
 
-.login-signup-Page .GFTbutton {
+.login-signup-Page .otherLoginOptions {
   width: 100%;
   box-Shadow: none !important;
 }
@@ -395,7 +395,7 @@ p {
 .login-signup-Page .link {
   font-size: 14px;
   text-decoration: none !important;
-  color: #FE8B83 !important;
+  color: #fe8b83 !important;
 }
 
 .bottomNav {

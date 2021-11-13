@@ -27,8 +27,8 @@
         margin: 72px 0 0 0;
         box-Shadow:none !important;
         Button{
-            background: $primary;
-            color: $button-text-color;
+            background: $primary-color;
+            color: #FFFFFF;
             font-family: Helvetica;
             font-style: normal;
             font-weight: 600;
@@ -50,7 +50,7 @@
     }
 
     ::placeholder{
-        color: $placeholder-color;
+        color: #C4C4C4;
     }
 
     .twitterIcon{
@@ -69,6 +69,6 @@
     .link{
         font-size: 14px;
         text-decoration: none !important;
-        color: $primary !important;
+        color: $primary-color !important;
     }
 }

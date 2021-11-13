@@ -26,7 +26,7 @@ const LoginPage = () => {
                     <div align="center">還沒有帳號嗎？<Link className="link">註冊一個</Link></div>
                 </Card>
 
-                <Card className="GFTbutton">
+                <Card className="otherLoginOptions">
                     <div align="center">
                         <Button>
                             <Avatar src={googleIcon}></Avatar>

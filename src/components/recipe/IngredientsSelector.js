@@ -14,7 +14,8 @@ const IngredientsSelector = () => {
     { id: 2, name: "青菜" },
     { id: 3, name: "漢堡包" },
   ];
-
+  
+  // 當對食材 checkbox 變動時，標籤一同變動
   const handleChipList = (selectedOption) => {
     let list = [...chipList];
     const isChipInList = list.find((el) => el.name === selectedOption.name)
@@ -30,7 +31,7 @@ const IngredientsSelector = () => {
 
   return (
     <div className="ingredientsSelector">
-      {/* search bar */}
+      {/* 搜尋欄 search bar */}
       <div className="inputContainer">
         <InputBase
           sx={{ ml: 1, flex: 1 }}
@@ -42,7 +43,7 @@ const IngredientsSelector = () => {
         </IconButton>
       </div>
 
-      {/* ingredient item list */}
+      {/* 可打勾的選項 */}
       <FormGroup>
         {materials.map((option) => (
           <FormControlLabel
@@ -55,12 +56,13 @@ const IngredientsSelector = () => {
           />
         ))}
       </FormGroup>
-      {/* ingredients badge */}
+
+      {/* 選中的小標籤 ingredient chips */}
       {chipList.map((el) => (
         <Chip label={el.name} key={el.id} />
       ))}
 
-      {/* check button */}
+      {/* 儲存按鈕 check button */}
       <Button variant="text">確定</Button>
     </div>
   );

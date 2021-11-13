@@ -295,6 +295,11 @@ p {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 15px;
+}
+
+.addRecipePage #menu- {
+  color: black;
 }
 
 .bottomNav {

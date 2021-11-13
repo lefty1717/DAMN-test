@@ -287,7 +287,6 @@ p {
   margin: 20px;
 }
 
-
 .login-signup-Page .box {
   width: 100%;
   height: 100vh;
@@ -397,6 +396,7 @@ p {
   font-size: 14px;
   text-decoration: none !important;
   color: #fe8b83 !important;
+}
 
 .addRecipePage {
   display: -webkit-box;
@@ -406,7 +406,6 @@ p {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-
 }
 
 .bottomNav {

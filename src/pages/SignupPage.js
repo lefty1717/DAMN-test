@@ -16,7 +16,7 @@ const SignupPage = () => {
                 </div>
                 </Card>
 
-                <Card className="loginButton">
+                <Card className="login-sugnup-Button">
                 <Button fullWidth>註冊</Button>
                 </Card>
             </Grid>

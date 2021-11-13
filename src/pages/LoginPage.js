@@ -18,7 +18,7 @@ const LoginPage = () => {
                     <div align="right"><Link sx={{color:"#C4C4C4", textDecoration:"none"}}>忘記密碼?</Link></div>
                 </Card>
 
-                <Card className="loginButton">
+                <Card className="login-sugnup-Button">
                     <Button fullWidth>登入</Button>
                 </Card>
 

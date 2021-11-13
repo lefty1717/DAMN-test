@@ -330,13 +330,13 @@ p {
           box-sizing: border-box;
 }
 
-.login-signup-Page .loginButton {
+.login-signup-Page .login-sugnup-Button {
   width: 100%;
   margin: 72px 0 0 0;
   box-Shadow: none !important;
 }
 
-.login-signup-Page .loginButton Button {
+.login-signup-Page .login-sugnup-Button Button {
   background: #fe8b83;
   color: #FFFFFF;
   font-family: Helvetica;

@@ -7,7 +7,7 @@ const SignupPage = () => {
     return (
         <div className="login-signup-Page">
             <Grid className="box">
-                <Card className="card1">
+                <Card className="inputTextbox">
                 <div>
                     <input type="text" placeholder="姓名"></input><br/>
                     <input type="text" placeholder="Email"></input><br/>
@@ -16,7 +16,7 @@ const SignupPage = () => {
                 </div>
                 </Card>
 
-                <Card className="cardC2">
+                <Card className="loginButton">
                 <Button fullWidth>註冊</Button>
                 </Card>
             </Grid>

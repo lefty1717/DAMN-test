@@ -10,23 +10,23 @@ import googleIcon from '../../src/images/googleIcon.png'
 
 const LoginPage = () => {
     return(
-        //<div className="login-signup-Page">
+        <div className="login-signup-Page">
             <Grid className="box">
-                <Card className="card1">
+                <Card className="inputTextbox">
                     <input type="text" placeholder="Email"></input><br/>
                     <input type="password" placeholder="Password"></input>
                     <div align="right"><Link sx={{color:"#C4C4C4", textDecoration:"none"}}>忘記密碼?</Link></div>
                 </Card>
 
-                <Card className="cardL2">
+                <Card className="loginButton">
                     <Button fullWidth>登入</Button>
                 </Card>
 
-                <Card className="card3">
+                <Card className="signupLink">
                     <div align="center">還沒有帳號嗎？<Link className="link">註冊一個</Link></div>
                 </Card>
 
-                <Card className="card4">
+                <Card className="GFTbutton">
                     <div align="center">
                         <Button>
                             <Avatar src={googleIcon}></Avatar>
@@ -40,7 +40,7 @@ const LoginPage = () => {
                     </div>
                 </Card>
             </Grid>
-        //</div>
+        </div>
     )
 }
 

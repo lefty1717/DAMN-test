@@ -7,28 +7,8 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Chip from "@mui/material/Chip";
-const IngredientsSelector = () => {
-  const [chipList, setChipList] = useState([]);
-  const materials = [
-    { id: 1, name: "牛肉" },
-    { id: 2, name: "青菜" },
-    { id: 3, name: "漢堡包" },
-  ];
-  
-  // 當對食材 checkbox 變動時，標籤一同變動
-  const handleChipList = (selectedOption) => {
-    let list = [...chipList];
-    const isChipInList = list.find((el) => el.name === selectedOption.name)
-      ? true
-      : false;
 
-    isChipInList
-      ? (list = list.filter((el) => el.id !== selectedOption.id))
-      : list.push(selectedOption);
-    // console.log("list: ", list);
-    setChipList(list);
-  };
-
+const IngredientsSelector = ({ chipList, handleChipList, ingredientsData }) => {
   return (
     <div className="ingredientsSelector">
       {/* 搜尋欄 search bar */}
@@ -45,7 +25,7 @@ const IngredientsSelector = () => {
 
       {/* 可打勾的選項 */}
       <FormGroup>
-        {materials.map((option) => (
+        {ingredientsData.map((option) => (
           <FormControlLabel
             sx={{
               margin: "0",

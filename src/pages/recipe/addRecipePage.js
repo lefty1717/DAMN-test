@@ -5,25 +5,32 @@ import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import RemoveIcon from "@mui/icons-material/Remove";
 import IngredientsSelector from "../../components/recipe/IngredientsSelector";
-// import { createTheme, ThemeProvider, styled } from "@material-ui/core/styles";
+import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 const AddRecipePage = () => {
   const [recipeData, setRecipeData] = useState(null);
-  const [material, setMaterial] = useState("EUR");
   const [stepsList, setStepsList] = useState([]);
+  const [chipList, setChipList] = useState([]);
+  const ingredientsData = [
+    { id: 1, name: "牛肉" },
+    { id: 2, name: "青菜" },
+    { id: 3, name: "漢堡包" },
+  ];
 
-  /*
-  {
-    userId: user.id,
-    name: string,
-    likes: 0,
-    createdAt: timestamps
-    ingredientTags: [{...},{...}],
-    ingredientsInfo: string,
-    steps: [{...},{...}]
-  }  
-  */
+  // 當對食材 checkbox 變動時，標籤一同變動
+  const handleChipList = (selectedOption) => {
+    let list = [...chipList];
+    const isChipInList = list.find((el) => el.name === selectedOption.name)
+      ? true
+      : false;
+
+    isChipInList
+      ? (list = list.filter((el) => el.id !== selectedOption.id))
+      : list.push(selectedOption);
+    console.log("list: ", list);
+    setChipList(list);
+  };
   const user = {
     id: "itjustauserid8888",
     name: "cube",
@@ -37,22 +44,11 @@ const AddRecipePage = () => {
 
   useEffect(() => {
     const initStepsList = [{ content: "" }, { content: "" }, { content: "" }];
-
     setStepsList(initStepsList);
   }, []);
 
-  const handleChangeMaterial = (event) => {
-    setMaterial(event.target.value);
-  };
   // 新增步驟
   const createStepInputField = () => {
-    /* 
-    {  
-      id: 1
-      content: "將雞蛋攪拌均勻"
-      imageURL: "https:// .....jpg"
-      }
-    */
     setStepsList([...stepsList, { content: "" }]);
   };
   // 刪除步驟
@@ -71,7 +67,13 @@ const AddRecipePage = () => {
 
   // 傳送資料到 fireStore
   const handleSubmitRecipeData = (data) => {
-    const result = { ...data, stepsList };
+    const result = {
+      ...data,
+      steps: stepsList,
+      likes: 0,
+      ingredientTags: chipList,
+      createdAt: Date.now,
+    };
     console.log("result: ", result);
   };
 
@@ -100,12 +102,18 @@ const AddRecipePage = () => {
         select
         label="新增食材標籤"
         placeholder="新增食材標籤"
-        // value={materials}
-        onChange={handleChangeMaterial}
-        helperText="選擇食材標籤"
+        value={chipList}
+        renderValue={(chipList) => {
+          chipList.map((el) => <Chip label={el.name} key={el.id} />);
+        }}
       >
-        <IngredientsSelector />
+        <IngredientsSelector
+          chipList={chipList}
+          handleChipList={handleChipList}
+          ingredientsData={ingredientsData}
+        />
       </TextField>
+
       {/* 食材所需量 */}
       <TextField
         id="filled-multiline-flexible"
@@ -142,13 +150,12 @@ const AddRecipePage = () => {
           </Fab>
         </Box>
       ))}
-
+      {/* 新增步驟按鈕 */}
       <Fab aria-label="add" onClick={createStepInputField}>
         <AddIcon />
       </Fab>
 
       {/* 新增食譜按鈕 submit button */}
-
       <Button variant="contained" type="submit">
         發布食譜
       </Button>

@@ -287,6 +287,117 @@ p {
   margin: 20px;
 }
 
+.login-signup-Page .box {
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: column !important;
+          flex-direction: column !important;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 33px 0 33px;
+}
+
+.login-signup-Page .inputTextbox {
+  width: 100%;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.login-signup-Page .inputTextbox input {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 9px;
+  border: 1px solid #F5F5F5;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.login-signup-Page .login-sugnup-Button {
+  width: 100%;
+  margin: 72px 0 0 0;
+  box-Shadow: none !important;
+}
+
+.login-signup-Page .login-sugnup-Button Button {
+  background: #fe8b83;
+  color: #FFFFFF;
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  border-radius: 20px;
+}
+
+.login-signup-Page .signupLink {
+  width: 100%;
+  margin: 80px 0 40px  0;
+  box-Shadow: none !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 14px;
+}
+
+.login-signup-Page .otherLoginOptions {
+  width: 100%;
+  box-Shadow: none !important;
+}
+
+.login-signup-Page ::-webkit-input-placeholder {
+  color: #C4C4C4;
+}
+
+.login-signup-Page :-ms-input-placeholder {
+  color: #C4C4C4;
+}
+
+.login-signup-Page ::-ms-input-placeholder {
+  color: #C4C4C4;
+}
+
+.login-signup-Page ::placeholder {
+  color: #C4C4C4;
+}
+
+.login-signup-Page .twitterIcon {
+  background: #00acee;
+  color: #FFFFFF;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50px;
+  padding: 3px;
+}
+
+.login-signup-Page .avatar {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.login-signup-Page .link {
+  font-size: 14px;
+  text-decoration: none !important;
+  color: #fe8b83 !important;
+}
+
 .addRecipePage {
   display: -webkit-box;
   display: -ms-flexbox;

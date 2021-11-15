@@ -6,8 +6,10 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import FridgePage from "./pages/fridge";
 import ProfilePage from "./pages/ProfilePage";
-import AddRecipePage from "./pages/recipe/AddRecipePage";
+import AddRecipePage from "./pages/recipe/addRecipePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
   return (

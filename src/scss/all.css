@@ -406,6 +406,18 @@ p {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 15px;
+}
+
+.addRecipePage .stepInputFieldContainer {
+  position: relative;
+}
+
+.addRecipePage .deleteStepBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 50% !important;
 }
 
 .bottomNav {

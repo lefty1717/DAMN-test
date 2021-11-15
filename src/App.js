@@ -24,19 +24,20 @@ function App() {
           </Route>
           <Route path="/profile">
             <ProfilePage />
+            <BottomNav />
           </Route>
           <Route path="/fridge">
             <FridgePage />
+            <BottomNav />
           </Route>
-
           <Route path="/addrecipe">
             <AddRecipePage />
           </Route>
           <Route path="/">
             <RecipeHomePage />
+            <BottomNav />
           </Route>
         </Switch>
-        <BottomNav />
       </Router>
 
       {/* React Context API */}

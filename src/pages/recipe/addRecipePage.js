@@ -80,6 +80,7 @@ const AddRecipePage = () => {
     console.log("result: ", result);
     const docRef = await addDoc(collection(db, "recipes"), result);
     console.log("Document written with ID: ", docRef.id);
+    // hello
   };
 
   return (

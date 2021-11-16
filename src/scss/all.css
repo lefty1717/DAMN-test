@@ -500,4 +500,19 @@ p {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+
+.css-tlc64q-MuiPaper-root-MuiDialog-paper {
+  margin: 24px 10px !important;
+  padding: 8px;
+  width: 100% !important;
+  position: absolute !important;
+  bottom: 0;
+  background-color: #c4c4c4 !important;
+}
+
+.voice-recognition {
+  height: 60px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 /*# sourceMappingURL=all.css.map */

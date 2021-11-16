@@ -10,7 +10,6 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import MultipleSelectChip from "../../components/recipe/MultipleSelectChip";
 const AddRecipePage = () => {
-  const IngredientsSelectorRef = React.useRef(null);
   const [stepsList, setStepsList] = useState([]);
   const [chipList, setChipList] = useState([]);
   const {
@@ -47,7 +46,6 @@ const AddRecipePage = () => {
       typeof value === "string" ? value.split(",") : value
     );
   };
-  console.log(chipList);
 
   // 新增步驟
   const createStepInputField = () => {
@@ -77,10 +75,9 @@ const AddRecipePage = () => {
       createdAt: CURRENT_TIME_IN_NANOSECONDS,
       authorId: user.id,
     };
-    console.log("result: ", result);
+    // console.log("result: ", result);
     const docRef = await addDoc(collection(db, "recipes"), result);
-    console.log("Document written with ID: ", docRef.id);
-    // hello
+    // console.log("Document written with ID: ", docRef.id);
   };
 
   return (

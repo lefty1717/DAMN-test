@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import FridgePage from "./pages/fridge";
 import ProfilePage from "./pages/ProfilePage";
-import AddRecipePage from "./pages/recipe/addRecipePage";
+import AddRecipePage from "./pages/recipe/AddRecipePage";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 

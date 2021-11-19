@@ -44,7 +44,7 @@ function App() {
       {/* React Context API */}
 
       {/* AI 小當家 */}
-      <Assistant />
+      {/* <Assistant /> */}
     </div>
   );
 }

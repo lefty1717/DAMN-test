@@ -7,11 +7,17 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import MultipleSelectChip from "../../components/recipe/MultipleSelectChip";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const AddRecipePage = () => {
   const [stepsList, setStepsList] = useState([]);
   const [chipList, setChipList] = useState([]);
+  const [thumbnailURL, setThumbnailURL] = useState("");
   const {
     register,
     handleSubmit,
@@ -19,6 +25,9 @@ const AddRecipePage = () => {
     formState: { errors },
   } = useForm();
   const CURRENT_TIME_IN_NANOSECONDS = window.performance.now();
+  const Input = styled("input")({
+    display: "none",
+  });
   // mock data
   const ingredientsData = [
     { id: 1, name: "牛肉" },
@@ -36,7 +45,7 @@ const AddRecipePage = () => {
   }, []);
 
   // 當對食材 ChipList 變動時，標籤一同變動
-  const handleChipList = (event, selectedOption) => {
+  const handleChipList = (event) => {
     const {
       target: { value },
     } = event;
@@ -74,10 +83,34 @@ const AddRecipePage = () => {
       ingredientTags: chipList,
       createdAt: CURRENT_TIME_IN_NANOSECONDS,
       authorId: user.id,
+      thumbnailURL: thumbnailURL,
     };
     // console.log("result: ", result);
     const docRef = await addDoc(collection(db, "recipes"), result);
     // console.log("Document written with ID: ", docRef.id);
+    setStepsList([]);
+    setChipList([]);
+    setThumbnailURL("");
+  };
+
+  // 上傳食譜封面圖片 upload image
+  const uploadRecipeThumb = (e) => {
+    console.log(e.target.files);
+    const {
+      target: { files },
+    } = e;
+    const recipesRef = ref(storage, `recipes/${files[0].name}`);
+
+    uploadBytes(recipesRef, files[0]).then((snapshot) => {
+      console.log("Uploaded success");
+    });
+    getDownloadURL(recipesRef)
+      .then((url) => {
+        setThumbnailURL(url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -85,7 +118,7 @@ const AddRecipePage = () => {
       className="addRecipePage"
       onSubmit={handleSubmit(handleSubmitRecipeData)}
     >
-      {/* 食材名稱 */}
+      {/* 食譜名稱 */}
       <TextField
         id="name"
         label="食譜名稱"
@@ -96,7 +129,23 @@ const AddRecipePage = () => {
         helperText="請輸入食譜名稱"
         {...register("name")}
       />
-      {/* 食材標籤選擇器 */}
+      {/* 食譜封面圖片 */}
+      <Stack direction="row" alignItems="center" spacing={2}>
+        <label htmlFor="contained-button-file">
+          <Input
+            accept="image/*"
+            id="contained-button-file"
+            // multiple
+            type="file"
+            onChange={uploadRecipeThumb}
+          />
+          <Button variant="contained" component="span">
+            Upload
+            <PhotoCamera />
+          </Button>
+        </label>
+      </Stack>
+      {/* 食譜食材標籤選擇器 */}
       <MultipleSelectChip
         labelName="食材標籤"
         data={ingredientsData}
@@ -104,7 +153,7 @@ const AddRecipePage = () => {
         handleChipList={handleChipList}
       />
 
-      {/* 食材所需量 */}
+      {/* 食譜食材所需量 */}
       <TextField
         id="filled-multiline-flexible"
         label="食材清單"
@@ -140,7 +189,7 @@ const AddRecipePage = () => {
           </Fab>
         </Box>
       ))}
-      {/* 新增步驟按鈕 */}
+      {/* 新增食譜步驟按鈕 */}
       <Fab aria-label="add" onClick={createStepInputField}>
         <AddIcon />
       </Fab>

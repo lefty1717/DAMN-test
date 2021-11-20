@@ -73,13 +73,15 @@ const AddRecipePage = () => {
     const { value } = e.target;
     const list = [...stepsList];
     list[id] = { ...list[id], content: value };
-
+    console.log("selected step content id: ", id);
     setStepsList(list);
   };
-  // 在步驟欄上傳步驟圖片
-  const uploadStepImage = (e, id) => {
+  // 在步驟欄顯示 步驟圖片
+  const showStepImage = (e, id) => {
     const { files } = e.target;
     const list = [...stepsList];
+
+    console.log("selected step image id: ", id);
     list[id] = {
       ...list[id],
       image: files[0],
@@ -89,9 +91,10 @@ const AddRecipePage = () => {
   };
   console.log("stepsList: ", stepsList);
 
-  // 傳送資料到 fireStore
+  // 傳送資料到 fireStore ( submit data to fireStore)
   const handleSubmitRecipeData = async (data) => {
-    const remoteURL = await createThumbnailRemoteURL(thumbnail.data);
+    const remoteThumbnailURL = await createThumbnailRemoteURL(thumbnail?.data);
+    await createStepImagesRemoteURL(stepsList);
     const result = {
       ...data,
       steps: stepsList,
@@ -99,7 +102,7 @@ const AddRecipePage = () => {
       ingredientTags: chipList,
       createdAt: CURRENT_TIME_IN_NANOSECONDS,
       authorId: user.id,
-      thumbnail: remoteURL,
+      thumbnail: remoteThumbnailURL,
     };
 
     console.log("result: ", result);
@@ -111,10 +114,10 @@ const AddRecipePage = () => {
     setThumbnail(null);
   };
 
-  // get remote thumbnail URL
-  const createThumbnailRemoteURL = async (data) => {
-    const recipesRef = ref(storage, `recipes/${data.name}`);
-    uploadBytes(recipesRef, data).then((snapshot) => {
+  // 上傳 並 創造 食譜縮圖 的遠端網址 (get remote thumbnail URL)
+  const createThumbnailRemoteURL = async (file) => {
+    const recipesRef = ref(storage, `recipes/${file.name}`);
+    uploadBytes(recipesRef, file).then((snapshot) => {
       console.log("Uploaded success");
     });
     const remoteURL = await getDownloadURL(recipesRef);
@@ -122,15 +125,36 @@ const AddRecipePage = () => {
     return remoteURL;
   };
 
-  // 預覽食譜封面圖片 show thumbnail image
-  const uploadRecipeThumbnail = (e) => {
-    const {
-      target: { files },
-    } = e;
+  // 顯示 食譜縮圖 (show recipe thumbnail)
+  const showRecipeThumbnail = (e) => {
     setThumbnail({
-      data: files[0],
-      url: URL.createObjectURL(files[0]),
+      data: e.target.files[0],
+      url: URL.createObjectURL(e.target.files[0]),
     });
+  };
+
+  // 上傳 並 創造 步驟圖片 的遠端網址 (get remote step images URL)
+  const createStepImagesRemoteURL = async (list) => {
+    const newList = list.map(async (item, index) => {
+      const recipesRef = ref(storage, `recipes/${item?.image?.name}`);
+      uploadBytes(recipesRef, item.image).then((snapshot) => {
+        console.log("Uploaded all step images success");
+      });
+      const remoteURL = await getDownloadURL(recipesRef);
+      console.log(remoteURL);
+      if (item.image) {
+        item.imageURL = remoteURL;
+      }
+
+      // const { files } = e.target;
+      // const list = [...stepsList];
+      // list[id] = {
+      //   ...list[id],
+      //   image: files[0],
+      //   imageURL: URL.createObjectURL(files[0]),
+      // };
+    });
+    setStepsList(newList);
   };
 
   return (
@@ -158,7 +182,7 @@ const AddRecipePage = () => {
             id="contained-button-file"
             // multiple
             type="file"
-            onChange={uploadRecipeThumbnail}
+            onChange={showRecipeThumbnail}
           />
           <Button variant="contained" component="span">
             Upload
@@ -200,20 +224,14 @@ const AddRecipePage = () => {
             value={stepsList[id]?.content}
             onChange={(e) => handleStepContent(e, id)}
           />
-          <Fab
-            className="deleteStepBtn"
-            onClick={() => deleteStepInputField(id)}
-            variant="circle"
-            size="small"
-          >
-            <RemoveIcon />
-          </Fab>
+          {/* 步驟圖片顯示 */}
           <label htmlFor="icon-button-file">
-            <Input
+            {/* 不要用 Input 會有問題 */}
+            <input
               accept="image/*"
               id="icon-button-file"
               type="file"
-              onChange={(e) => uploadStepImage(e, id)}
+              onChange={(e) => showStepImage(e, id)}
             />
             <IconButton
               color="primary"
@@ -224,6 +242,14 @@ const AddRecipePage = () => {
             </IconButton>
           </label>
           <img src={stepsList[id]?.imageURL} alt="" loading="lazy" />
+          <Fab
+            className="deleteStepBtn"
+            onClick={() => deleteStepInputField(id)}
+            variant="circle"
+            size="small"
+          >
+            <RemoveIcon />
+          </Fab>
         </Box>
       ))}
       {/* 新增食譜步驟按鈕 */}

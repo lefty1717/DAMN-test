@@ -14,10 +14,24 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+// mock data
+const ingredientsData = [
+  { id: 1, name: "牛肉" },
+  { id: 2, name: "青菜" },
+  { id: 3, name: "漢堡包" },
+];
+const user = {
+  id: "itjustauserid8888",
+  name: "cube",
+};
+const initStepsList = [{ content: "" }, { content: "" }, { content: "" }];
+
 const AddRecipePage = () => {
   const [stepsList, setStepsList] = useState([]);
   const [chipList, setChipList] = useState([]);
-  const [thumbnailURL, setThumbnailURL] = useState("");
+  const [thumbnail, setThumbnail] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -28,19 +42,8 @@ const AddRecipePage = () => {
   const Input = styled("input")({
     display: "none",
   });
-  // mock data
-  const ingredientsData = [
-    { id: 1, name: "牛肉" },
-    { id: 2, name: "青菜" },
-    { id: 3, name: "漢堡包" },
-  ];
-  const user = {
-    id: "itjustauserid8888",
-    name: "cube",
-  };
 
   useEffect(() => {
-    const initStepsList = [{ content: "" }, { content: "" }, { content: "" }];
     setStepsList(initStepsList);
   }, []);
 
@@ -73,9 +76,22 @@ const AddRecipePage = () => {
 
     setStepsList(list);
   };
+  // 在步驟欄上傳步驟圖片
+  const uploadStepImage = (e, id) => {
+    const { files } = e.target;
+    const list = [...stepsList];
+    list[id] = {
+      ...list[id],
+      image: files[0],
+      imageURL: URL.createObjectURL(files[0]),
+    };
+    setStepsList(list);
+  };
+  console.log("stepsList: ", stepsList);
 
   // 傳送資料到 fireStore
   const handleSubmitRecipeData = async (data) => {
+    const remoteURL = await createThumbnailRemoteURL(thumbnail.data);
     const result = {
       ...data,
       steps: stepsList,
@@ -83,34 +99,38 @@ const AddRecipePage = () => {
       ingredientTags: chipList,
       createdAt: CURRENT_TIME_IN_NANOSECONDS,
       authorId: user.id,
-      thumbnailURL: thumbnailURL,
+      thumbnail: remoteURL,
     };
-    // console.log("result: ", result);
-    const docRef = await addDoc(collection(db, "recipes"), result);
+
+    console.log("result: ", result);
+    // const docRef = await addDoc(collection(db, "recipes"), result);
     // console.log("Document written with ID: ", docRef.id);
-    setStepsList([]);
+
+    setStepsList(initStepsList);
     setChipList([]);
-    setThumbnailURL("");
+    setThumbnail(null);
   };
 
-  // 上傳食譜封面圖片 upload image
-  const uploadRecipeThumb = (e) => {
-    console.log(e.target.files);
+  // get remote thumbnail URL
+  const createThumbnailRemoteURL = async (data) => {
+    const recipesRef = ref(storage, `recipes/${data.name}`);
+    uploadBytes(recipesRef, data).then((snapshot) => {
+      console.log("Uploaded success");
+    });
+    const remoteURL = await getDownloadURL(recipesRef);
+
+    return remoteURL;
+  };
+
+  // 預覽食譜封面圖片 show thumbnail image
+  const uploadRecipeThumbnail = (e) => {
     const {
       target: { files },
     } = e;
-    const recipesRef = ref(storage, `recipes/${files[0].name}`);
-
-    uploadBytes(recipesRef, files[0]).then((snapshot) => {
-      console.log("Uploaded success");
+    setThumbnail({
+      data: files[0],
+      url: URL.createObjectURL(files[0]),
     });
-    getDownloadURL(recipesRef)
-      .then((url) => {
-        setThumbnailURL(url);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -130,6 +150,7 @@ const AddRecipePage = () => {
         {...register("name")}
       />
       {/* 食譜封面圖片 */}
+      <img src={thumbnail?.url} alt="" loading="lazy" />
       <Stack direction="row" alignItems="center" spacing={2}>
         <label htmlFor="contained-button-file">
           <Input
@@ -137,7 +158,7 @@ const AddRecipePage = () => {
             id="contained-button-file"
             // multiple
             type="file"
-            onChange={uploadRecipeThumb}
+            onChange={uploadRecipeThumbnail}
           />
           <Button variant="contained" component="span">
             Upload
@@ -187,6 +208,22 @@ const AddRecipePage = () => {
           >
             <RemoveIcon />
           </Fab>
+          <label htmlFor="icon-button-file">
+            <Input
+              accept="image/*"
+              id="icon-button-file"
+              type="file"
+              onChange={(e) => uploadStepImage(e, id)}
+            />
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+          <img src={stepsList[id]?.imageURL} alt="" loading="lazy" />
         </Box>
       ))}
       {/* 新增食譜步驟按鈕 */}

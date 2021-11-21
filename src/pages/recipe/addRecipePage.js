@@ -106,7 +106,7 @@ const AddRecipePage = () => {
     };
 
     console.log("result: ", result);
-    // const docRef = await addDoc(collection(db, "recipes"), result);
+    const docRef = await addDoc(collection(db, "recipes"), result);
     // console.log("Document written with ID: ", docRef.id);
 
     setStepsList(initStepsList);
@@ -136,23 +136,15 @@ const AddRecipePage = () => {
   // 上傳 並 創造 步驟圖片 的遠端網址 (get remote step images URL)
   const createStepImagesRemoteURL = async (list) => {
     const newList = list.map(async (item, index) => {
-      const recipesRef = ref(storage, `recipes/${item?.image?.name}`);
-      uploadBytes(recipesRef, item.image).then((snapshot) => {
-        console.log("Uploaded all step images success");
-      });
-      const remoteURL = await getDownloadURL(recipesRef);
-      console.log(remoteURL);
       if (item.image) {
+        const recipesRef = ref(storage, `recipes/${item?.image?.name}`);
+        const remoteURL = await getDownloadURL(recipesRef);
+        uploadBytes(recipesRef, item.image).then((snapshot) => {
+          console.log("Uploaded all step images success");
+        });
         item.imageURL = remoteURL;
       }
-
-      // const { files } = e.target;
-      // const list = [...stepsList];
-      // list[id] = {
-      //   ...list[id],
-      //   image: files[0],
-      //   imageURL: URL.createObjectURL(files[0]),
-      // };
+      return;
     });
     setStepsList(newList);
   };

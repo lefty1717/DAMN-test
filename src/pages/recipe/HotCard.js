@@ -6,12 +6,17 @@ import Typography from "@mui/material/Typography";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StarIcon from "@mui/icons-material/Star";
+import { useNavigate } from "react-router-dom";
 
 function HotCard({ data }) {
+  let navigate = useNavigate();
+  const handleRouteToItemPage = () => {
+    console.log(data);
+    navigate(`/recipe/${data.id}`);
+  };
   return (
-      
-    <div className="hotCard">
-      <img className="hotCard__img" src={data.imageURL} alt="" />
+    <div className="hotCard" onClick={handleRouteToItemPage}>
+      <img className="hotCard__img" src={data.thumbnail} alt="" />
       <Card>
         <CardContent>
           <Typography variant="h5" component="div">

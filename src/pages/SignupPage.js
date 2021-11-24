@@ -1,27 +1,99 @@
-import React from "react";
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
+import React, { useState } from "react";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
+import { Link } from "@mui/material";
 
-const SignupPage = () => {
-    return (
-        <div className="login-signup-Page">
-            <Grid className="box">
-                <Card className="inputTextbox">
-                <div>
-                    <input type="text" placeholder="姓名"></input><br/>
-                    <input type="text" placeholder="Email"></input><br/>
-                    <input type="text" placeholder="密碼"></input><br/>
-                    <input type="text" placeholder="確認密碼"></input>
-                </div>
-                </Card>
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {auth} from "../firebase";
 
-                <Card className="login-sugnup-Button">
-                <Button fullWidth>註冊</Button>
-                </Card>
-            </Grid>
-        </div>
-    )
-}
+const SignupPage = (props) => {
+  const [account, setAccount] = useState({
+    email: "",
+    password: "",
+    displayName: "",
+  });
 
-export default SignupPage
+  const [message, setMessage] = useState("");
+
+  const handleChange = function (e) {
+    setAccount({ ...account, [e.target.name]: e.target.value });
+  };
+
+  console.log(account);
+
+  const handleSubmit = async function () {
+    try {
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        account.email,
+        account.password
+      );
+
+      if (res) {
+        await updateProfile(auth.currentUser, {
+          displayName: account.displayName,
+        });
+      }
+
+      setMessage("");
+    } catch (error) {
+      setMessage("" + error);
+    }
+  };
+
+  const changeStatus = function(){
+
+    props.setStatus("signIn");
+
+  }
+
+  return (
+    <div className="login-signup-Page">
+      <Grid className="box">
+        <Card className="inputTextbox">
+          <div>
+            <input
+              name="displayName"
+              onChange={handleChange}
+              value={account.displayName}
+              type="text"
+              placeholder="姓名"
+            ></input>
+            <br />
+            <input
+              name="email"
+              onChange={handleChange}
+              value={account.email}
+              type="email"
+              placeholder="Email"
+            ></input>
+            <br />
+            <input
+              name="password"
+              onChange={handleChange}
+              value={account.password}
+              type="password"
+              placeholder="密碼"
+            ></input>
+            <br />
+            <br />
+            {message}
+            <br />
+            {/* <input  type="password" placeholder="確認密碼"></input> */}
+          </div>
+        </Card>
+
+        <Card className="login-sugnup-Button">
+          <Button fullWidth onClick={handleSubmit}>
+            註冊
+          </Button>
+          <Link className="link"onClick={changeStatus} >我要登入</Link>
+        </Card>
+      </Grid>
+    </div>
+  );
+};
+
+export default SignupPage;
+

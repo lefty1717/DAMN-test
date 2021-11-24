@@ -15,8 +15,11 @@ const index = () => {
   return(
     <div className="fridgeIndex">
           <Grid className="box">
-            <Card className="overview" sx={{backgroundImage: `url(${background})`, backgroundSize: "cover", backdropFilter: "20px"}}>
-              <div className="font">
+            <div className='overview__container'>
+            <Card className="overview">
+             
+             </Card>
+            <div className="font">
                 <Typography>40</Typography>
                 <Typography>8</Typography>
                 <Typography>5</Typography>
@@ -24,7 +27,8 @@ const index = () => {
                 <Typography>快到期</Typography>
                 <Typography>已過期</Typography>
               </div>
-            </Card>
+            </div>
+            
 
             <Card className="word">
               <Typography>功能</Typography>

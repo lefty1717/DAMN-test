@@ -7,31 +7,12 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { collection, addDoc } from "firebase/firestore";
-import { db, storage } from "../../firebase";
+import { db } from "../../firebase";
 import MultipleSelectChip from "../../components/recipe/MultipleSelectChip";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
-// mock data
-const ingredientsData = [
-  { id: 1, name: "牛肉" },
-  { id: 2, name: "青菜" },
-  { id: 3, name: "漢堡包" },
-];
-const user = {
-  id: "itjustauserid8888",
-  name: "cube",
-};
-const initStepsList = [{ content: "" }, { content: "" }, { content: "" }];
-
 const AddRecipePage = () => {
+  const IngredientsSelectorRef = React.useRef(null);
   const [stepsList, setStepsList] = useState([]);
   const [chipList, setChipList] = useState([]);
-  const [thumbnail, setThumbnail] = useState(null);
-
   const {
     register,
     handleSubmit,
@@ -39,16 +20,24 @@ const AddRecipePage = () => {
     formState: { errors },
   } = useForm();
   const CURRENT_TIME_IN_NANOSECONDS = window.performance.now();
-  const Input = styled("input")({
-    display: "none",
-  });
+  // mock data
+  const ingredientsData = [
+    { id: 1, name: "牛肉" },
+    { id: 2, name: "青菜" },
+    { id: 3, name: "漢堡包" },
+  ];
+  const user = {
+    id: "itjustauserid8888",
+    name: "cube",
+  };
 
   useEffect(() => {
+    const initStepsList = [{ content: "" }, { content: "" }, { content: "" }];
     setStepsList(initStepsList);
   }, []);
 
   // 當對食材 ChipList 變動時，標籤一同變動
-  const handleChipList = (event) => {
+  const handleChipList = (event, selectedOption) => {
     const {
       target: { value },
     } = event;
@@ -58,6 +47,7 @@ const AddRecipePage = () => {
       typeof value === "string" ? value.split(",") : value
     );
   };
+  console.log(chipList);
 
   // 新增步驟
   const createStepInputField = () => {
@@ -73,28 +63,12 @@ const AddRecipePage = () => {
     const { value } = e.target;
     const list = [...stepsList];
     list[id] = { ...list[id], content: value };
-    console.log("selected step content id: ", id);
+
     setStepsList(list);
   };
-  // 在步驟欄顯示 步驟圖片
-  const showStepImage = (e, id) => {
-    const { files } = e.target;
-    const list = [...stepsList];
 
-    console.log("selected step image id: ", id);
-    list[id] = {
-      ...list[id],
-      image: files[0],
-      imageURL: URL.createObjectURL(files[0]),
-    };
-    setStepsList(list);
-  };
-  console.log("stepsList: ", stepsList);
-
-  // 傳送資料到 fireStore ( submit data to fireStore)
+  // 傳送資料到 fireStore
   const handleSubmitRecipeData = async (data) => {
-    const remoteThumbnailURL = await createThumbnailRemoteURL(thumbnail?.data);
-    await createStepImagesRemoteURL(stepsList);
     const result = {
       ...data,
       steps: stepsList,
@@ -102,51 +76,11 @@ const AddRecipePage = () => {
       ingredientTags: chipList,
       createdAt: CURRENT_TIME_IN_NANOSECONDS,
       authorId: user.id,
-      thumbnail: remoteThumbnailURL,
     };
-
     console.log("result: ", result);
     const docRef = await addDoc(collection(db, "recipes"), result);
-    // console.log("Document written with ID: ", docRef.id);
-
-    setStepsList(initStepsList);
-    setChipList([]);
-    setThumbnail(null);
-  };
-
-  // 上傳 並 創造 食譜縮圖 的遠端網址 (get remote thumbnail URL)
-  const createThumbnailRemoteURL = async (file) => {
-    const recipesRef = ref(storage, `recipes/${file.name}`);
-    uploadBytes(recipesRef, file).then((snapshot) => {
-      console.log("Uploaded success");
-    });
-    const remoteURL = await getDownloadURL(recipesRef);
-
-    return remoteURL;
-  };
-
-  // 顯示 食譜縮圖 (show recipe thumbnail)
-  const showRecipeThumbnail = (e) => {
-    setThumbnail({
-      data: e.target.files[0],
-      url: URL.createObjectURL(e.target.files[0]),
-    });
-  };
-
-  // 上傳 並 創造 步驟圖片 的遠端網址 (get remote step images URL)
-  const createStepImagesRemoteURL = async (list) => {
-    const newList = list.map(async (item, index) => {
-      if (item.image) {
-        const recipesRef = ref(storage, `recipes/${item?.image?.name}`);
-        const remoteURL = await getDownloadURL(recipesRef);
-        uploadBytes(recipesRef, item.image).then((snapshot) => {
-          console.log("Uploaded all step images success");
-        });
-        item.imageURL = remoteURL;
-      }
-      return;
-    });
-    setStepsList(newList);
+    console.log("Document written with ID: ", docRef.id);
+    // hello
   };
 
   return (
@@ -154,7 +88,7 @@ const AddRecipePage = () => {
       className="addRecipePage"
       onSubmit={handleSubmit(handleSubmitRecipeData)}
     >
-      {/* 食譜名稱 */}
+      {/* 食材名稱 */}
       <TextField
         id="name"
         label="食譜名稱"
@@ -165,24 +99,7 @@ const AddRecipePage = () => {
         helperText="請輸入食譜名稱"
         {...register("name")}
       />
-      {/* 食譜封面圖片 */}
-      <img src={thumbnail?.url} alt="" loading="lazy" />
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <label htmlFor="contained-button-file">
-          <Input
-            accept="image/*"
-            id="contained-button-file"
-            // multiple
-            type="file"
-            onChange={showRecipeThumbnail}
-          />
-          <Button variant="contained" component="span">
-            Upload
-            <PhotoCamera />
-          </Button>
-        </label>
-      </Stack>
-      {/* 食譜食材標籤選擇器 */}
+      {/* 食材標籤選擇器 */}
       <MultipleSelectChip
         labelName="食材標籤"
         data={ingredientsData}
@@ -190,7 +107,7 @@ const AddRecipePage = () => {
         handleChipList={handleChipList}
       />
 
-      {/* 食譜食材所需量 */}
+      {/* 食材所需量 */}
       <TextField
         id="filled-multiline-flexible"
         label="食材清單"
@@ -216,24 +133,6 @@ const AddRecipePage = () => {
             value={stepsList[id]?.content}
             onChange={(e) => handleStepContent(e, id)}
           />
-          {/* 步驟圖片顯示 */}
-          <label htmlFor="icon-button-file">
-            {/* 不要用 Input 會有問題 */}
-            <input
-              accept="image/*"
-              id="icon-button-file"
-              type="file"
-              onChange={(e) => showStepImage(e, id)}
-            />
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-            >
-              <PhotoCamera />
-            </IconButton>
-          </label>
-          <img src={stepsList[id]?.imageURL} alt="" loading="lazy" />
           <Fab
             className="deleteStepBtn"
             onClick={() => deleteStepInputField(id)}
@@ -244,7 +143,7 @@ const AddRecipePage = () => {
           </Fab>
         </Box>
       ))}
-      {/* 新增食譜步驟按鈕 */}
+      {/* 新增步驟按鈕 */}
       <Fab aria-label="add" onClick={createStepInputField}>
         <AddIcon />
       </Fab>

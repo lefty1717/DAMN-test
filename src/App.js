@@ -17,6 +17,7 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import AddIngredientPage from "./pages/recipe/AddIngredientPage";
 
 
 // 陳泓棣delete掉整個repository，所以我要重新PR
@@ -30,12 +31,12 @@ function App() {
 
   return (
     <div className="app">
-
       <Router>
         <Routes>
           <Route path="/">
             <Route index element={<RecipeHomePage />} />
             <Route path="recipe/add" element={<AddRecipePage />} />
+            <Route path="recipe/ingredient/add" element={<AddIngredientPage/>} />
             <Route path="recipe/:id" element={<RecipeItemPage />} />
           </Route>
           <Route path="login" element={<LoginPage />} />
@@ -44,10 +45,8 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
         </Routes>
       </Router>
-      <Assistant />
-
+      {/* <Assistant /> */}
     </div>
-
   );
 }
 

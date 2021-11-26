@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -9,6 +9,7 @@ import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { IconButton, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -37,14 +38,39 @@ export default function MultipleSelectChip({
 }) {
   const theme = useTheme();
 
+  const searchTagsData = async () => {
+    const instance = axios.create({
+      baseURL: "https://damnrecipeingredients.herokuapp.com/api/",
+      // timeout: 1000,
+    });
+    instance
+      .get("search", {
+        params: {
+          q: "牛奶",
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  // useEffect(() => {
+  //   searchTagsData();
+  // }, []);
+
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-chip-label">{labelName}</InputLabel>
+
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
+          autoWidth
           value={chipList}
           onChange={handleChipList}
           input={<OutlinedInput id="select-multiple-chip" label={labelName} />}
@@ -64,7 +90,12 @@ export default function MultipleSelectChip({
               placeholder="搜尋食材標籤"
               inputProps={{ "aria-label": "search google maps" }}
             />
-            <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+            <IconButton
+              type="submit"
+              sx={{ p: "10px" }}
+              aria-label="search"
+              onClick={searchTagsData}
+            >
               <SearchIcon />
             </IconButton>
           </div>

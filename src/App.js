@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import FridgePage from "./pages/fridge";
 import ProfilePage from "./pages/ProfilePage";
-import AddRecipePage from "./pages/recipe/addRecipePage";
+import AddRecipePage from "./pages/recipe/AddRecipePage";
 import RecipeItemPage from "./pages/recipe/RecipeItemPage";
 import Assistant from "./components/Assistant";
 import {useStateValue} from './StateProvider'

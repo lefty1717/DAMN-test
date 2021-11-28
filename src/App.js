@@ -18,13 +18,13 @@ import {
   Outlet,
 } from "react-router-dom";
 import AdminPage from "./pages/recipe/AdminPage";
-import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFoundPage";
 
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="app">

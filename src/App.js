@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./scss/all.css";
 import BottomNav from "./components/BottomNav";
 import RecipeHomePage from "./pages/recipe";
@@ -10,7 +10,7 @@ import ProfilePage from "./pages/ProfilePage";
 import RecipeItemPage from "./pages/recipe/RecipeItemPage";
 import Assistant from "./components/Assistant";
 import { useStateValue } from "./StateProvider";
-
+import { actionTypes } from "./reducer";
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,8 +23,9 @@ import NotFound from "./pages/NotFoundPage";
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, newRecipeData }, dispatch] = useStateValue();
   // console.log(user);
+  
 
   return (
     <div className="app">

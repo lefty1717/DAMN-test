@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { actionTypes } from "../../../reducer";
 import { useStateValue } from "../../../StateProvider";
 const labels = {
-  0.5: "Useless",
-  1: "Useless+",
-  1.5: "Poor",
-  2: "Poor+",
-  2.5: "Ok",
-  3: "Ok+",
-  3.5: "Good",
-  4: "Good+",
-  4.5: "Excellent",
-  5: "Excellent+",
+  0.5: "嬰兒",
+  1: "木牌",
+  1.5: "鐵牌",
+  2: "銅牌",
+  2.5: "銀牌",
+  3: "金牌",
+  3.5: "白金",
+  4: "鑽石",
+  4.5: "大師",
+  5: "特級大師",
 };
 export default function RecipeRating() {
   const [value, setValue] = useState(2);
@@ -27,6 +27,12 @@ export default function RecipeRating() {
       newRecipeData: { ...newRecipeData, rating: value },
     });
   };
+
+  useEffect(() => {
+    if (newRecipeData.rating) {
+      setValue(newRecipeData.rating);
+    }
+  }, []);
   return (
     <Box
       sx={{
@@ -37,6 +43,7 @@ export default function RecipeRating() {
     >
       <Rating
         name="hover-feedback"
+        size="large"
         value={value}
         precision={0.5}
         onChange={(event, newValue) => {

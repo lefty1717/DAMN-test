@@ -434,6 +434,10 @@ img {
   border-radius: 50% !important;
 }
 
+.addRecipePage__submitBtn {
+  background-color: #fe8b83 !important;
+}
+
 .fridgeIndex .box {
   display: -webkit-box;
   display: -ms-flexbox;

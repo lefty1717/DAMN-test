@@ -11,4 +11,8 @@
     top: 0;
     border-radius: 50% !important;
   }
+
+  &__submitBtn {
+    background-color: $primary-color !important;
+  }
 }

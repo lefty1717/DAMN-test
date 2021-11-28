@@ -1,6 +1,6 @@
 export const initialState = {
   user: null,
-  recipeData: { name: "", rating: 2, likes: 0 },
+  newRecipeData: { name: "", rating: 2, likes: 0 },
 };
 
 export const actionTypes = {

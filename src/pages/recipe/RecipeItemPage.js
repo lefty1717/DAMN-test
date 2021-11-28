@@ -5,8 +5,9 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-function RecipeItem() {
+function RecipeItem({ propsData }) {
   const [data, setData] = useState(null);
+  console.log(data)
   let params = useParams();
 
   const fetchData = async () => {
@@ -22,17 +23,22 @@ function RecipeItem() {
   };
 
   useEffect(() => {
-    fetchData();
+    if (params.id) {
+      fetchData();
+    }
+    if (propsData) {
+      setData(propsData);
+    }
   }, []);
   return (
     <div className="recipeItem__container">
       <div className="recipeItem__wrap">
-        <img src={data?.thumbnail} alt="" />
+        <img src={data?.thumbnail?.url} alt="" />
         <div className="recipeItem__box">
           <h4>{data?.name}</h4>
         </div>
       </div>
-      <Tabs data={data}/>
+      <Tabs data={data} />
     </div>
   );
 }

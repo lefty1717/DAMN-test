@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { IconButton } from "@material-ui/core";
 import TextField from "@mui/material/TextField";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -11,10 +11,11 @@ const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
     display: "none",
   });
   const [{ newRecipeData }, dispatch] = useStateValue();
-  // const { name, thumbnail } = newRecipeData;
+  const [name, setName] = useState("");
 
   // 修改食譜名稱
   const handleRecipeName = (e) => {
+    setName(e.target.value);
     dispatch({
       type: actionTypes.SET_NEWRECIPEDATA,
       newRecipeData: { ...newRecipeData, name: e.target.value },
@@ -32,6 +33,13 @@ const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
       newRecipeData: { ...newRecipeData, thumbnail: thumbnail },
     });
   };
+
+  useEffect(() => {
+    if (newRecipeData) {
+      setName(newRecipeData.name);
+    }
+  }, []);
+
   return (
     <Box sx={{ p: 2 }}>
       {/* 食譜名稱 */}
@@ -43,7 +51,7 @@ const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
         maxRows={4}
         required
         margin="dense"
-        value={newRecipeData?.name}
+        value={name}
         onChange={handleRecipeName}
       />
       {/* 食譜封面圖片 */}

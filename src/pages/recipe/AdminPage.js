@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import AddIngredientPage from "./AddIngredientPage";
 import a11yProps from "../../function/a11yProps";
 import NotFoundPage from "../NotFoundPage";
-import AddRecipeStepper from "../../components/recipe/AddRecipeStepper";
+import AddRecipeStepper from "./AddRecipePage";
 import BottomNav from "../../components/BottomNav";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../function/theme";
@@ -40,6 +40,7 @@ const AdminPage = () => {
               right: 0,
               color: "primary.main",
               bgcolor: "white.main",
+              zIndex: '100',
             }}
             centered
           >
@@ -58,7 +59,7 @@ const AdminPage = () => {
             </Tabs>
           </Box>
           {/* 子頁面 */}
-          <Box sx={{ width: "100%", flex: "1" }}>
+          <Box sx={{ width: "100%", flex: "1", }}>
             <TabPanel value={value} index={0}>
               <AddRecipeStepper />
             </TabPanel>

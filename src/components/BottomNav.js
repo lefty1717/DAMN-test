@@ -4,6 +4,7 @@ import KitchenIcon from "@material-ui/icons//Kitchen";
 import MenuBookIcon from "@material-ui/icons//MenuBook";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import Paper from "@mui/material/Paper";
+import CustomIcon from "../components/Icon";
 import {
   AppBar,
   BottomNavigation,
@@ -16,47 +17,53 @@ import { useSpeechRecognition } from "react-speech-recognition";
 import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArchiveIcon from "@mui/icons-material/Archive";
+import { actionTypes } from "../reducer";
+import { useStateValue } from "../StateProvider";
+import { ThemeProvider } from "@mui/material";
+import theme from "../function/theme";
 const btnList = [
   {
-    id: 1,
+    id: 0,
     title: "食譜",
     icon: <MenuBookIcon />,
+    auth: "normal",
     routeTo: "/",
   },
   {
-    id: 2,
+    id: 1,
     title: "冰箱管理",
     icon: <KitchenIcon />,
+    auth: "normal",
     routeTo: "/fridge",
   },
   {
-    id: 3,
+    id: 2,
     title: "個人",
     icon: <AccountCircleIcon />,
+    auth: "normal",
     routeTo: "/profile",
   },
   {
-    id: 4,
+    id: 3,
     title: "管理",
     icon: <ManageAccountsIcon />,
+    auth: "admin",
     routeTo: "/recipe/admin/add",
   },
 ];
 
 const user = { auth: "admin" };
+const admin = "admin";
 
 const BottomNav = () => {
-  const [activeBtnId, setActiveBtnId] = useState(1);
-  const [value, setValue] = useState(0);
+  const [{ navbarBtnId }, dispatch] = useStateValue();
   let navigate = useNavigate();
-  const handleActiveClass = (id) => {
-    setActiveBtnId(id);
-  };
+
   const commands = [
     {
       command: ["開啟冰箱", "打開冰箱", "冰箱(頁面)"],
       callback: () => {
-        setActiveBtnId(2);
+        handleGlobalBtnIdState(1);
         navigate("/fridge");
       },
       // isFuzzyMatch: true, // 模糊匹配
@@ -67,7 +74,7 @@ const BottomNav = () => {
     {
       command: ["開啟個人頁面", "(打開)個人頁面", "個人(頁面)"],
       callback: () => {
-        setActiveBtnId(3);
+        handleGlobalBtnIdState(2);
         navigate("/profile");
       },
       matchInterim: true,
@@ -75,7 +82,7 @@ const BottomNav = () => {
     {
       command: ["回到首頁", "打開首頁", "(開啟)首頁", "(開啟)食譜"],
       callback: () => {
-        setActiveBtnId(1);
+        handleGlobalBtnIdState(0);
         navigate("/");
       },
       isFuzzyMatch: true, // 模糊匹配
@@ -83,47 +90,71 @@ const BottomNav = () => {
       bestMatchOnly: true,
       matchInterim: true,
     },
+    {
+      command: ["開啟管理頁面", "(打開)管理頁面", "管理(頁面)"],
+      callback: () => {
+        handleGlobalBtnIdState(3);
+        navigate("/recipe/admin/add");
+      },
+      matchInterim: true,
+    },
   ];
+
   useSpeechRecognition({ commands });
 
+  const handleNavbarOnClick = (e, newValue) => {
+    handleGlobalBtnIdState(newValue);
+    navigate(btnList[newValue].routeTo);
+  };
+
+  const handleGlobalBtnIdState = (id) => {
+    dispatch({
+      type: actionTypes.SET_BOTTOMNAVBARID,
+      navbarBtnId: id,
+    });
+  };
+
   return (
-    // <div className="bottomNav">
-    //   <AppBar>
-    //     <Toolbar>
-    //       {btnList.map((btn) => (
-    //         <IconButton
-    //           className={`bottomNav__button ${
-    //             activeBtnId === btn.id && "active"
-    //           }`}
-    //           key={btn.id}
-    //           onClick={() => handleActiveClass(btn.id)}
-    //         >
-    //           <Link to={btn.routeTo}>
-    //             {btn.icon}
-    //             <p className="fs-1">{btn.title}</p>
-    //           </Link>
-    //         </IconButton>
-    //       ))}
-    //     </Toolbar>
-    //   </AppBar>
-    // </div>
-    <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-      elevation={5}
-    >
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+    <ThemeProvider theme={theme}>
+      <Paper
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0, p: 1 }}
+        elevation={5}
       >
-        <BottomNavigationAction label="食譜" icon={<MenuBookIcon />} />
-        <BottomNavigationAction label="冰箱管理" icon={<KitchenIcon />} />
-        <BottomNavigationAction label="個人" icon={<AccountCircleIcon />} />
-        <BottomNavigationAction label="管理" icon={<ManageAccountsIcon />} />
-      </BottomNavigation>
-    </Paper>
+        <BottomNavigation
+          showLabels
+          value={navbarBtnId}
+          onChange={(e, newValue) => handleNavbarOnClick(e, newValue)}
+        >
+          {user.auth === admin
+            ? btnList.map(({ id, title, icon }) => (
+                <BottomNavigationAction
+                  key={id}
+                  label={title}
+                  icon={icon}
+                  style={
+                    navbarBtnId === id
+                      ? { color: "rgb(254, 139, 131)" }
+                      : { color: "gray" }
+                  }
+                />
+              ))
+            : btnList
+                .filter((btn) => btn.auth === user.auth)
+                .map(({ id, title, icon }) => (
+                  <BottomNavigationAction
+                    key={id}
+                    label={title}
+                    icon={icon}
+                    style={
+                      navbarBtnId === id
+                        ? { color: "rgb(254, 139, 131)" }
+                        : { color: "gray" }
+                    }
+                  />
+                ))}
+        </BottomNavigation>
+      </Paper>
+    </ThemeProvider>
   );
 };
 

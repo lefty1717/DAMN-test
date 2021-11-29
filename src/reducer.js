@@ -1,11 +1,13 @@
 export const initialState = {
   user: null,
   newRecipeData: { name: "", rating: 2, likes: 0 },
+  navbarBtnId: 0,
 };
 
 export const actionTypes = {
   SET_USER: "SET_USER",
   SET_NEWRECIPEDATA: "SET_NEWRECIPEDATA",
+  SET_BOTTOMNAVBARID: "SET_BOTTOMNAVBARID",
 };
 
 const reducer = (state, action) => {
@@ -20,6 +22,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         newRecipeData: action.newRecipeData,
+      };
+    case actionTypes.SET_BOTTOMNAVBARID:
+      return {
+        ...state,
+        navbarBtnId: action.navbarBtnId,
       };
 
     default:

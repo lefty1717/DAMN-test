@@ -7,6 +7,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { IconButton } from "@material-ui/core";
+import { Typography } from "@mui/material";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -22,7 +23,13 @@ const RecipeIngredients = () => {
 
   return (
     <Box sx={{ p: 2 }}>
+      <Typography variant="h6" gutterBottom component="div">
+        適合人份
+      </Typography>
       {/* 搜尋欄 search bar */}
+      <Typography variant="h6" gutterBottom component="div">
+        所需食材
+      </Typography>
       <Autocomplete
         multiple
         id="checkboxes-tags-demo"
@@ -49,8 +56,7 @@ const RecipeIngredients = () => {
           <TextField {...params} label="搜尋食材" placeholder="食材" />
         )}
       />
-      {/*  */}
-      
+     
     </Box>
   );
 };

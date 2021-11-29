@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { IconButton } from "@material-ui/core";
+import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { actionTypes } from "../../../reducer";
 import { useStateValue } from "../../../StateProvider";
-import { Box } from "@mui/system";
+import { Box, ThemeProvider } from "@mui/system";
 import { styled } from "@mui/material/styles";
+import theme from "../../../function/theme";
+import CustomIcon from "../../Icon";
+import RecipeRating from "../../../components/recipe/addRecipe/RecipeRating";
+import { Typography } from "@mui/material";
 const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
   const Input = styled("input")({
     display: "none",
@@ -41,38 +44,71 @@ const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
   }, []);
 
   return (
-    <Box sx={{ p: 2 }}>
-      {/* 食譜名稱 */}
-      <TextField
-        fullWidth
-        id="name"
-        label="食譜名稱"
-        variant="outlined"
-        maxRows={4}
-        required
-        margin="dense"
-        value={name}
-        onChange={handleRecipeName}
-      />
-      {/* 食譜封面圖片 */}
-      <img src={newRecipeData?.thumbnail?.url} alt="" loading="lazy" />
-
-      <label htmlFor="icon-button-file">
-        <Input
-          accept="image/*"
-          id="icon-button-file"
-          type="file"
-          onChange={handleRecipeThumbnail}
+    <ThemeProvider theme={theme}>
+      <Box sx={{ p: 2, color: "text.normal" }}>
+        {/* 食譜名稱 */}
+        <Typography variant="h6" gutterBottom component="div">
+          食譜名稱
+        </Typography>
+        <TextField
+          fullWidth
+          id="name"
+          label="食譜名稱"
+          variant="outlined"
+          maxRows={4}
+          required
+          margin="dense"
+          value={name}
+          onChange={handleRecipeName}
         />
-        <IconButton
-          color="primary"
-          aria-label="upload picture"
-          component="span"
-        >
-          <PhotoCamera />
-        </IconButton>
-      </label>
-    </Box>
+        {/* 食譜封面圖片 */}
+        <Typography variant="h6" gutterBottom component="div">
+          食譜封面圖片
+        </Typography>
+        <label htmlFor="icon-button-file">
+          <Box
+            component="div"
+            sx={{
+              p: 2,
+              border: "1px dashed grey",
+              minHeight: "300px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "primary.main",
+            }}
+          >
+            <img src={newRecipeData?.thumbnail?.url} alt="" loading="lazy" />
+            <Input
+              accept="image/*"
+              id="icon-button-file"
+              type="file"
+              onChange={handleRecipeThumbnail}
+            />
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+              style={{
+                display: `${newRecipeData.thumbnail ? "none" : "unset"}`,
+              }}
+            >
+              <CustomIcon
+                size={80}
+                name="AddPhotoAlternateIcon"
+                hidden={newRecipeData.thumbnail ? true : false}
+              />
+            </IconButton>
+          </Box>
+        </label>
+
+        {/* rating */}
+        <Typography variant="h6" gutterBottom component="div" sx={{ mt: 2 }}>
+          難易度
+        </Typography>
+        <RecipeRating />
+      </Box>
+    </ThemeProvider>
   );
 };
 

@@ -25,7 +25,6 @@ import NotFound from "./pages/NotFoundPage";
 function App() {
   const [{ user, newRecipeData }, dispatch] = useStateValue();
   // console.log(user);
-  
 
   return (
     <div className="app">
@@ -43,7 +42,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-      {/* <Assistant /> */}
+      <Assistant />
     </div>
   );
 }

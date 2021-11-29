@@ -7,7 +7,7 @@ const theme = createTheme({
     },
     secondary: {
       // 副色 冰箱藍色
-      main: "#11cb5f",
+      main: "#C7E3EE",
     },
     white: {
       main: "#ffffff",
@@ -15,8 +15,8 @@ const theme = createTheme({
     black: {
       main: "#00000",
     },
-    gray: {
-      text: "#444545",
+    text: {
+      normal: "#444545",
     },
   },
 });

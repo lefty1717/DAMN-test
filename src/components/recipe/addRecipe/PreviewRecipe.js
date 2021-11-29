@@ -5,7 +5,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import theme from "../../../function/theme";
-const ReviewRecipe = () => {
+
+const PreviewRecipe = () => {
   const [{ newRecipeData }] = useStateValue();
 
   return (
@@ -27,4 +28,4 @@ const ReviewRecipe = () => {
   );
 };
 
-export default ReviewRecipe;
+export default PreviewRecipe;

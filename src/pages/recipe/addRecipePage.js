@@ -11,7 +11,7 @@ import RecipeRating from "../../components/recipe/addRecipe/RecipeRating";
 import RecipeIngredients from "../../components/recipe/addRecipe/RecipeIngredients";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../function/theme";
-import ReviewRecipe from "../../components/recipe/addRecipe/ReviewRecipe";
+import ReviewRecipe from "../../components/recipe/addRecipe/PreviewRecipe";
 
 const user = {
   id: "itjustauserid8888",
@@ -50,53 +50,62 @@ export default function AddRecipeStepper() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* 子頁面 元件 */}
       <Box
-        className="addRecipePage"
-        sx={{ maxWidth: 400, width: "100%", flexGrow: 1, minHeight: "650px" }}
-      >
-        {steps[activeStep].component}
-      </Box>
-      {/* 上一步 下一步 */}
-      <MobileStepper
         sx={{
-          color: "primary.main",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
-        variant="text"
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
-            sx={{ color: "primary.main" }}
-          >
-            下一步
-            {theme.direction === "rtl" ? (
-              <KeyboardArrowLeft />
-            ) : (
-              <KeyboardArrowRight />
-            )}
-          </Button>
-        }
-        backButton={
-          <Button
-            size="small"
-            onClick={handleBack}
-            disabled={activeStep === 0}
-            sx={{ color: "primary.main" }}
-          >
-            {theme.direction === "rtl" ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            上一步
-          </Button>
-        }
-      />
+      >
+        {/* 子頁面 元件 */}
+        <Box
+          className="addRecipePage"
+          sx={{ maxWidth: 400, width: "100%", flexGrow: 1, minHeight: "650px" }}
+        >
+          {steps[activeStep].component}
+        </Box>
+        {/* 上一步 下一步 */}
+        <MobileStepper
+          sx={{
+            width: "100%",
+            color: "primary.main",
+          }}
+          variant="text"
+          steps={maxSteps}
+          position="static"
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+              sx={{ color: "primary.main" }}
+            >
+              下一步
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+              sx={{ color: "primary.main" }}
+            >
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              上一步
+            </Button>
+          }
+        />
+      </Box>
     </ThemeProvider>
   );
 }

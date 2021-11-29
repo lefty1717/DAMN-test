@@ -23,9 +23,8 @@ export default function FullWidthTabs({ data }) {
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "470px",
-        padding: "30px 0 0 0 ",
+        minHeight: "470px",
+        pt: 2,
         fontSize: "24px",
       }}
     >
@@ -44,11 +43,7 @@ export default function FullWidthTabs({ data }) {
 
       <Box
         sx={{
-          bgcolor: "#f5f5f5",
-          width: "95%",
-          height: "100%",
-          margin: "auto",
-          overflow: "auto",
+          p: 2,
         }}
         className="TabPanel__box"
       >

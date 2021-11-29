@@ -36,7 +36,7 @@ export default function RecipeRating() {
   return (
     <Box
       sx={{
-        width: 200,
+        // width: 200,
         display: "flex",
         alignItems: "center",
       }}

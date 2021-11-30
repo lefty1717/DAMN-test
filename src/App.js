@@ -5,6 +5,7 @@ import RecipeHomePage from "./pages/recipe";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import FridgePage from "./pages/fridge";
+import ManagePage from "./pages/fridge/manage/index";
 import ProfilePage from "./pages/ProfilePage";
 
 import RecipeItemPage from "./pages/recipe/RecipeItemPage";
@@ -38,6 +39,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="fridge" element={<FridgePage />} />
+          <Route path="manage" element={<ManagePage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

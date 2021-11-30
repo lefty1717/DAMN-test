@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Grid } from '@mui/material'
-import chicken from "./../images/chicken.jpg"
+import chicken from "../../images/chicken.jpg"
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';

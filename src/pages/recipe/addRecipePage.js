@@ -36,7 +36,6 @@ export default function AddRecipeStepper() {
       label: "新增食材步驟",
       component: <RecipeSteps />,
     },
-    { label: "食譜難易度", component: <RecipeRating /> },
     { label: "預覽頁面並發布食譜", component: <ReviewRecipe /> },
   ];
   const maxSteps = steps.length;
@@ -60,7 +59,7 @@ export default function AddRecipeStepper() {
         {/* 子頁面 元件 */}
         <Box
           className="addRecipePage"
-          sx={{ maxWidth: 400, width: "100%", flexGrow: 1, minHeight: "650px" }}
+          sx={{ maxWidth: 400, width: "100%", flexGrow: 1, minHeight: "550px" }}
         >
           {steps[activeStep].component}
         </Box>

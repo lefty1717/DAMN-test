@@ -55,7 +55,7 @@ const AdminPage = () => {
               <Tab label="新增食材" {...a11yProps(1)} />
               <Tab label="使用者管理" {...a11yProps(2)} />
               <Tab label="發布通知" {...a11yProps(3)} />
-              <Tab label="表格" {...a11yProps(4)} />
+              {/* <Tab label="表格" {...a11yProps(4)} /> */}
             </Tabs>
           </Box>
           {/* 子頁面 */}

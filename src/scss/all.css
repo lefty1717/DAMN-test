@@ -58,8 +58,6 @@ img {
   border-radius: 20px 20px 0 0;
   background-color: white;
   padding: 20px 0;
-  position: absolute;
-  bottom: -25px;
 }
 
 .recipeItem__container .recipeItem__wrap .recipeItem__box h4 {

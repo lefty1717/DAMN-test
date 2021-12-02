@@ -4,13 +4,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import TabPanel from "../../components/TabPanel";
+import  a11yProps from '../../function/a11yProps'
 
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
 
 export default function FullWidthTabs({ data }) {
   const theme = useTheme();

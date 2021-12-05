@@ -1,10 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { AppBar, Button, ButtonGroup, Toolbar } from "@mui/material";
+import { AppBar, Button} from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Typography from '@mui/material/Typography';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import meat from "../../images/icons8-meat-30.png"
 import leaf from "../../images/icons8-spinach-30.png"
 import fish from "../../images/icons8-roach-30.png"
@@ -12,7 +10,6 @@ import milk from "../../images/icons8-milk-carton-30.png"
 import beans from "../../images/icons8-peanuts-30.png"
 import apple from "../../images/icons8-plum-30.png"
 import SortButton from "./SortButton"
-import { color } from "@mui/system";
 
 export default function FridgeBar(){
     return (

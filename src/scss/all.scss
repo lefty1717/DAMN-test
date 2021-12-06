@@ -8,8 +8,12 @@
 @import "./scss-pages/login-signup-Page";
 @import "./scss-pages/addRecipePage";
 @import "./scss-pages/fridgeIndex";
+@import "./scss-pages/CreateShoppinglist";
 
 // components
 @import "./scss-components/BottomNav";
 @import "./scss-components/recipe/IngredientsSelector";
 @import "./scss-components/Assistant";
+@import "./scss-components/fridge/CreateShoppinglistBar";
+@import "./scss-components/fridge/Input";
+@import "./scss-components/fridge/UploadImage";

@@ -6,7 +6,6 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import FridgePage from "./pages/fridge";
 import ProfilePage from "./pages/ProfilePage";
-
 import RecipeItemPage from "./pages/recipe/RecipeItemPage";
 import Assistant from "./components/Assistant";
 import { useStateValue } from "./StateProvider";
@@ -19,7 +18,7 @@ import {
 } from "react-router-dom";
 import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
-
+import CreateShoppinglist from "./pages/fridge/CreateShoppinglist";
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
@@ -38,6 +37,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="fridge" element={<FridgePage />} />
+          <Route path="fridge/shoppingList" element={<CreateShoppinglist/>} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

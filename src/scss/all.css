@@ -609,6 +609,78 @@ img {
   border-radius: 50px;
 }
 
+.CreateShoppinglist {
+  background-color: #C7E3EE;
+  height: 1500px;
+}
+
+.input-container {
+  padding: 40px 0 33px 66px;
+  line-height: 40px;
+  color: white;
+}
+
+.input-container h5 {
+  font-size: 24px;
+  margin: 40px 0 20px 0;
+}
+
+.input-container .input-foodname {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.input-container .input-foodname .css-kx6rml-MuiStack-root {
+  margin: 0;
+}
+
+.input-container .input-amount {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.input-container .input-amount h5 {
+  word-spacing: 44px;
+}
+
+.input-container .input-unit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.input-container .input-unit h5 {
+  word-spacing: 44px;
+}
+
+.input-container .input-remark {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.input-container .input-remark h5 {
+  word-spacing: 44px;
+}
+
+.input-container .input-remark .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  background-color: white;
+}
+
+.input-container .input-remark .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+  background-color: white;
+}
+
+.input-container .submit {
+  margin-top: 100px;
+  margin-left: 84px;
+}
+
 .bottomNav {
   color: #444545 !important;
 }
@@ -703,5 +775,62 @@ img {
   height: 60px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.topBar .topBar__container {
+  padding: 40px 13px 44px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  color: white;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.topBar p {
+  font-size: 26px;
+  color: white !important;
+  padding: 0 20px 0 0;
+}
+
+.css-kx6rml-MuiStack-root {
+  margin-top: 40px;
+  margin-right: 20px;
+}
+
+.css-wb57ya-MuiFormControl-root-MuiTextField-root {
+  background-color: white;
+}
+
+.upload {
+  margin-left: 32px;
+  width: 309px;
+  height: 240px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.upload .upload-container {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.upload .upload-container .css-1kuq5xv-MuiButtonBase-root-MuiIconButton-root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 /*# sourceMappingURL=all.css.map */

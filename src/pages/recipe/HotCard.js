@@ -18,12 +18,14 @@ function HotCard({ data }) {
     <div className="hotCard" onClick={handleRouteToItemPage}>
       <img
         className="hotCard__img"
-        style={{ maxWidth: "unset" }}
+        style={{
+          maxWidth: "unset",
+        }}
         src={data.thumbnail.url}
         alt=""
       />
       <Card>
-        <CardContent>
+        <CardContent elevation={3}>
           <Typography variant="h5" component="div">
             {data.name}
           </Typography>

@@ -58,8 +58,6 @@ img {
   border-radius: 20px 20px 0 0;
   background-color: white;
   padding: 20px 0;
-  position: absolute;
-  bottom: -25px;
 }
 
 .recipeItem__container .recipeItem__wrap .recipeItem__box h4 {
@@ -77,6 +75,12 @@ img {
 
 .recipeItem__container .css-11yukd5-MuiTabs-indicator {
   background-color: #fe8b83;
+}
+
+.recipeItem__container .activeStep {
+  font-weight: bold;
+  font-size: 24px;
+  color: #fe8b83;
 }
 
 .recipe__index .recipeIndexTop {

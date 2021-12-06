@@ -4,7 +4,12 @@ import BottomNav from "./components/BottomNav";
 import RecipeHomePage from "./pages/recipe";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+
 import FridgePage from "./pages/fridge";
+import FridgeManagePage from "./pages/fridge/FridgeManagePage/index";
+import ShoppingListPage from "./pages/fridge/shoppingList/ShoppingListPage";
+import AddShoppingListPage from "./pages/fridge/shoppingList/AddShoppingListPage";
+
 import ProfilePage from "./pages/ProfilePage";
 
 import RecipeItemPage from "./pages/recipe/RecipeItemPage";
@@ -35,9 +40,17 @@ function App() {
             <Route path="recipe/admin/add" element={<AdminPage />} />
             <Route path="recipe/:id" element={<RecipeItemPage />} />
           </Route>
+
+          {/* login */}
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
+
+          {/* fridge */}
           <Route path="fridge" element={<FridgePage />} />
+          <Route path="fridgeManagePage" element={<FridgeManagePage />} />
+          <Route path="shoppingListPage" element={<ShoppingListPage />} />
+          <Route path="AddShoppingListPage" element={<AddShoppingListPage />} />
+
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

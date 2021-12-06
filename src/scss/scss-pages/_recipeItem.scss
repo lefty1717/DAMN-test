@@ -30,4 +30,10 @@
   .css-11yukd5-MuiTabs-indicator {
     background-color: $primary-color;
   }
+
+  .activeStep {
+    font-weight: bold;
+    font-size: 24px;
+    color: $primary-color;
+  }
 }

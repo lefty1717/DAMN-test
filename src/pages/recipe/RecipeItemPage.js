@@ -65,7 +65,7 @@ function RecipeItem({ propsData }) {
             // >
             //   <ImageIcon sx={{ color: "gray", fontSize: "60px" }} />
             // </Box>
-            <ImageStepper images={data?.steps} />
+            <ImageStepper data={data?.steps} />
           )}
 
           <div className="recipeItem__box">

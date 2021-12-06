@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MobileStepper from "@mui/material/MobileStepper";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import { useSpeechRecognition } from "react-speech-recognition";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Zoom } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Assistant from "../components/Assistant";
 const images = [
   {
     id: 1,
@@ -43,7 +37,7 @@ const images = [
   },
 ];
 
-function ImageStepper() {
+function ImageStepper({data}) {
   const theme = useTheme();
   SwiperCore.use([Pagination, Zoom]);
   const [swiper, setSwiper] = useState(null);
@@ -60,6 +54,7 @@ function ImageStepper() {
       isFuzzyMatch: true, // 模糊匹配
       fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
       bestMatchOnly: true,
+      matchInterim: true,
     },
     {
       command: ["上一步"],
@@ -69,6 +64,7 @@ function ImageStepper() {
       isFuzzyMatch: true, // 模糊匹配
       fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
       bestMatchOnly: true,
+      matchInterim: true,
     },
   ];
   useSpeechRecognition({ commands });
@@ -95,24 +91,15 @@ function ImageStepper() {
       <Swiper
         spaceBetween={0}
         slidesPerView={1}
-        onSlideChange={(swiper) => console.log(swiper)}
         onSwiper={setSwiper}
         // loop={true}
-        // effect={"cube"}
-        // grabCursor={true}
-        // cubeEffect={{
-        //   shadow: true,
-        //   slideShadows: true,
-        //   shadowOffset: 20,
-        //   shadowScale: 0.94,
-        // }}
         zoom={true}
         pagination={{
           dynamicBullets: true,
           clickable: true,
         }}
       >
-        {images.map((step, index) => (
+        {data?.map((step, index) => (
           <SwiperSlide key={index}>
             <Box
               component="img"
@@ -125,41 +112,10 @@ function ImageStepper() {
               }}
               src={step.imageURL}
               alt={step.content}
-            />{" "}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* <MobileStepper
-        // sx={{ position: "fixed", bottom: 0 }}
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
-          >
-            Next
-            {theme.direction === "rtl" ? (
-              <KeyboardArrowLeft />
-            ) : (
-              <KeyboardArrowRight />
-            )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === "rtl" ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            Back
-          </Button>
-        }
-      /> */}
     </Box>
   );
 }

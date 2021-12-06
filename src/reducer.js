@@ -1,6 +1,13 @@
 export const initialState = {
   user: null,
-  newRecipeData: { name: "", rating: 2, likes: 0 },
+  newRecipeData: {
+    name: "",
+    rating: 2,
+    likes: 0,
+    serving: 1,
+    ingredientsInfo: [],
+    ingredientTags: [],
+  },
   navbarBtnId: 0,
 };
 

@@ -77,6 +77,12 @@ img {
   background-color: #fe8b83;
 }
 
+.recipeItem__container .activeStep {
+  font-weight: bold;
+  font-size: 24px;
+  color: #fe8b83;
+}
+
 .recipe__index .recipeIndexTop {
   background-color: #fe8b83;
   width: 100%;

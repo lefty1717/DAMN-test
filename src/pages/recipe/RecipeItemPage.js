@@ -7,7 +7,7 @@ import { Box, ThemeProvider } from "@mui/system";
 import { Paper } from "@mui/material";
 import theme from "../../function/theme";
 import ImageIcon from "@mui/icons-material/Image";
-import ImageStepper from '../../components/ImageStepper'
+import ImageStepper from "../../components/ImageStepper";
 
 function RecipeItem({ propsData }) {
   const [data, setData] = useState(null);
@@ -35,6 +35,15 @@ function RecipeItem({ propsData }) {
       // 如果有 props 就設定 data 為傳入資料
       setData(propsData);
     }
+    // if (propsData.thumbnail.url) {
+    //   // 如果有 縮圖 將其加入到 steps 的陣列裡，這樣才能在 預覽頁面 的第一張圖 顯示縮圖，第二張之後顯示步驟圖片
+    //   const temp = { ...propsData };
+    //   temp.steps.unshift({
+    //     imageURL: propsData.thumbnail.url,
+    //   });
+    //   console.log(temp)
+    //   setData(temp);
+    // }
   }, []);
 
   return (
@@ -51,7 +60,7 @@ function RecipeItem({ propsData }) {
             //   src={data?.thumbnail?.url}
             //   alt=""
             // />
-            <ImageStepper images={data.steps} />
+            <ImageStepper />
           ) : (
             // <Box
             //   sx={{
@@ -65,7 +74,7 @@ function RecipeItem({ propsData }) {
             // >
             //   <ImageIcon sx={{ color: "gray", fontSize: "60px" }} />
             // </Box>
-            <ImageStepper data={data?.steps} />
+            <ImageStepper />
           )}
 
           <div className="recipeItem__box">

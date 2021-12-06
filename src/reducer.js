@@ -7,6 +7,7 @@ export const initialState = {
     serving: 1,
     ingredientsInfo: [],
     ingredientTags: [],
+    steps: [],
   },
   navbarBtnId: 0,
 };

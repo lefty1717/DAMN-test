@@ -14,7 +14,7 @@ const RecipeSteps = () => {
   const [{ newRecipeData }, dispatch] = useStateValue();
   useEffect(() => {
     setStepsList(initStepsList);
-    if (newRecipeData?.steps) {
+    if (newRecipeData?.steps.length !== 0) {
       setStepsList(newRecipeData.steps);
     }
   }, []);

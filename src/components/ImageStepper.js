@@ -10,6 +10,8 @@ import SwiperCore, { Pagination, Zoom } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { actionTypes } from "../reducer";
+import { useStateValue } from "../StateProvider";
 const images = [
   {
     id: 1,
@@ -37,10 +39,11 @@ const images = [
   },
 ];
 
-function ImageStepper({data}) {
+function ImageStepper() {
   const theme = useTheme();
   SwiperCore.use([Pagination, Zoom]);
   const [swiper, setSwiper] = useState(null);
+  const [{ newRecipeData }] = useStateValue();
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -89,17 +92,31 @@ function ImageStepper({data}) {
         <ArrowBackIosIcon sx={{ color: "#ffffff" }} />
       </Paper>
       <Swiper
+        className="swiper-zoom-container"
         spaceBetween={0}
         slidesPerView={1}
         onSwiper={setSwiper}
         // loop={true}
-        zoom={true}
+        zoom
         pagination={{
           dynamicBullets: true,
           clickable: true,
         }}
       >
-        {data?.map((step, index) => (
+        <SwiperSlide>
+          <Box
+            component="img"
+            sx={{
+              height: 255,
+              display: "block",
+              maxWidth: 400,
+              overflow: "hidden",
+              width: "100%",
+            }}
+            src={newRecipeData?.thumbnail?.url}
+          />
+        </SwiperSlide>
+        {newRecipeData?.steps?.map((step, index) => (
           <SwiperSlide key={index}>
             <Box
               component="img"

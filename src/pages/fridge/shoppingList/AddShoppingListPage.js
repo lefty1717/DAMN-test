@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
 //firebase
-import { db, storage } from '../firebase';
+import { db, storage } from '../../../firebase';
 import { collection, addDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-export default function AddShoppingList() {
+export default function AddShoppingListPage() {
   //購物清單結構
   const [shoppingList, setShoppingList] = useState({
     name:"",

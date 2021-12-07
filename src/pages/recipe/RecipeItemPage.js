@@ -6,6 +6,8 @@ import { db } from "../../firebase";
 import { Box, ThemeProvider } from "@mui/system";
 import { Paper } from "@mui/material";
 import theme from "../../function/theme";
+import ImageIcon from "@mui/icons-material/Image";
+import ImageStepper from "../../components/ImageStepper";
 
 function RecipeItem({ propsData }) {
   const [data, setData] = useState(null);
@@ -33,7 +35,17 @@ function RecipeItem({ propsData }) {
       // 如果有 props 就設定 data 為傳入資料
       setData(propsData);
     }
+    // if (propsData.thumbnail.url) {
+    //   // 如果有 縮圖 將其加入到 steps 的陣列裡，這樣才能在 預覽頁面 的第一張圖 顯示縮圖，第二張之後顯示步驟圖片
+    //   const temp = { ...propsData };
+    //   temp.steps.unshift({
+    //     imageURL: propsData.thumbnail.url,
+    //   });
+    //   console.log(temp)
+    //   setData(temp);
+    // }
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Paper
@@ -42,13 +54,31 @@ function RecipeItem({ propsData }) {
         sx={{ color: "text.normal" }}
       >
         <div className="recipeItem__wrap">
-          <img
-            style={{ borderRadius: "4px" }}
-            src={data?.thumbnail?.url}
-            alt=""
-          />
+          {data?.thumbnail?.url ? (
+            // <img
+            //   style={{ borderRadius: "4px" }}
+            //   src={data?.thumbnail?.url}
+            //   alt=""
+            // />
+            <ImageStepper />
+          ) : (
+            // <Box
+            //   sx={{
+            //     width: "100%",
+            //     height: "150px",
+            //     display: "flex",
+            //     justifyContent: "center",
+            //     alignItems: "center",
+            //   }}
+            //   elevation={3}
+            // >
+            //   <ImageIcon sx={{ color: "gray", fontSize: "60px" }} />
+            // </Box>
+            <ImageStepper />
+          )}
+
           <div className="recipeItem__box">
-            <h4>{data?.name}</h4>
+            <h4>{data?.name ? data?.name : "沒有食譜名稱"}</h4>
           </div>
         </div>
         <Tabs data={data} />

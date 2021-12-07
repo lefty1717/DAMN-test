@@ -1,0 +1,34 @@
+.RecipeSearchBar{
+    .appBar {
+        color: #F5F5F5 !important;
+        background-color: #FE8B83 !important;
+      };
+    .toolBar {
+        height: 100px;
+      };
+    .stack {
+        margin-bottom :15px;
+        margin-left :18px;
+        overflow:scroll;
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    };
+    .iconBar {
+        margin-left: 12px;
+    };
+    .inputBase{
+        width:380px;
+        font-size: large !important;
+        margin-left: 15px;
+        background-color: aliceblue !important;
+        border-radius: 20px;
+    };
+    .chip {
+        color: rgb(112, 112, 112) !important; 
+        font-size: large !important;
+        font-weight: bolder !important;
+        background-color: #e2e2e2 !important;
+    }
+    
+}

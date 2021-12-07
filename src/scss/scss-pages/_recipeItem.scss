@@ -1,33 +1,39 @@
-.recipeItem__container{
-    .recipeItem__wrap{
-        position: relative;
-        img{
-            display: block;
-            width: 100%;
-        }
-        .recipeItem__box{
-            width: 100%;
-            border-radius: 20px 20px 0 0 ;
-            background-color:white;
-            padding: 20px 0;
-            position: absolute;
-            bottom: -25px;;
-            h4{
-                font: size 24px;
-                padding-left: 20px;
-            }
-        }
+.recipeItem__container {
+  .recipeItem__wrap {
+    position: relative;
+    img {
+      display: block;
+      width: 100%;
     }
-    .TabPanel__box{
-        &::-webkit-scrollbar {
-            display: none; 
-          }
-        li{
-            padding: 10px 0;
-        }
-    } 
+    .recipeItem__box {
+      width: 100%;
+      border-radius: 20px 20px 0 0;
+      background-color: white;
+      padding: 20px 0;
+      // position: absolute;
+      // bottom: -25px;
+      h4 {
+        font: size 24px;
+        padding-left: 20px;
+      }
+    }
+  }
+  .TabPanel__box {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    li {
+      padding: 10px 0;
+    }
+  }
 
-    .css-11yukd5-MuiTabs-indicator{
-        background-color: $primary-color;
-    }
+  .css-11yukd5-MuiTabs-indicator {
+    background-color: $primary-color;
+  }
+
+  .activeStep {
+    font-weight: bold;
+    font-size: 24px;
+    color: $primary-color;
+  }
 }

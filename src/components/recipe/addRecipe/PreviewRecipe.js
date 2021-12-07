@@ -34,6 +34,7 @@ const PreviewRecipe = () => {
         <Button
           className="addRecipePage__submitBtn"
           onClick={handleSubmit}
+          fullWidth
           sx={{ mt: 2 }}
           variant="contained"
         >

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-
 import { Dialog, Slide } from "@mui/material";
 import handleSpeak from "../function/handleSpeak";
 import image from "../images/animation.gif";
+const appId = "8b461380-b198-4740-b55b-3b1456820091";
+// const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -38,12 +40,13 @@ const Assistant = () => {
 
   const {
     transcript,
-    listening,
-    resetTranscript,
+    // listening,
+    // resetTranscript,
     browserSupportsSpeechRecognition,
     browserSupportsContinuousListening,
     isMicrophoneAvailable,
   } = useSpeechRecognition({ commands });
+
   console.log(transcript.split(" ").pop());
 
   useEffect(() => {
@@ -54,9 +57,12 @@ const Assistant = () => {
       return <span>回上一頁</span>;
     }
     if (browserSupportsContinuousListening) {
-      SpeechRecognition.startListening({ continuous: true });
+      // polyfill 只能聽英文 ...
+      // SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
+      SpeechRecognition.startListening({ continuous: true, language: "zh-TW" });
+    } else {
+      SpeechRecognition.startListening({ language: "zh-CN" });
     }
-    SpeechRecognition.startListening({ continuous: true });
   }, []);
 
   const handleDialogOpen = () => setIsDialogOpen(true ? false : true);

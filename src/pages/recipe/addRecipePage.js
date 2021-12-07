@@ -1,159 +1,110 @@
-import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { useTheme } from "@mui/material/styles";
+import MobileStepper from "@mui/material/MobileStepper";
 import Button from "@mui/material/Button";
-import { useForm } from "react-hook-form";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import MultipleSelectChip from "../../components/recipe/MultipleSelectChip";
-const AddRecipePage = () => {
-  const IngredientsSelectorRef = React.useRef(null);
-  const [stepsList, setStepsList] = useState([]);
-  const [chipList, setChipList] = useState([]);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const CURRENT_TIME_IN_NANOSECONDS = window.performance.now();
-  // mock data
-  const ingredientsData = [
-    { id: 1, name: "牛肉" },
-    { id: 2, name: "青菜" },
-    { id: 3, name: "漢堡包" },
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import NameAndThumbnail from "../../components/recipe/addRecipe/NameAndThumbnail";
+import RecipeSteps from "../../components/recipe/addRecipe/RecipeSteps";
+import RecipeRating from "../../components/recipe/addRecipe/RecipeRating";
+import RecipeIngredients from "../../components/recipe/addRecipe/RecipeIngredients";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../../function/theme";
+import ReviewRecipe from "../../components/recipe/addRecipe/PreviewRecipe";
+
+const user = {
+  id: "itjustauserid8888",
+  name: "cube",
+};
+
+export default function AddRecipeStepper() {
+  const theme = useTheme();
+
+  const [activeStep, setActiveStep] = useState(0);
+
+  const steps = [
+    {
+      label: "輸入食譜名稱,  縮圖",
+      component: <NameAndThumbnail />,
+    },
+    {
+      label: "選擇所需食材標籤",
+      component: <RecipeIngredients />,
+    },
+    {
+      label: "新增食材步驟",
+      component: <RecipeSteps />,
+    },
+    { label: "預覽頁面並發布食譜", component: <ReviewRecipe /> },
   ];
-  const user = {
-    id: "itjustauserid8888",
-    name: "cube",
+  const maxSteps = steps.length;
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  useEffect(() => {
-    const initStepsList = [{ content: "" }, { content: "" }, { content: "" }];
-    setStepsList(initStepsList);
-  }, []);
-
-  // 當對食材 ChipList 變動時，標籤一同變動
-  const handleChipList = (event, selectedOption) => {
-    const {
-      target: { value },
-    } = event;
-    // console.log(value);
-    setChipList(
-      // On autofill we get a the stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-  console.log(chipList);
-
-  // 新增步驟
-  const createStepInputField = () => {
-    setStepsList([...stepsList, { content: "" }]);
-  };
-  // 刪除步驟
-  const deleteStepInputField = (id) => {
-    setStepsList([...stepsList].filter((_, index) => index !== id));
-  };
-
-  // 在 步驟欄 寫下 敘述
-  const handleStepContent = (e, id) => {
-    const { value } = e.target;
-    const list = [...stepsList];
-    list[id] = { ...list[id], content: value };
-
-    setStepsList(list);
-  };
-
-  // 傳送資料到 fireStore
-  const handleSubmitRecipeData = async (data) => {
-    const result = {
-      ...data,
-      steps: stepsList,
-      likes: 0,
-      ingredientTags: chipList,
-      createdAt: CURRENT_TIME_IN_NANOSECONDS,
-      authorId: user.id,
-    };
-    console.log("result: ", result);
-    const docRef = await addDoc(collection(db, "recipes"), result);
-    console.log("Document written with ID: ", docRef.id);
-    // hello
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   return (
-    <form
-      className="addRecipePage"
-      onSubmit={handleSubmit(handleSubmitRecipeData)}
-    >
-      {/* 食材名稱 */}
-      <TextField
-        id="name"
-        label="食譜名稱"
-        variant="standard"
-        maxRows={4}
-        required
-        margin="dense"
-        helperText="請輸入食譜名稱"
-        {...register("name")}
-      />
-      {/* 食材標籤選擇器 */}
-      <MultipleSelectChip
-        labelName="食材標籤"
-        data={ingredientsData}
-        chipList={chipList}
-        handleChipList={handleChipList}
-      />
-
-      {/* 食材所需量 */}
-      <TextField
-        id="filled-multiline-flexible"
-        label="食材清單"
-        multiline
-        placeholder={`雞蛋 1顆 \n白飯 300 公克`}
-        margin="dense"
-        rows={4}
-        {...register("ingredientsInfo")}
-        variant="filled"
-      />
-      {/* map 所有步驟 透過按鈕新增刪除 inputField */}
-      <h3>步驟</h3>
-      {stepsList.map((_, id) => (
-        <Box className="stepInputFieldContainer" key={id}>
-          <TextField
-            sx={{ width: "100%" }}
-            id="filled-multiline-flexible"
-            label={`步驟 ${id + 1}`}
-            multiline
-            margin="normal"
-            rows={2}
-            variant="filled"
-            value={stepsList[id]?.content}
-            onChange={(e) => handleStepContent(e, id)}
-          />
-          <Fab
-            className="deleteStepBtn"
-            onClick={() => deleteStepInputField(id)}
-            variant="circle"
-            size="small"
-          >
-            <RemoveIcon />
-          </Fab>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* 子頁面 元件 */}
+        <Box
+          className="addRecipePage"
+          sx={{ maxWidth: 400, width: "100%", flexGrow: 1, minHeight: "550px" }}
+        >
+          {steps[activeStep].component}
         </Box>
-      ))}
-      {/* 新增步驟按鈕 */}
-      <Fab aria-label="add" onClick={createStepInputField}>
-        <AddIcon />
-      </Fab>
-
-      {/* 新增食譜按鈕 submit button */}
-      <Button variant="contained" type="submit">
-        發布食譜
-      </Button>
-    </form>
+        {/* 上一步 下一步 */}
+        <MobileStepper
+          sx={{
+            width: "100%",
+            color: "primary.main",
+          }}
+          variant="text"
+          steps={maxSteps}
+          position="static"
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+              sx={{ color: "primary.main" }}
+            >
+              下一步
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+              sx={{ color: "primary.main" }}
+            >
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              上一步
+            </Button>
+          }
+        />
+      </Box>
+    </ThemeProvider>
   );
-};
-
-export default AddRecipePage;
+}

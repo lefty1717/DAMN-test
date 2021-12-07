@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AccountCircleIcon from "@material-ui/icons//AccountCircle";
 import KitchenIcon from "@material-ui/icons//Kitchen";
 import MenuBookIcon from "@material-ui/icons//MenuBook";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import Paper from "@mui/material/Paper";
-import CustomIcon from "../components/Icon";
-import {
-  AppBar,
-  BottomNavigation,
-  BottomNavigationAction,
-  IconButton,
-  Toolbar,
-} from "@material-ui/core";
-import { Link, useNavigate } from "react-router-dom";
+import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 import { useSpeechRecognition } from "react-speech-recognition";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ArchiveIcon from "@mui/icons-material/Archive";
 import { actionTypes } from "../reducer";
 import { useStateValue } from "../StateProvider";
 import { ThemeProvider } from "@mui/material";

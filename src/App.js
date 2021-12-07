@@ -9,6 +9,7 @@ import FridgePage from "./pages/fridge";
 import FridgeManagePage from "./pages/fridge/FridgeManagePage/index";
 import ShoppingListPage from "./pages/fridge/shoppingList/ShoppingListPage";
 import AddShoppingListPage from "./pages/fridge/shoppingList/AddShoppingListPage";
+import SendFoodListPage from "./pages/fridge/SendFood/SendFoodList";
 
 import ProfilePage from "./pages/ProfilePage";
 import RecipeItemPage from "./pages/recipe/RecipeItemPage";
@@ -52,6 +53,7 @@ function App() {
           <Route path="fridgeManagePage" element={<FridgeManagePage />} />
           <Route path="shoppingListPage" element={<ShoppingListPage />} />
           <Route path="AddShoppingListPage" element={<AddShoppingListPage />} />
+          <Route path="SendFoodListPage" element={<SendFoodListPage />} />
 
 
           <Route path="profile" element={<ProfilePage />} />

@@ -9,7 +9,7 @@ export default function ShoppingListCard(props){
     return(
         <div className="foodCard">
             <Grid 
-            className="box"
+            className="box" sx={{boxShadow:"2px 2px 2px 1px rgba(0, 0, 0, 0.25)"}}
             >
                 <Card className="chickenCard">
                     <img src={props.shoppingList.imageURL} alt="" />

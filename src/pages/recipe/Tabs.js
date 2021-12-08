@@ -9,7 +9,7 @@ import { ThemeProvider } from "@mui/system";
 import theme from "../../function/theme";
 import { Typography } from "@mui/material";
 
-export default function FullWidthTabs({ data }) {
+export default function CustomTabs({ data }) {
   const [value, setValue] = useState(0);
   const [activeStepId, setActiveStepId] = useState(-1);
   const maxStep = data?.steps?.length;
@@ -69,8 +69,8 @@ export default function FullWidthTabs({ data }) {
         </Tabs>
 
         <Box sx={{ p: 2 }} className="TabPanel__box">
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            {data?.ingredientsInfo.map((ingredient, id) => (
+          <TabPanel value={value} index={0} >
+            {data?.ingredientsInfo?.map((ingredient, id) => (
               <Typography key={id} variant="h6" component="h6" paragraph>
                 {ingredient.name}: {ingredient.count} {ingredient.unit.name}
               </Typography>

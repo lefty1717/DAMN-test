@@ -24,7 +24,9 @@ import {
 } from "react-router-dom";
 import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
+
 import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
+
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
 
           {/* fridge */}
+
           <Route path="/fridge">
             <Route index element={<FridgePage />} />
             <Route path="creatshoppinglist" element={<CreateShoppinglist/>} />
@@ -55,11 +58,12 @@ function App() {
             <Route path="sendfoodlist" element={<SendFoodListPage />} />
           </Route>
 
+
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-      <Assistant />
+      {/* <Assistant /> */}
     </div>
   );
 }

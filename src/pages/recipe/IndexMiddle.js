@@ -20,7 +20,7 @@ function IndexMiddle() {
       console.log(data);
     });
   };
-//   console.log(hitoRecipes);
+  //   console.log(hitoRecipes);
   useEffect(() => {
     fetchHitoRecipes();
   }, []);

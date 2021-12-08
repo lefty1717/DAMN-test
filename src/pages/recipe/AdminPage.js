@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import AddIngredientPage from "./AddIngredientPage";
 import a11yProps from "../../function/a11yProps";
 import NotFoundPage from "../NotFoundPage";
-import AddRecipeStepper from "./AddRecipePage";
+import AddRecipeStepper from "./AddNewRecipePage";
 import BottomNav from "../../components/BottomNav";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../function/theme";

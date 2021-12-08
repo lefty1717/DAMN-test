@@ -30,20 +30,11 @@ function RecipeItem({ propsData }) {
     if (params.id) {
       // 如果有路徑帶 uid 就 fetchData
       fetchData();
-    }
-    if (propsData) {
+      return () => setData(null);
+    } else {
       // 如果有 props 就設定 data 為傳入資料
       setData(propsData);
     }
-    // if (propsData.thumbnail.url) {
-    //   // 如果有 縮圖 將其加入到 steps 的陣列裡，這樣才能在 預覽頁面 的第一張圖 顯示縮圖，第二張之後顯示步驟圖片
-    //   const temp = { ...propsData };
-    //   temp.steps.unshift({
-    //     imageURL: propsData.thumbnail.url,
-    //   });
-    //   console.log(temp)
-    //   setData(temp);
-    // }
   }, []);
 
   return (
@@ -55,12 +46,12 @@ function RecipeItem({ propsData }) {
       >
         <div className="recipeItem__wrap">
           {data?.thumbnail?.url ? (
-            // <img
-            //   style={{ borderRadius: "4px" }}
-            //   src={data?.thumbnail?.url}
-            //   alt=""
-            // />
-            <ImageStepper />
+            <img
+              style={{ borderRadius: "4px" }}
+              src={data?.thumbnail?.url}
+              alt=""
+            />
+            // <ImageStepper />
           ) : (
             // <Box
             //   sx={{

@@ -25,6 +25,8 @@ import {
 import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
 import CreateShoppinglist from "./pages/fridge/CreateShoppinglist";
+import { HashRouter } from "react-router-dom";
+
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
 
   return (
     <div className="app">
-      <Router>
+      <HashRouter>
         <Routes>
           <Route path="/">
             <Route index element={<RecipeHomePage />} />
@@ -59,8 +61,8 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Router>
-      <Assistant />
+      </HashRouter>
+      {/* <Assistant /> */}
     </div>
   );
 }

@@ -27,7 +27,6 @@ import NotFound from "./pages/NotFoundPage";
 import CreateShoppinglist from "./pages/fridge/CreateShoppinglist";
 import { HashRouter } from "react-router-dom";
 
-// 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
   const [{ user, newRecipeData }, dispatch] = useStateValue();

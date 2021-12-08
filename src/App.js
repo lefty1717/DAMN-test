@@ -4,7 +4,6 @@ import BottomNav from "./components/BottomNav";
 import RecipeHomePage from "./pages/recipe";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-
 import FridgePage from "./pages/fridge";
 import FridgeManagePage from "./pages/fridge/FridgeManagePage/index";
 import ShoppingListPage from "./pages/fridge/shoppingList/ShoppingListPage";
@@ -26,7 +25,6 @@ import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
 import CreateShoppinglist from "./pages/fridge/CreateShoppinglist";
 import { HashRouter } from "react-router-dom";
-
 
 function App() {
   const [{ user, newRecipeData }, dispatch] = useStateValue();

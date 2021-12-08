@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div className="app">
-      <HashRouter>
+      <Router>
         <Routes>
           <Route path="/">
             <Route index element={<RecipeHomePage />} />
@@ -50,18 +50,17 @@ function App() {
           {/* fridge */}
           <Route path="fridge" element={<FridgePage />} />
 
-          <Route path="fridge/shoppingList" element={<CreateShoppinglist/>} />
+          <Route path="fridge/shoppingList" element={<CreateShoppinglist />} />
 
           <Route path="fridgeManagePage" element={<FridgeManagePage />} />
           <Route path="shoppingListPage" element={<ShoppingListPage />} />
           <Route path="AddShoppingListPage" element={<AddShoppingListPage />} />
           <Route path="SendFoodListPage" element={<SendFoodListPage />} />
 
-
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </HashRouter>
+      </Router>
       {/* <Assistant /> */}
     </div>
   );

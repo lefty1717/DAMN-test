@@ -46,12 +46,12 @@ function RecipeItem({ propsData }) {
       >
         <div className="recipeItem__wrap">
           {data?.thumbnail?.url ? (
-            <img
-              style={{ borderRadius: "4px" }}
-              src={data?.thumbnail?.url}
-              alt=""
-            />
-            // <ImageStepper />
+            // <img
+            //   style={{ borderRadius: "4px" }}
+            //   src={data?.thumbnail?.url}
+            //   alt=""
+            // />
+            <ImageStepper />
           ) : (
             // <Box
             //   sx={{

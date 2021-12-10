@@ -7,7 +7,8 @@ import { Box } from "@mui/system";
 import theme from "../../../function/theme";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Timestamp } from "firebase/firestore";
-import { storage } from "../../../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { storage, db } from "../../../firebase";
 // import { v4 as uuidv4 } from "uuid";
 
 const PreviewRecipe = () => {
@@ -24,8 +25,8 @@ const PreviewRecipe = () => {
     clearStepsBlankContent();
     console.log(result);
     // 傳送至 fireStore
-    // const docRef = await addDoc(collection(db, "recipes"), result);
-    // console.log("Document written with ID: ", docRef.id);
+    const docRef = await addDoc(collection(db, "recipes"), result);
+    console.log("Document written with ID: ", docRef.id);
 
     // need to clear global state
   };
@@ -47,7 +48,7 @@ const PreviewRecipe = () => {
   };
   // 取得縮圖的遠端網址
   const getRemoteThumbnailURL = async () => {
-    await getSingleRemoteURL(newRecipeData?.thumbnail?.file);
+    return await getSingleRemoteURL(newRecipeData?.thumbnail?.file);
   };
   // 取得步驟圖片遠端網址
   const getStepsWithRemoteImageURL = async () => {

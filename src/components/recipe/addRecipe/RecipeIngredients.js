@@ -24,6 +24,10 @@ const ingredientsData = [
   { id: 1, name: "牛肉" },
   { id: 2, name: "青菜" },
   { id: 3, name: "漢堡包" },
+  { id: 4, name: "日清鬆餅粉" },
+  { id: 5, name: "牛奶" },
+  { id: 6, name: "雞蛋" },
+  { id: 7, name: "奶油" },
 ];
 // monk unit data
 const unitData = [
@@ -202,6 +206,7 @@ const RecipeIngredients = () => {
             disablePortal
             id="combo-box-demo"
             options={unitData}
+            freeSolo
             getOptionLabel={(option) => option.name}
             // defaultValue={selectedIngredient?.unit.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -223,7 +228,7 @@ const RecipeIngredients = () => {
               <TextField
                 variant="standard"
                 {...params}
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => handleIngredientUnit(index,e.target.value)}
                 label="單位"
               />
             )}

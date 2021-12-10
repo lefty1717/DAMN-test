@@ -26,9 +26,7 @@ export default function CustomTabs({ data }) {
       command: ["下一步", "上一"],
       callback: () => {
         setValue(1);
-        setActiveStepId(
-          (activeStep) => activeStep < maxStep && activeStep + 1
-        );
+        setActiveStepId((activeStep) => activeStep < maxStep && activeStep + 1);
       },
       isFuzzyMatch: true, // 模糊匹配
       fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
@@ -69,10 +67,10 @@ export default function CustomTabs({ data }) {
         </Tabs>
 
         <Box sx={{ p: 2 }} className="TabPanel__box">
-          <TabPanel value={value} index={0} >
-            {data?.ingredientsInfo?.map((ingredient, id) => (
+          <TabPanel value={value} index={0}>
+            {data?.ingredientsInfo?.map(({ name, count, unit }, id) => (
               <Typography key={id} variant="h6" component="h6" paragraph>
-                {ingredient?.name}: {ingredient?.count} {ingredient?.unit.name}
+                {`${name}: ${count}  ${unit.name ? unit.name : unit}`}
               </Typography>
             ))}
           </TabPanel>

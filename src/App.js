@@ -48,7 +48,6 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
 
           {/* fridge */}
-
           <Route path="/fridge">
             <Route index element={<FridgePage />} />
             <Route path="creatshoppinglist" element={<CreateShoppinglist/>} />

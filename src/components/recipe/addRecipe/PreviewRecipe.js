@@ -48,7 +48,13 @@ const PreviewRecipe = () => {
   };
   // 取得縮圖的遠端網址
   const getRemoteThumbnailURL = async () => {
-    return await getSingleRemoteURL(newRecipeData?.thumbnail?.file);
+    const temp = {
+      ...newRecipeData,
+      thumbnail: {
+        url: await getSingleRemoteURL(newRecipeData?.thumbnail?.file),
+      },
+    };
+    return temp;
   };
   // 取得步驟圖片遠端網址
   const getStepsWithRemoteImageURL = async () => {

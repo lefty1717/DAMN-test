@@ -39,7 +39,7 @@ const images = [
   },
 ];
 
-function ImageStepper() {
+function ImageStepper({ data }) {
   const theme = useTheme();
   SwiperCore.use([Pagination, Zoom]);
   const [swiper, setSwiper] = useState(null);
@@ -113,10 +113,10 @@ function ImageStepper() {
               overflow: "hidden",
               width: "100%",
             }}
-            src={newRecipeData?.thumbnail?.url}
+            src={data?.thumbnail?.url}
           />
         </SwiperSlide>
-        {newRecipeData?.steps?.map((step, index) => (
+        {data?.steps?.map((step, index) => (
           <SwiperSlide key={index}>
             <Box
               component="img"

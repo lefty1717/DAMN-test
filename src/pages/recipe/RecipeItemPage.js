@@ -51,7 +51,7 @@ function RecipeItem({ propsData }) {
             //   src={data?.thumbnail?.url}
             //   alt=""
             // />
-            <ImageStepper />
+            <ImageStepper data={data} />
           ) : (
             // <Box
             //   sx={{

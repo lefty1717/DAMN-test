@@ -72,7 +72,7 @@ export default function CustomTabs({ data }) {
           <TabPanel value={value} index={0} >
             {data?.ingredientsInfo?.map((ingredient, id) => (
               <Typography key={id} variant="h6" component="h6" paragraph>
-                {ingredient.name}: {ingredient.count} {ingredient.unit.name}
+                {ingredient?.name}: {ingredient?.count} {ingredient?.unit.name}
               </Typography>
             ))}
           </TabPanel>

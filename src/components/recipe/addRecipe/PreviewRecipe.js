@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RecipeItem from "../../../pages/recipe/RecipeItemPage";
 import { useStateValue } from "../../../StateProvider";
 import { ThemeProvider } from "@mui/material/styles";
@@ -8,10 +8,11 @@ import theme from "../../../function/theme";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Timestamp } from "firebase/firestore";
 import { storage } from "../../../firebase";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
+
 const PreviewRecipe = () => {
   const [{ newRecipeData }] = useStateValue();
-
+  // 表單送出
   const handleSubmit = async () => {
     const result = {
       ...newRecipeData,
@@ -19,13 +20,16 @@ const PreviewRecipe = () => {
       thumbnail: await getRemoteThumbnailURL(),
       steps: await getStepsWithRemoteImageURL(),
     };
-    console.log(result);
 
+    clearStepsBlankContent();
+    console.log(result);
+    // 傳送至 fireStore
     // const docRef = await addDoc(collection(db, "recipes"), result);
     // console.log("Document written with ID: ", docRef.id);
-    // clear global state
-  };
 
+    // need to clear global state
+  };
+  // 取得遠端網址的方法
   const getSingleRemoteURL = async (file) => {
     // 記得取出圖片檔案格式結尾 (e.g. .jpg .png ...
     // const recipesRef = ref(storage, `recipes/${uuidv4()}.jpg`);
@@ -56,6 +60,13 @@ const PreviewRecipe = () => {
       })
     );
     return remoteImageURLWithSteps;
+  };
+
+  // 將沒有內容的步驟去除，以免造成資料庫冗余資料
+  const clearStepsBlankContent = () => {
+    // console.log("clear");
+    const steps = newRecipeData?.steps;
+    steps.map((step, id) => step.content.length === 0 && steps.splice(id, 1));
   };
 
   return (

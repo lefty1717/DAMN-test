@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -10,8 +10,13 @@ import SwiperCore, { Pagination, Zoom } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { actionTypes } from "../reducer";
+// import { actionTypes } from "../reducer";
 import { useStateValue } from "../StateProvider";
+import { useNavigate } from "react-router-dom";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { MobileStepper } from "@mui/material";
+import { ThemeProvider } from "@mui/system";
 const images = [
   {
     id: 1,
@@ -40,84 +45,111 @@ const images = [
 ];
 
 function ImageStepper({ data }) {
-  const theme = useTheme();
-  SwiperCore.use([Pagination, Zoom]);
-  const [swiper, setSwiper] = useState(null);
-  const [{ newRecipeData }] = useStateValue();
-
-  const [activeStep, setActiveStep] = useState(0);
-
-  const slideTo = (index) => swiper.slideTo(index);
+  // AI
   const commands = [
     {
       command: ["下一步"],
       callback: () => {
-        slideTo(swiper.activeIndex + 1);
+        slideTo(swiper?.activeIndex + 1);
       },
       isFuzzyMatch: true, // 模糊匹配
       fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
       bestMatchOnly: true,
-      matchInterim: true,
+      // matchInterim: true,
     },
     {
       command: ["上一步"],
       callback: () => {
-        slideTo(swiper.activeIndex - 1);
+        slideTo(swiper?.activeIndex - 1);
       },
       isFuzzyMatch: true, // 模糊匹配
       fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
       bestMatchOnly: true,
-      matchInterim: true,
+      // matchInterim: true,
     },
   ];
   useSpeechRecognition({ commands });
+
+  let navigate = useNavigate();
+  const theme = useTheme();
+  SwiperCore.use([Pagination, Zoom]);
+  const [swiper, setSwiper] = useState(null);
+  const [displayList, setDisplayList] = useState([]);
+
+  const [{ newRecipeData }] = useStateValue();
+  const [activeStep, setActiveStep] = useState(0);
+
+  // 向左或右滑 至該步驟圖片
+  const slideTo = (index) => {
+    console.log(index);
+    setSwiper({ ...swiper, activeIndex: index });
+    swiper?.slideTo(index);
+  };
+
+  // 按下返回按鈕 回到首頁
+  const handleGoBackToHomePage = () => navigate("/");
+
+  useEffect(() => {
+    if (!swiper) return;
+    console.log("swiper: ", swiper);
+    console.log("activeIndex: ", swiper.activeIndex);
+  }, [swiper]);
+
+  useEffect(() => {
+    handleDisplayList();
+  }, [data]);
+
+  // 將 料理名稱、縮圖和步驟內容、圖片放在同一個陣列，以便在滑動時能顯示
+  const handleDisplayList = () => {
+    let list = [{ imageURL: data.thumbnail.url, content: data.name }];
+    data.steps.map((step) => {
+      list.push({ imageURL: step.imageURL, content: step.content });
+      return list;
+    });
+    setDisplayList(list);
+  };
+
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1, position: "relative" }}>
-      <Paper
-        className="topBar"
-        square
-        elevation={0}
-        sx={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          height: 50,
-          pl: 2,
-          bgcolor: "transparent",
-          position: "absolute",
-          top: 0,
-          zIndex: "2",
-        }}
-      >
-        <ArrowBackIosIcon sx={{ color: "#ffffff" }} />
-      </Paper>
-      <Swiper
-        className="swiper-zoom-container"
-        spaceBetween={0}
-        slidesPerView={1}
-        onSwiper={setSwiper}
-        // loop={true}
-        zoom
-        pagination={{
-          dynamicBullets: true,
-          clickable: true,
-        }}
-      >
-        <SwiperSlide>
-          <Box
-            component="img"
-            sx={{
-              height: 255,
-              display: "block",
-              maxWidth: 400,
-              overflow: "hidden",
-              width: "100%",
-            }}
-            src={data?.thumbnail?.url}
+    <ThemeProvider theme={theme}>
+      <Box sx={{ maxWidth: 400, flexGrow: 1, position: "relative" }}>
+        {/* top Bar */}
+        <Paper
+          className="topBar"
+          square
+          elevation={0}
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            height: 50,
+            pl: 2,
+            bgcolor: "transparent",
+            position: "absolute",
+            top: 0,
+            zIndex: "2",
+          }}
+        >
+          <ArrowBackIosIcon
+            sx={{ color: "#ffffff" }}
+            onClick={handleGoBackToHomePage}
           />
-        </SwiperSlide>
-        {data?.steps?.map((step, index) => (
-          <SwiperSlide key={index}>
+        </Paper>
+        {/* thumbnail &  steps images */}
+        <Swiper
+          className="swiper-zoom-container"
+          spaceBetween={0}
+          slidesPerView={1}
+          onSwiper={(swiper) => setSwiper(swiper)}
+          onSlideChange={(swiper) => setSwiper({ ...swiper })}
+          // loop={true}
+          zoom
+          pagination={{
+            dynamicBullets: true,
+            clickable: true,
+          }}
+        >
+          {/* 縮圖圖片 */}
+          {/* <SwiperSlide>
             <Box
               component="img"
               sx={{
@@ -127,13 +159,43 @@ function ImageStepper({ data }) {
                 overflow: "hidden",
                 width: "100%",
               }}
-              src={step.imageURL}
-              alt={step.content}
+              src={data?.thumbnail?.url}
             />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </Box>
+          </SwiperSlide> */}
+          {/* 步驟圖片 */}
+          {displayList.map((item, index) => (
+            <SwiperSlide key={index}>
+              <Box
+                component="img"
+                sx={{
+                  height: 255,
+                  display: "block",
+                  maxWidth: 400,
+                  overflow: "hidden",
+                  width: "100%",
+                }}
+                src={item.imageURL}
+                alt={item.content}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {/* steps content */}
+        <Paper
+          square
+          elevation={0}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: 50,
+            pl: 2,
+            bgcolor: "background.default",
+          }}
+        >
+          <Typography>{displayList[swiper?.activeIndex]?.content}</Typography>
+        </Paper>
+      </Box>
+    </ThemeProvider>
   );
 }
 

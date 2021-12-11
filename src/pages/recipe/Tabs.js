@@ -13,8 +13,6 @@ export default function CustomTabs({ data }) {
   const [value, setValue] = useState(0);
   const [activeStepId, setActiveStepId] = useState(-1);
   const maxStep = data?.steps?.length;
-  console.log("value: ", value);
-  console.log("activeStepId: ", activeStepId);
 
   // 移動 tab 食材 或 步驟
   const handleChange = (event, newValue) => {
@@ -22,26 +20,17 @@ export default function CustomTabs({ data }) {
   };
   // 小當家指令
   const commands = [
-    {
-      command: ["下一步", "上一"],
-      callback: () => {
-        setValue(1);
-        setActiveStepId((activeStep) => activeStep < maxStep && activeStep + 1);
-      },
-      isFuzzyMatch: true, // 模糊匹配
-      fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
-      bestMatchOnly: true,
-      matchInterim: true,
-    },
-    {
-      command: ["上一步", "下一"],
-      callback: () => {
-        setActiveStepId((activeStep) => activeStep > 0 && activeStep - 1);
-      },
-      isFuzzyMatch: true, // 模糊匹配
-      fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
-      bestMatchOnly: true,
-    },
+    // {
+    //   command: ["下一步", "上一"],
+    //   callback: () => {
+    //     setValue(1);
+    //     setActiveStepId((activeStep) => activeStep < maxStep && activeStep + 1);
+    //   },
+    //   isFuzzyMatch: true, // 模糊匹配
+    //   fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
+    //   bestMatchOnly: true,
+    //   matchInterim: true,
+    // },
   ];
   useSpeechRecognition({ commands });
 

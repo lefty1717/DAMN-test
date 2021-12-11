@@ -50,7 +50,9 @@ function ImageStepper({ data }) {
     {
       command: ["下一步"],
       callback: () => {
-        slideTo(swiper?.activeIndex + 1);
+        console.log("next swiper: ", swiper);
+        swiper.slideNext();
+        console.log("after next swiper: ");
       },
       isFuzzyMatch: true, // 模糊匹配
       fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
@@ -60,7 +62,8 @@ function ImageStepper({ data }) {
     {
       command: ["上一步"],
       callback: () => {
-        slideTo(swiper?.activeIndex - 1);
+        console.log("prev swiper: ", swiper);
+        swiper?.slidePrev();
       },
       isFuzzyMatch: true, // 模糊匹配
       fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
@@ -75,16 +78,8 @@ function ImageStepper({ data }) {
   SwiperCore.use([Pagination, Zoom]);
   const [swiper, setSwiper] = useState(null);
   const [displayList, setDisplayList] = useState([]);
-
+  const maxStep = displayList.length;
   const [{ newRecipeData }] = useStateValue();
-  const [activeStep, setActiveStep] = useState(0);
-
-  // 向左或右滑 至該步驟圖片
-  const slideTo = (index) => {
-    console.log(index);
-    setSwiper({ ...swiper, activeIndex: index });
-    swiper?.slideTo(index);
-  };
 
   // 按下返回按鈕 回到首頁
   const handleGoBackToHomePage = () => navigate("/");
@@ -139,30 +134,17 @@ function ImageStepper({ data }) {
           className="swiper-zoom-container"
           spaceBetween={0}
           slidesPerView={1}
+          // onDoubleTap={() => console.log('object')}
+          // onRealIndexChange={(swiper) => console.log("ss: ", swiper)}
           onSwiper={(swiper) => setSwiper(swiper)}
-          onSlideChange={(swiper) => setSwiper({ ...swiper })}
-          // loop={true}
+          onSlideChange={(swiper) => setSwiper(Object.create(swiper))}
+          // loop
           zoom
           pagination={{
             dynamicBullets: true,
             clickable: true,
           }}
         >
-          {/* 縮圖圖片 */}
-          {/* <SwiperSlide>
-            <Box
-              component="img"
-              sx={{
-                height: 255,
-                display: "block",
-                maxWidth: 400,
-                overflow: "hidden",
-                width: "100%",
-              }}
-              src={data?.thumbnail?.url}
-            />
-          </SwiperSlide> */}
-          {/* 步驟圖片 */}
           {displayList.map((item, index) => (
             <SwiperSlide key={index}>
               <Box

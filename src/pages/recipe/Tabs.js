@@ -9,12 +9,10 @@ import { ThemeProvider } from "@mui/system";
 import theme from "../../function/theme";
 import { Typography } from "@mui/material";
 
-export default function FullWidthTabs({ data }) {
+export default function CustomTabs({ data }) {
   const [value, setValue] = useState(0);
   const [activeStepId, setActiveStepId] = useState(-1);
   const maxStep = data?.steps?.length;
-  console.log("value: ", value);
-  console.log("activeStepId: ", activeStepId);
 
   // 移動 tab 食材 或 步驟
   const handleChange = (event, newValue) => {
@@ -22,28 +20,17 @@ export default function FullWidthTabs({ data }) {
   };
   // 小當家指令
   const commands = [
-    {
-      command: ["下一步", "上一"],
-      callback: () => {
-        setValue(1);
-        setActiveStepId(
-          (activeStep) => activeStep < maxStep && activeStep + 1
-        );
-      },
-      isFuzzyMatch: true, // 模糊匹配
-      fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
-      bestMatchOnly: true,
-      matchInterim: true,
-    },
-    {
-      command: ["上一步", "下一"],
-      callback: () => {
-        setActiveStepId((activeStep) => activeStep > 0 && activeStep - 1);
-      },
-      isFuzzyMatch: true, // 模糊匹配
-      fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
-      bestMatchOnly: true,
-    },
+    // {
+    //   command: ["下一步", "上一"],
+    //   callback: () => {
+    //     setValue(1);
+    //     setActiveStepId((activeStep) => activeStep < maxStep && activeStep + 1);
+    //   },
+    //   isFuzzyMatch: true, // 模糊匹配
+    //   fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
+    //   bestMatchOnly: true,
+    //   matchInterim: true,
+    // },
   ];
   useSpeechRecognition({ commands });
 
@@ -69,10 +56,10 @@ export default function FullWidthTabs({ data }) {
         </Tabs>
 
         <Box sx={{ p: 2 }} className="TabPanel__box">
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            {data?.ingredientsInfo.map((ingredient, id) => (
+          <TabPanel value={value} index={0}>
+            {data?.ingredientsInfo?.map(({ name, count, unit }, id) => (
               <Typography key={id} variant="h6" component="h6" paragraph>
-                {ingredient.name}: {ingredient.count} {ingredient.unit.name}
+                {`${name}: ${count}  ${unit.name ? unit.name : unit}`}
               </Typography>
             ))}
           </TabPanel>

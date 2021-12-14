@@ -30,20 +30,12 @@ function RecipeItem({ propsData }) {
     if (params.id) {
       // 如果有路徑帶 uid 就 fetchData
       fetchData();
-    }
-    if (propsData) {
+      setData(null);
+      return;
+    } else {
       // 如果有 props 就設定 data 為傳入資料
       setData(propsData);
     }
-    // if (propsData.thumbnail.url) {
-    //   // 如果有 縮圖 將其加入到 steps 的陣列裡，這樣才能在 預覽頁面 的第一張圖 顯示縮圖，第二張之後顯示步驟圖片
-    //   const temp = { ...propsData };
-    //   temp.steps.unshift({
-    //     imageURL: propsData.thumbnail.url,
-    //   });
-    //   console.log(temp)
-    //   setData(temp);
-    // }
   }, []);
 
   return (
@@ -54,33 +46,12 @@ function RecipeItem({ propsData }) {
         sx={{ color: "text.normal" }}
       >
         <div className="recipeItem__wrap">
-          {data?.thumbnail?.url ? (
-            // <img
-            //   style={{ borderRadius: "4px" }}
-            //   src={data?.thumbnail?.url}
-            //   alt=""
-            // />
-            <ImageStepper />
-          ) : (
-            // <Box
-            //   sx={{
-            //     width: "100%",
-            //     height: "150px",
-            //     display: "flex",
-            //     justifyContent: "center",
-            //     alignItems: "center",
-            //   }}
-            //   elevation={3}
-            // >
-            //   <ImageIcon sx={{ color: "gray", fontSize: "60px" }} />
-            // </Box>
-            <ImageStepper />
-          )}
-
-          <div className="recipeItem__box">
+          {data?.thumbnail?.url && <ImageStepper data={data} />}
+          {/* <div className="recipeItem__box">
             <h4>{data?.name ? data?.name : "沒有食譜名稱"}</h4>
-          </div>
+          </div> */}
         </div>
+        {/* 食材 或 步驟 選項 */}
         <Tabs data={data} />
       </Paper>
     </ThemeProvider>

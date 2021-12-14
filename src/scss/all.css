@@ -766,6 +766,74 @@ img {
           flex-direction: column;
 }
 
+.RecipeCardlist .block {
+  margin-top: 130px;
+}
+
+.RecipeCardlist .area {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  margin-top: 20px !important;
+}
+
+.RecipeCardlist .content {
+  margin-right: 80px;
+}
+
+.RecipeCardlist .img {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  margin-right: 40px;
+}
+
+.RecipeCardlist .words {
+  font-weight: bolder !important;
+}
+
+.RecipeCardlist .icon {
+  vertical-align: -4px;
+}
+
+.RecipeSearchBar .appBar {
+  color: #F5F5F5 !important;
+  background-color: #FE8B83 !important;
+}
+
+.RecipeSearchBar .toolBar {
+  height: 100px;
+}
+
+.RecipeSearchBar .stack {
+  margin-bottom: 15px;
+  margin-left: 18px;
+  overflow: scroll;
+}
+
+.RecipeSearchBar .stack::-webkit-scrollbar {
+  display: none;
+}
+
+.RecipeSearchBar .iconBar {
+  margin-left: 12px;
+}
+
+.RecipeSearchBar .inputBase {
+  width: 380px;
+  font-size: large !important;
+  margin-left: 15px;
+  background-color: aliceblue !important;
+  border-radius: 20px;
+}
+
+.RecipeSearchBar .chip {
+  color: #707070 !important;
+  font-size: large !important;
+  font-weight: bolder !important;
+  background-color: #e2e2e2 !important;
+}
+
 .css-tlc64q-MuiPaper-root-MuiDialog-paper {
   margin: 24px 10px !important;
   padding: 8px;
@@ -780,7 +848,6 @@ img {
   -o-object-fit: cover;
      object-fit: cover;
 }
-
 
 .topBar .topBar__container {
   padding: 40px 13px 44px 0;
@@ -822,6 +889,22 @@ img {
 
 .upload .upload-container {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.upload .upload-container .css-1kuq5xv-MuiButtonBase-root-MuiIconButton-root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 
 .foodCard .box {
   width: 100%;
@@ -914,24 +997,12 @@ img {
 }
 
 .fridgeBar .top_bar .LeftButton {
-
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.upload .upload-container .css-1kuq5xv-MuiButtonBase-root-MuiIconButton-root {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;

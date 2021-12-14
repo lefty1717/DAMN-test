@@ -6,10 +6,11 @@ import Box from "@mui/material/Box";
 import AddIngredientPage from "./AddIngredientPage";
 import a11yProps from "../../function/a11yProps";
 import NotFoundPage from "../NotFoundPage";
-import AddRecipeStepper from "./AddRecipePage";
+import AddRecipeStepper from "./AddNewRecipePage";
 import BottomNav from "../../components/BottomNav";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../function/theme";
+import ModifiedRecipePage from "../recipe/ModifiedRecipePage"
 
 const AdminPage = () => {
   const user = { auth: "admin", name: "cuboid" };
@@ -53,7 +54,7 @@ const AdminPage = () => {
             >
               <Tab label="新增食譜" {...a11yProps(0)} />
               <Tab label="新增食材" {...a11yProps(1)} />
-              <Tab label="使用者管理" {...a11yProps(2)} />
+              <Tab label="修改食譜" {...a11yProps(2)} />
               <Tab label="發布通知" {...a11yProps(3)} />
               {/* <Tab label="表格" {...a11yProps(4)} /> */}
             </Tabs>
@@ -67,7 +68,7 @@ const AdminPage = () => {
               <AddIngredientPage />
             </TabPanel>
             <TabPanel value={value} index={2} disabled>
-              Item Three
+              <ModifiedRecipePage/>
             </TabPanel>
           </Box>
           {/* 下方導覽列 */}

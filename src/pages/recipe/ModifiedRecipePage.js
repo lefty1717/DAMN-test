@@ -23,9 +23,13 @@ import { doc, deleteDoc } from "firebase/firestore";
 function ModifiedRecipePage() {
   const [deleted, setDeleted] = useState(0);
   const [open, setOpen] = React.useState(false);
+  const [recordId,setRecordId] = useState("")
 
-  const handleClickOpen = () => {
+
+  const handleClickOpen = (id) => {
     setOpen(true);
+    setRecordId(id)
+    console.log(id)
   };
 
   const handleClose = () => {
@@ -36,9 +40,9 @@ function ModifiedRecipePage() {
   const deleteData = async function (id) {
     try {
       await deleteDoc(doc(db, "recipes", id));
-      console.log(id);
-      setDeleted(deleted + 1);
+      console.log(id)
       setOpen(false);
+      setDeleted(deleted+1)
     } catch (error) {
       console.log(error);
     }
@@ -65,13 +69,7 @@ function ModifiedRecipePage() {
     }
     console.log(recipes);
     readData();
-  }, [db, deleted]);
-
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [createData("Frozen yoghurt", 159, 6.0, 24, 4.0)];
+  }, [db , deleted]);
 
   return (
     <div>
@@ -99,11 +97,14 @@ function ModifiedRecipePage() {
                   <EditIcon />
                 </TableCell>
                 <TableCell>
-                  <Button onClick={handleClickOpen}>
+                  <Button onClick={() => handleClickOpen(recipe.id)}>
                     <CloseIcon />
                   </Button>
                 </TableCell>
-                <Dialog
+              </TableRow>
+            ))}
+          </TableBody>
+          <Dialog
                   open={open}
                   onClose={handleClose}
                   aria-labelledby="alert-dialog-title"
@@ -119,14 +120,11 @@ function ModifiedRecipePage() {
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleClose}>否</Button>
-                    <Button onClick={() => deleteData(recipe.id)} autoFocus>
+                    <Button onClick={() => deleteData(recordId)} autoFocus>
                       是
                     </Button>
                   </DialogActions>
                 </Dialog>
-              </TableRow>
-            ))}
-          </TableBody>
         </Table>
       </TableContainer>
     </div>

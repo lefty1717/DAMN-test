@@ -42,6 +42,7 @@ function ModifiedRecipePage() {
       await deleteDoc(doc(db, "recipes", id));
       console.log(id)
       setOpen(false);
+      setDeleted(deleted+1)
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +69,7 @@ function ModifiedRecipePage() {
     }
     console.log(recipes);
     readData();
-  }, [db]);
+  }, [db , deleted]);
 
   return (
     <div>

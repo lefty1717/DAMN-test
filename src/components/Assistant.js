@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
+// import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { Dialog, Slide } from "@mui/material";
 import handleSpeak from "../function/handleSpeak";
 import image from "../images/animation.gif";
-const appId = "8b461380-b198-4740-b55b-3b1456820091";
+// const appId = "8b461380-b198-4740-b55b-3b1456820091";
 // const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -18,23 +18,34 @@ const Assistant = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // need to set global state
   const commands = [
     {
-      command: ["小當家", "小單"],
+      command: ["小當家"],
       callback: () => {
-        handleSpeak("什麼事？");
-        setAssistantResponse("什麼事？");
+        handleSpeakAndResponse("什麼事？");
         setIsDialogOpen(true);
       },
       isFuzzyMatch: true, // 模糊匹配
-      fuzzyMatchingThreshold: 0.8, // 高於 80% 才確定
       bestMatchOnly: true,
     },
     {
-      command: ["關閉", "關掉"],
+      command: ["關閉", "關掉", "沒你的事"],
       callback: () => {
         if (isDialogOpen) {
           setIsDialogOpen(false);
         }
       },
+      matchInterim: true,
+    },
+    {
+      command: ["停止監聽"],
+      callback: () => {
+        if (isDialogOpen) {
+          SpeechRecognition.stopListening();
+          setIsDialogOpen(false);
+        }
+      },
+      isFuzzyMatch: true, // 模糊匹配
+
+      bestMatchOnly: true,
     },
   ];
 
@@ -42,13 +53,14 @@ const Assistant = () => {
     transcript,
     // listening,
     // resetTranscript,
+    finalTranscript,
     browserSupportsSpeechRecognition,
     browserSupportsContinuousListening,
     isMicrophoneAvailable,
   } = useSpeechRecognition({ commands });
 
-  console.log(transcript.split(" ").pop());
-
+  // console.log(transcript.split(" ").pop());
+  console.log("finalTranscript: ", finalTranscript.split(" ").pop());
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
       return <span>Oops!! 瀏覽器不支援</span>;
@@ -61,11 +73,17 @@ const Assistant = () => {
       // SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
       SpeechRecognition.startListening({ continuous: true, language: "zh-TW" });
     } else {
-      SpeechRecognition.startListening({ language: "zh-CN" });
+      SpeechRecognition.startListening({ language: "zh-TW" });
     }
   }, []);
 
   const handleDialogOpen = () => setIsDialogOpen(true ? false : true);
+
+  const handleSpeakAndResponse = (phrase) => {
+    handleSpeak(phrase);
+    setAssistantResponse(phrase);
+    return;
+  };
 
   return (
     <>

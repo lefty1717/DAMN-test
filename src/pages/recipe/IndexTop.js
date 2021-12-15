@@ -2,6 +2,8 @@ import React from "react";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import SearchIcon from "@mui/icons-material/Search";
 import Ticker from "react-ticker";
+import {Button } from '@mui/material';
+import {Link} from 'react-router-dom';
 
 function IndexTop() {
   return (
@@ -22,7 +24,8 @@ function IndexTop() {
         <h4>你今天想要煮什麼？</h4>
         <div className="recipeIndexTop__input">
           <input type="text" placeholder="Search"></input>
-          <SearchIcon />
+          <Button><Link to='/recipe/search'><SearchIcon /></Link></Button>
+
         </div>
       </div>
     </div>

@@ -5,14 +5,14 @@ import Typography from '@mui/material/Typography';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FlatwareIcon from '@mui/icons-material/Flatware';
-import noodle1 from './images/noodle1.jpg'
-import noodle2 from './images/noodle2.jpg'
-import noodle3 from './images/noodle3.jpg'
-import noodle4 from './images/noodle4.jpg'
+import noodle1 from '../../images/noodle1.jpg'
+import noodle2 from '../../images/noodle2.jpg'
+import noodle3 from '../../images/noodle3.jpg'
+import noodle4 from '../../images/noodle4.jpg'
 
 function CardList() {
     return (
-        <div>
+        <div className="recipeCardlist">
             <Card sx={{ maxWidth: 500}}>
                 <CardContent className='block'></CardContent>
                 <CardActionArea className='area'>

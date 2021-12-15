@@ -26,6 +26,7 @@ import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
 import CreateShoppinglist from "./pages/fridge/CreateShoppinglist";
 import { HashRouter } from "react-router-dom";
+import RecipeSearchPage from "./pages/RecipeSearchPage";
 
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
@@ -41,6 +42,7 @@ function App() {
             <Route index element={<RecipeHomePage />} />
             <Route path="recipe/admin/add" element={<AdminPage />} />
             <Route path="recipe/:id" element={<RecipeItemPage />} />
+            <Route path="recipe/search" element={<RecipeSearchPage />} />
           </Route>
 
           {/* login */}

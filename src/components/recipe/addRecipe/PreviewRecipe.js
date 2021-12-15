@@ -6,53 +6,35 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import theme from "../../../function/theme";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../../firebase";
-import { v4 as uuidv4 } from "uuid";
+import { Timestamp } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
+import { storage, db } from "../../../firebase";
+// import { v4 as uuidv4 } from "uuid";
+
 const PreviewRecipe = () => {
   const [{ newRecipeData }] = useStateValue();
-  const CURRENT_TIME_IN_NANOSECONDS = window.performance.now();
+  // 表單送出
   const handleSubmit = async () => {
-    const remoteThumbnailURL = await getSingleRemoteURL(
-      newRecipeData?.thumbnail?.file
-    );
-    // const newListWithRemoteStepImagesURL = await getNewListWithMultiRemoteURL(
-    //   newRecipeData?.steps
-    // );
-    const list = newRecipeData?.steps.map((step) => {
-      getSingleRemoteURL(step.image).then((result) => {
-        console.log(result);
-        step.imageURL = result;
-      });
-    });
-    // await createStepImagesRemoteURL(stepsList);
-    // const result = {
-    //   ...data,
-    //   steps: stepsList,
-    //   likes: 0,
-    //   ingredientTags: chipList,
-    //   createdAt: CURRENT_TIME_IN_NANOSECONDS,
-    //   authorId: user.id,
-    //   thumbnail: remoteThumbnailURL,
-    // };
-
-    const temp = {
+    const result = {
       ...newRecipeData,
-      createdAt: CURRENT_TIME_IN_NANOSECONDS,
-      thumbnail: remoteThumbnailURL,
-      steps: list,
+      createdAt: Timestamp.now().toDate(),
+      thumbnail: await getRemoteThumbnailURL(),
+      steps: await getStepsWithRemoteImageURL(),
     };
-    console.log(temp);
-    // const docRef = await addDoc(collection(db, "recipes"), result);
-    // console.log("Document written with ID: ", docRef.id);
-    // clear global state
-  };
 
+    clearStepsBlankContent();
+    console.log(result);
+    // 傳送至 fireStore
+    const docRef = await addDoc(collection(db, "recipes"), result);
+    console.log("Document written with ID: ", docRef.id);
+
+    // need to clear global state
+  };
+  // 取得遠端網址的方法
   const getSingleRemoteURL = async (file) => {
     // 記得取出圖片檔案格式結尾 (e.g. .jpg .png ...
     // const recipesRef = ref(storage, `recipes/${uuidv4()}.jpg`);
-    if (!file) {
-      return;
-    }
+    if (!file) return;
     const recipesRef = ref(storage, `recipes/${file.name}`);
     uploadBytes(recipesRef, file)
       .then((snapshot) => {
@@ -62,40 +44,35 @@ const PreviewRecipe = () => {
         // Handle any errors
       });
 
-    const remoteURL = await getDownloadURL(recipesRef);
-    // if a list files
-
-    return remoteURL;
+    return await getDownloadURL(recipesRef);
+  };
+  // 取得縮圖的遠端網址
+  const getRemoteThumbnailURL = async () => {
+    const temp = {
+      url: await getSingleRemoteURL(newRecipeData?.thumbnail?.file),
+    };
+    return temp;
+  };
+  // 取得步驟圖片遠端網址
+  const getStepsWithRemoteImageURL = async () => {
+    const remoteImageURLWithSteps = await Promise.all(
+      newRecipeData?.steps.map(async (step) => {
+        if (!step.image) return step;
+        step.imageURL = await getSingleRemoteURL(step.image);
+        delete step.image;
+        return step;
+      })
+    );
+    return remoteImageURLWithSteps;
   };
 
-  // const getNewListWithMultiRemoteURL = async (filesList) => {
-  //   // 參數為 array
-  //   // 透過覆蓋 object property（imageURL） 的方式執行
-  //   // 並返回有各個步驟圖片遠端網址的新陣列
-  //   if (filesList.length === 0) {
-  //     return;
-  //   }
-  //   console.log(filesList);
-  //   const newList = filesList.map(async (item, index) => {
-  //     const recipesRef = ref(storage, `recipes/${item?.image?.name}`);
-  //     uploadBytes(recipesRef, item.image).then((snapshot) => {
-  //       console.log(`Uploaded ${index + 1} step images success`);
-  //     });
-  //     const remoteURL = await getDownloadURL(recipesRef);
-  //     console.log(remoteURL);
+  // 將沒有內容的步驟去除，以免造成資料庫冗余資料
+  const clearStepsBlankContent = () => {
+    // console.log("clear");
+    const steps = newRecipeData?.steps;
+    steps.map((step, id) => step.content.length === 0 && steps.splice(id, 1));
+  };
 
-  //     // 覆蓋原先的 file 檔，避免將整個 file 傳上去到 storage
-  //     if (item.image) {
-  //       item.imageURL = remoteURL;
-  //       console.log(item.imageURL);
-  //     }
-  //     return
-  //   });
-
-  //   console.log("newList: ", newList);
-
-  //   return newList;
-  // };
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ p: 4 }}>

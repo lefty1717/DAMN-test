@@ -6,12 +6,10 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { IconButton } from "@material-ui/core";
 import {
   FormControl,
   InputAdornment,
   InputLabel,
-  MenuItem,
   OutlinedInput,
   Select,
   Typography,
@@ -26,6 +24,10 @@ const ingredientsData = [
   { id: 1, name: "牛肉" },
   { id: 2, name: "青菜" },
   { id: 3, name: "漢堡包" },
+  { id: 4, name: "日清鬆餅粉" },
+  { id: 5, name: "牛奶" },
+  { id: 6, name: "雞蛋" },
+  { id: 7, name: "奶油" },
 ];
 // monk unit data
 const unitData = [
@@ -35,10 +37,11 @@ const unitData = [
 ];
 const RecipeIngredients = () => {
   const [servingCount, setServingCount] = useState(1);
+  const [cookTime, setCookTime] = useState(0);
   const [selectedIngredientTags, setSelectedIngredientTags] = useState([]);
   const [selectedIngredientsInfo, setSelectedIngredientsInfo] = useState([]);
   const [{ newRecipeData }, dispatch] = useStateValue();
-  console.log("selectedIngredientTags: ", selectedIngredientTags);
+  // console.log("selectedIngredientTags: ", selectedIngredientTags);
 
   // 修改份數 serving
   const handleServingCount = (e) => {
@@ -48,6 +51,15 @@ const RecipeIngredients = () => {
       newRecipeData: { ...newRecipeData, serving: parseInt(e.target.value) },
     });
   };
+  // 修改料理時間 cookTime
+  const handleCookTime = (e) => {
+    setCookTime(e.target.value);
+    dispatch({
+      type: actionTypes.SET_NEWRECIPEDATA,
+      newRecipeData: { ...newRecipeData, cookTime: parseInt(e.target.value) },
+    });
+  };
+
   // 食材標籤
   const handleIngredientTags = (value) => {
     setSelectedIngredientTags(value);
@@ -92,15 +104,11 @@ const RecipeIngredients = () => {
   };
 
   useEffect(() => {
-    // if (newRecipeData.serving) {
-    //   setServingCount(newRecipeData.serving);
-    // }
     if (newRecipeData.ingredientsInfo.length !== 0) {
       setSelectedIngredientsInfo(newRecipeData?.ingredientsInfo);
     }
-    console.log(newRecipeData.ingredientTags.length);
+
     if (newRecipeData.ingredientTags.length !== 0) {
-      console.log("hello");
       setSelectedIngredientTags(newRecipeData?.ingredientTags);
     }
   }, []);
@@ -111,14 +119,30 @@ const RecipeIngredients = () => {
       <Typography variant="h6" gutterBottom component="div">
         適合人份
       </Typography>
-      <FormControl fullWidth sx={{ m: 1 }}>
+      <FormControl fullWidth sx={{ m: 1 }} required>
         <InputLabel htmlFor="outlined-adornment-amount">人數</InputLabel>
         <OutlinedInput
+          type="number"
           id="outlined-adornment-amount"
           value={servingCount}
           onChange={handleServingCount}
           endAdornment={<InputAdornment position="start">人份</InputAdornment>}
           label="Serving"
+        />
+      </FormControl>
+      {/*  料理時間  */}
+      <Typography variant="h6" gutterBottom component="div">
+        料理時間
+      </Typography>
+      <FormControl fullWidth sx={{ m: 1 }} required>
+        <InputLabel htmlFor="outlined-adornment-amount">料理時間</InputLabel>
+        <OutlinedInput
+          type="number"
+          id="outlined-adornment-amount"
+          value={cookTime}
+          onChange={handleCookTime}
+          endAdornment={<InputAdornment position="start">分鐘</InputAdornment>}
+          label="CookTime"
         />
       </FormControl>
       {/* 搜尋食材 search bar */}
@@ -138,7 +162,7 @@ const RecipeIngredients = () => {
         popupIcon={<SearchIcon />}
         disableCloseOnSelect
         isOptionEqualToValue={(option, value) => option.id === value.id}
-        getOptionLabel={(option) => option.name + "1"}
+        getOptionLabel={(option) => option.name}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -162,6 +186,7 @@ const RecipeIngredients = () => {
         >
           <TextField
             label={`食材`}
+            type="number"
             id="standard-start-adornment"
             sx={{ my: 2, flex: 1 }}
             defaultValue={selectedIngredientsInfo[index]?.count}
@@ -181,6 +206,7 @@ const RecipeIngredients = () => {
             disablePortal
             id="combo-box-demo"
             options={unitData}
+            freeSolo
             getOptionLabel={(option) => option.name}
             // defaultValue={selectedIngredient?.unit.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -202,7 +228,7 @@ const RecipeIngredients = () => {
               <TextField
                 variant="standard"
                 {...params}
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => handleIngredientUnit(index,e.target.value)}
                 label="單位"
               />
             )}

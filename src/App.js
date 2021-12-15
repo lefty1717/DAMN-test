@@ -23,8 +23,8 @@ import {
 } from "react-router-dom";
 import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
-import CreateShoppinglist from "./pages/fridge/CreateShoppinglist";
-import { HashRouter } from "react-router-dom";
+
+import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
 
 function App() {
   const [{ user, newRecipeData }, dispatch] = useStateValue();
@@ -45,20 +45,21 @@ function App() {
           <Route path="signup" element={<SignupPage />} />
 
           {/* fridge */}
-          <Route path="fridge" element={<FridgePage />} />
+          <Route path="/fridge">
+            <Route index element={<FridgePage />} />
+            <Route path="creatshoppinglist" element={<CreateShoppinglist/>} />
+            <Route path="fridgemanage" element={<FridgeManagePage />} />
+            <Route path="shoppinglist" element={<ShoppingListPage />} />
+            <Route path="addshoppinglist" element={<AddShoppingListPage />} />
+            <Route path="sendfoodlist" element={<SendFoodListPage />} />
+          </Route>
 
-          <Route path="fridge/shoppingList" element={<CreateShoppinglist />} />
-
-          <Route path="fridgeManagePage" element={<FridgeManagePage />} />
-          <Route path="shoppingListPage" element={<ShoppingListPage />} />
-          <Route path="AddShoppingListPage" element={<AddShoppingListPage />} />
-          <Route path="SendFoodListPage" element={<SendFoodListPage />} />
 
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-      {/* <Assistant /> */}
+      <Assistant />
     </div>
   );
 }

@@ -30,7 +30,8 @@ function RecipeItem({ propsData }) {
     if (params.id) {
       // 如果有路徑帶 uid 就 fetchData
       fetchData();
-      return () => setData(null);
+      setData(null);
+      return;
     } else {
       // 如果有 props 就設定 data 為傳入資料
       setData(propsData);
@@ -45,33 +46,12 @@ function RecipeItem({ propsData }) {
         sx={{ color: "text.normal" }}
       >
         <div className="recipeItem__wrap">
-          {data?.thumbnail?.url ? (
-            <img
-              style={{ borderRadius: "4px" }}
-              src={data?.thumbnail?.url}
-              alt=""
-            />
-            // <ImageStepper />
-          ) : (
-            // <Box
-            //   sx={{
-            //     width: "100%",
-            //     height: "150px",
-            //     display: "flex",
-            //     justifyContent: "center",
-            //     alignItems: "center",
-            //   }}
-            //   elevation={3}
-            // >
-            //   <ImageIcon sx={{ color: "gray", fontSize: "60px" }} />
-            // </Box>
-            <ImageStepper />
-          )}
-
-          <div className="recipeItem__box">
+          {data?.thumbnail?.url && <ImageStepper data={data} />}
+          {/* <div className="recipeItem__box">
             <h4>{data?.name ? data?.name : "沒有食譜名稱"}</h4>
-          </div>
+          </div> */}
         </div>
+        {/* 食材 或 步驟 選項 */}
         <Tabs data={data} />
       </Paper>
     </ThemeProvider>

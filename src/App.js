@@ -66,7 +66,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-      <Assistant />
+      {/* 想用的，可以打開註解 */}
+      {/* <Assistant /> */}
     </div>
   );
 }

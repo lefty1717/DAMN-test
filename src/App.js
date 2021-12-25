@@ -60,7 +60,7 @@ function App() {
         </Routes>
       </Router>
       {/* 想用的，可以打開註解 */}
-      {/* <Assistant /> */}
+      <Assistant />
     </div>
   );
 }

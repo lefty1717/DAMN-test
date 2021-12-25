@@ -73,7 +73,7 @@ const Assistant = () => {
       // SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
       SpeechRecognition.startListening({ continuous: true, language: "zh-TW" });
     } else {
-      SpeechRecognition.startListening({ language: "zh-TW" });
+      SpeechRecognition.startListening({ continuous: true, language: "zh-TW" });
     }
   }, []);
 

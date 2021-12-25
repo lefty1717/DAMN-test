@@ -40,7 +40,7 @@ const RecipeIngredients = () => {
   const [cookTime, setCookTime] = useState(0);
   const [selectedIngredientTags, setSelectedIngredientTags] = useState([]);
   const [selectedIngredientsInfo, setSelectedIngredientsInfo] = useState([]);
-  const [{ newRecipeData, updateRecipeData, isUpdated }, dispatch] =
+  const [{ newRecipeData,isUpdated }, dispatch] =
     useStateValue();
 
   
@@ -126,7 +126,7 @@ const RecipeIngredients = () => {
         <OutlinedInput
           type="number"
           id="outlined-adornment-amount"
-          value={newRecipeData.isUpdated ? newRecipeData?.serving : servingCount}
+          value={isUpdated ? newRecipeData?.serving : servingCount}
           onChange={handleServingCount}
           endAdornment={<InputAdornment position="start">人份</InputAdornment>}
           label="Serving"
@@ -141,7 +141,7 @@ const RecipeIngredients = () => {
         <OutlinedInput
           type="number"
           id="outlined-adornment-amount"
-          value={newRecipeData.isUpdated ? newRecipeData?.cookTime : cookTime}
+          value={isUpdated ? newRecipeData?.cookTime : cookTime}
           onChange={handleCookTime}
           endAdornment={<InputAdornment position="start">分鐘</InputAdornment>}
           label="CookTime"
@@ -159,7 +159,7 @@ const RecipeIngredients = () => {
         options={ingredientsData}
         noOptionsText="查無，試試其他關鍵字！"
         loadingText="載入中"
-        onChange={(_, value) => handleIngredientTags(isUpdated ? updateRecipeData?.ingredientTags:value)}
+        onChange={(_, value) => handleIngredientTags(value)}
         onInputChange={(e) => console.log("fetch data from fireStore")}
         popupIcon={<SearchIcon />}
         disableCloseOnSelect
@@ -211,7 +211,7 @@ const RecipeIngredients = () => {
             options={unitData}
             freeSolo
             getOptionLabel={(option) => option.name}
-            // defaultValue={selectedIngredient?.unit.name}
+            defaultValue={selectedIngredient?.unit.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(_, value) => handleIngredientUnit(index, value)}
             sx={[

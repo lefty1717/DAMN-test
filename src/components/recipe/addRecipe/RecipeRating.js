@@ -19,21 +19,14 @@ const labels = {
 export default function RecipeRating() {
   const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
-  const [{ newRecipeData,updateRecipeData, isUpdated }, dispatch] = useStateValue();
+  const [{ newRecipeData, isUpdated }, dispatch] = useStateValue();
 
   const handleRating = (value) => {
     setValue(value);
-    if (isUpdated){
-      dispatch({
-        type: actionTypes.SET_UPDATE_RECIPE_DATA,
-        updateRecipeData: { ...updateRecipeData, rating: value },
-      });
-    }else{
     dispatch({
       type: actionTypes.SET_NEWRECIPEDATA,
       newRecipeData: { ...newRecipeData, rating: value },
     });
-    }
   };
 
   useEffect(() => {
@@ -52,7 +45,7 @@ export default function RecipeRating() {
       <Rating
         name="hover-feedback"
         size="large"
-        value={isUpdated?updateRecipeData?.rating:value}
+        value={isUpdated?newRecipeData?.rating:value}
         precision={0.5}
         onChange={(event, newValue) => {
           handleRating(newValue);
@@ -63,7 +56,7 @@ export default function RecipeRating() {
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
       />
       {value !== null && (
-        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : isUpdated?updateRecipeData?.rating:value]}</Box>
+        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : isUpdated?newRecipeData?.rating:value]}</Box>
       )}
     </Box>
   );

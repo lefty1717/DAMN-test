@@ -16,6 +16,7 @@ import { actionTypes } from "../../../reducer";
 const PreviewRecipe = () => {
   const [{ newRecipeData, isUpdated}, dispatch] = useStateValue();
 
+
   console.log();
   // 表單送出
   const handleSubmit = async () => {
@@ -27,7 +28,15 @@ const PreviewRecipe = () => {
     };
     dispatch({
       type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { ...newRecipeData },
+      newRecipeData: { 
+        name: "",
+        rating: 2,
+        likes: 0,
+        serving: 1,
+        ingredientsInfo: [],
+        ingredientTags: [],
+        steps: [],
+      },
     });
     dispatch({
       type: actionTypes.SET_ISUPDATED,
@@ -113,7 +122,7 @@ const PreviewRecipe = () => {
           sx={{ mt: 2 }}
           variant="contained"
         >
-          發布食譜
+          {isUpdated === true ? "修改":"發布"}食譜
         </Button>
       </Box>
     </ThemeProvider>

@@ -16,6 +16,9 @@ import {
 } from "@mui/material";
 import { actionTypes } from "../../../reducer";
 import { useStateValue } from "../../../StateProvider";
+import algolia from "../../../algolia";
+import { debounce } from "lodash";
+import useSearch from "../../../hooks/useSearch";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -29,7 +32,7 @@ const ingredientsData = [
   { id: 6, name: "雞蛋" },
   { id: 7, name: "奶油" },
 ];
-// monk unit data
+// mock unit data
 const unitData = [
   { id: 1, name: "公克" },
   { id: 2, name: "斤" },
@@ -41,6 +44,10 @@ const RecipeIngredients = () => {
   const [selectedIngredientTags, setSelectedIngredientTags] = useState([]);
   const [selectedIngredientsInfo, setSelectedIngredientsInfo] = useState([]);
   const [{ newRecipeData }, dispatch] = useStateValue();
+  const [searchTerm, setSearchTerm] = useState("");
+  // const result = useSearch("ingredients", searchTerm);
+  const result = useSearch("recipes", searchTerm);
+  console.log("result: ", result);
   // console.log("selectedIngredientTags: ", selectedIngredientTags);
 
   // 修改份數 serving
@@ -87,7 +94,7 @@ const RecipeIngredients = () => {
       newRecipeData: { ...newRecipeData, ingredientsInfo: info },
     });
   };
-  // console.log(selectedIngredientsInfo);
+
   // 選中食材單位
   const handleIngredientUnit = (id, value) => {
     // console.log(`selected: ${id} unit: ${unit}`);
@@ -102,6 +109,9 @@ const RecipeIngredients = () => {
       newRecipeData: { ...newRecipeData, ingredientsInfo: info },
     });
   };
+
+  // 搜尋欄 onChange 事件
+  const onSearchChange = (e) => setSearchTerm(e.target.value);
 
   useEffect(() => {
     if (newRecipeData.ingredientsInfo.length !== 0) {
@@ -158,7 +168,7 @@ const RecipeIngredients = () => {
         noOptionsText="查無，試試其他關鍵字！"
         loadingText="載入中"
         onChange={(_, value) => handleIngredientTags(value)}
-        onInputChange={(e) => console.log("fetch data from fireStore")}
+        onInputChange={onSearchChange}
         popupIcon={<SearchIcon />}
         disableCloseOnSelect
         isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -228,7 +238,7 @@ const RecipeIngredients = () => {
               <TextField
                 variant="standard"
                 {...params}
-                onChange={(e) => handleIngredientUnit(index,e.target.value)}
+                onChange={(e) => handleIngredientUnit(index, e.target.value)}
                 label="單位"
               />
             )}

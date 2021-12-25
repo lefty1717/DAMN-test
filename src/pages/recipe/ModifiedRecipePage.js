@@ -9,46 +9,75 @@ import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
+import { useStateValue } from "../../StateProvider";
+import { actionTypes } from "../../reducer";
+import moment from 'moment'
 
 function ModifiedRecipePage() {
   const [deleted, setDeleted] = useState(0);
+  //刪除提醒
   const [open, setOpen] = React.useState(false);
-  const [recordId,setRecordId] = useState("")
+  //修改提醒
+  const [open2, setOpen2] = React.useState(false);
+  const [recordId, setRecordId] = React.useState("");
+  const [selectedRecipe , setSelectedRecipe ] = useState(null)
 
+  const [{ isUpdated }, dispatch] = useStateValue();
+  
+
+  console.log(isUpdated);
+  console.log(recordId);
+
+  const handleSwitchUpdate = () => {
+    setOpen2(false);
+    dispatch({
+      type: actionTypes.SET_ISUPDATED,
+      isUpdated: true,
+    });
+    dispatch({
+      type: actionTypes.SET_NEWRECIPEDATA,
+      newRecipeData: selectedRecipe,
+    });
+  };
 
   const handleClickOpen = (id) => {
     setOpen(true);
-    setRecordId(id)
-    console.log(id)
+    setRecordId(id);
+  };
+
+  const handleClickOpen2 = (data) => {
+    setOpen2(true);
+    setSelectedRecipe(data);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setOpen2(false);
   };
 
   //刪除
   const deleteData = async function (id) {
     try {
       await deleteDoc(doc(db, "recipes", id));
-      console.log(id)
+      console.log(id);
       setOpen(false);
-      setDeleted(deleted+1)
+      setDeleted(deleted + 1);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const [recipes, setRecipes] = useState([{}]);
+  const [recipes, setRecipes] = useState([]);
   console.log(recipes);
 
   useEffect(() => {
@@ -56,12 +85,10 @@ function ModifiedRecipePage() {
       const querySnapshot = await getDocs(collection(db, "recipes"));
       const temp = [];
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         temp.push({
-          id: doc.id,
-          name: doc.data().name,
-          authorId: doc.data().authorId,
+            id:doc.id,
+            ...doc.data()
         });
       });
       console.log(temp);
@@ -69,7 +96,7 @@ function ModifiedRecipePage() {
     }
     console.log(recipes);
     readData();
-  }, [db , deleted]);
+  }, [db, deleted]);
 
   return (
     <div>
@@ -79,6 +106,8 @@ function ModifiedRecipePage() {
             <TableRow>
               <TableCell>名稱</TableCell>
               <TableCell>作者</TableCell>
+              <TableCell>創造時間</TableCell>
+              <TableCell>難度星等</TableCell>
               <TableCell>修改</TableCell>
               <TableCell>刪除</TableCell>
             </TableRow>
@@ -93,11 +122,15 @@ function ModifiedRecipePage() {
                   {recipe.name}
                 </TableCell>
                 <TableCell>{recipe.authorId}</TableCell>
+                <TableCell>{moment(recipe.createdAt.seconds*1000).format('YYYY/MM/DD')}</TableCell>
+                <TableCell>難度星等</TableCell>
                 <TableCell>
-                  <EditIcon />
+                  <Button onClick={() => handleClickOpen2(recipe)}>
+                    <EditIcon />
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  <Button onClick={() => handleClickOpen(recipe.id)}>
+                  <Button onClick={() => handleClickOpen(recipe?.id)}>
                     <CloseIcon />
                   </Button>
                 </TableCell>
@@ -105,26 +138,43 @@ function ModifiedRecipePage() {
             ))}
           </TableBody>
           <Dialog
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"確定刪除？"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                     一經刪除將無法復原!!
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose}>否</Button>
-                    <Button onClick={() => deleteData(recordId)} autoFocus>
-                      是
-                    </Button>
-                  </DialogActions>
-                </Dialog>
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"確定刪除？"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                一經刪除將無法復原!!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>否</Button>
+              <Button onClick={() => deleteData(recordId)} autoFocus>
+                是
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={open2}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"確定修改？"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                將跳轉至修改頁面
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>否</Button>
+              <Button onClick={handleSwitchUpdate} autoFocus>
+                是
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Table>
       </TableContainer>
     </div>

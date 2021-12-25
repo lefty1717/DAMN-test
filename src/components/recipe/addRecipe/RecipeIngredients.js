@@ -40,24 +40,26 @@ const RecipeIngredients = () => {
   const [cookTime, setCookTime] = useState(0);
   const [selectedIngredientTags, setSelectedIngredientTags] = useState([]);
   const [selectedIngredientsInfo, setSelectedIngredientsInfo] = useState([]);
-  const [{ newRecipeData }, dispatch] = useStateValue();
-  // console.log("selectedIngredientTags: ", selectedIngredientTags);
+  const [{ newRecipeData, updateRecipeData, isUpdated }, dispatch] =
+    useStateValue();
+
+  
 
   // 修改份數 serving
   const handleServingCount = (e) => {
     setServingCount(e.target.value);
-    dispatch({
-      type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { ...newRecipeData, serving: parseInt(e.target.value) },
-    });
+      dispatch({
+        type: actionTypes.SET_NEWRECIPEDATA,
+        newRecipeData: { ...newRecipeData, serving: parseInt(e.target.value) },
+      });
   };
   // 修改料理時間 cookTime
   const handleCookTime = (e) => {
-    setCookTime(e.target.value);
-    dispatch({
-      type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { ...newRecipeData, cookTime: parseInt(e.target.value) },
-    });
+      setCookTime(e.target.value);
+      dispatch({
+        type: actionTypes.SET_NEWRECIPEDATA,
+        newRecipeData: { ...newRecipeData, cookTime: parseInt(e.target.value) },
+      });
   };
 
   // 食材標籤
@@ -124,7 +126,7 @@ const RecipeIngredients = () => {
         <OutlinedInput
           type="number"
           id="outlined-adornment-amount"
-          value={servingCount}
+          value={newRecipeData.isUpdated ? newRecipeData?.serving : servingCount}
           onChange={handleServingCount}
           endAdornment={<InputAdornment position="start">人份</InputAdornment>}
           label="Serving"
@@ -139,7 +141,7 @@ const RecipeIngredients = () => {
         <OutlinedInput
           type="number"
           id="outlined-adornment-amount"
-          value={cookTime}
+          value={newRecipeData.isUpdated ? newRecipeData?.cookTime : cookTime}
           onChange={handleCookTime}
           endAdornment={<InputAdornment position="start">分鐘</InputAdornment>}
           label="CookTime"
@@ -157,7 +159,7 @@ const RecipeIngredients = () => {
         options={ingredientsData}
         noOptionsText="查無，試試其他關鍵字！"
         loadingText="載入中"
-        onChange={(_, value) => handleIngredientTags(value)}
+        onChange={(_, value) => handleIngredientTags(isUpdated ? updateRecipeData?.ingredientTags:value)}
         onInputChange={(e) => console.log("fetch data from fireStore")}
         popupIcon={<SearchIcon />}
         disableCloseOnSelect
@@ -190,6 +192,7 @@ const RecipeIngredients = () => {
             id="standard-start-adornment"
             sx={{ my: 2, flex: 1 }}
             defaultValue={selectedIngredientsInfo[index]?.count}
+
             onChange={(e) =>
               handleIngredientCount(e, index, selectedIngredient?.name)
             }
@@ -228,7 +231,7 @@ const RecipeIngredients = () => {
               <TextField
                 variant="standard"
                 {...params}
-                onChange={(e) => handleIngredientUnit(index,e.target.value)}
+                onChange={(e) => handleIngredientUnit(index, e.target.value)}
                 label="單位"
               />
             )}

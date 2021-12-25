@@ -7,12 +7,16 @@ import { Box } from "@mui/system";
 import theme from "../../../function/theme";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Timestamp } from "firebase/firestore";
-import { addDoc, collection } from "firebase/firestore";
+import { updateDoc, doc, addDoc, collection } from "firebase/firestore";
 import { storage, db } from "../../../firebase";
+import { actionTypes } from "../../../reducer";
+
 // import { v4 as uuidv4 } from "uuid";
 
 const PreviewRecipe = () => {
-  const [{ newRecipeData }] = useStateValue();
+  const [{ newRecipeData, isUpdated}, dispatch] = useStateValue();
+
+  console.log();
   // 表單送出
   const handleSubmit = async () => {
     const result = {
@@ -21,15 +25,38 @@ const PreviewRecipe = () => {
       thumbnail: await getRemoteThumbnailURL(),
       steps: await getStepsWithRemoteImageURL(),
     };
-
+    dispatch({
+      type: actionTypes.SET_NEWRECIPEDATA,
+      newRecipeData: { ...newRecipeData },
+    });
+    dispatch({
+      type: actionTypes.SET_ISUPDATED,
+      isUpdated: false,
+    });
     clearStepsBlankContent();
     console.log(result);
+
     // 傳送至 fireStore
-    const docRef = await addDoc(collection(db, "recipes"), result);
-    console.log("Document written with ID: ", docRef.id);
+    if (isUpdated === true) {
+      const washingtonRef = doc(db, "recipes",newRecipeData?.id);
+      await updateDoc(washingtonRef, {
+        name: result.name,
+        rating: result.rating,
+        likes: result.likes,
+        serving: result.serving,
+        ingredientsInfo: result.ingredientsInfo,
+        ingredientTags: result.ingredientTags,
+        steps: result.steps,
+        createdAt: Timestamp.now().toDate(),
+      });
+    } else {
+      const docRef = await addDoc(collection(db, "recipes"), result);
+      console.log("Document written with ID: ", docRef.id);
+    }
 
     // need to clear global state
   };
+
   // 取得遠端網址的方法
   const getSingleRemoteURL = async (file) => {
     // 記得取出圖片檔案格式結尾 (e.g. .jpg .png ...

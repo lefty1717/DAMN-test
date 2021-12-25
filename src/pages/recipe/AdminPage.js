@@ -10,15 +10,21 @@ import AddRecipeStepper from "./AddNewRecipePage";
 import BottomNav from "../../components/BottomNav";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../function/theme";
-import ModifiedRecipePage from "../recipe/ModifiedRecipePage"
+import ModifiedRecipePage from "../recipe/ModifiedRecipePage";
+import { useStateValue } from "../../StateProvider";
+
 
 const AdminPage = () => {
   const user = { auth: "admin", name: "cuboid" };
   const [value, setValue] = React.useState(0);
 
+  const [{ newRecipeData,isUpdated },dispatch] = useStateValue();
+
+ 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setValue(newValue); 
   };
+
   return (
     <ThemeProvider theme={theme}>
       {user.auth === "admin" ? (
@@ -41,34 +47,34 @@ const AdminPage = () => {
               right: 0,
               color: "primary.main",
               bgcolor: "white.main",
-              zIndex: '100',
+              zIndex: "100",
             }}
             centered
           >
             <Tabs
-              value={value}
+              value={isUpdated === true ? 0 :value}
               onChange={handleChange}
               aria-label="basic tabs example"
               variant="scrollable"
               scrollButtons="auto"
             >
-              <Tab label="新增食譜" {...a11yProps(0)} />
+              <Tab label={isUpdated === true ? "修改食譜" :"新增食譜"} {...a11yProps(0)} />
               <Tab label="新增食材" {...a11yProps(1)} />
-              <Tab label="修改食譜" {...a11yProps(2)} />
+              <Tab label="管理食譜" {...a11yProps(2)} />
               <Tab label="發布通知" {...a11yProps(3)} />
-              {/* <Tab label="表格" {...a11yProps(4)} /> */}
+              {/* <Tab label="測試" {...a11yProps(4)} /> */}
             </Tabs>
           </Box>
           {/* 子頁面 */}
-          <Box sx={{ width: "100%", flex: "1", }}>
-            <TabPanel value={value} index={0}>
+          <Box sx={{ width: "100%", flex: "1" }}>
+            <TabPanel value={isUpdated === true ? 0 :value} index={0}>
               <AddRecipeStepper />
             </TabPanel>
             <TabPanel value={value} index={1}>
               <AddIngredientPage />
             </TabPanel>
-            <TabPanel value={value} index={2} disabled>
-              <ModifiedRecipePage/>
+            <TabPanel value={isUpdated === true ? 0 :value} index={2} disabled>
+              <ModifiedRecipePage />
             </TabPanel>
           </Box>
           {/* 下方導覽列 */}

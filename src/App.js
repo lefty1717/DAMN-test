@@ -16,15 +16,12 @@ import RecipeItemPage from "./pages/recipe/RecipeItemPage";
 import Assistant from "./components/Assistant";
 import { useStateValue } from "./StateProvider";
 import { actionTypes } from "./reducer";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
 
+import { HashRouter } from "react-router-dom";
+import RecipeSearchPage from "./pages/RecipeSearchPage";
 import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
 
 // 陳泓棣delete掉整個repository，所以我要重新PR
@@ -41,6 +38,7 @@ function App() {
             <Route index element={<RecipeHomePage />} />
             <Route path="recipe/admin/add" element={<AdminPage />} />
             <Route path="recipe/:id" element={<RecipeItemPage />} />
+            <Route path="recipe/search" element={<RecipeSearchPage />} />
           </Route>
 
           {/* login */}
@@ -50,18 +48,18 @@ function App() {
           {/* fridge */}
           <Route path="/fridge">
             <Route index element={<FridgePage />} />
-            <Route path="creatshoppinglist" element={<CreateShoppinglist/>} />
+            <Route path="creatshoppinglist" element={<CreateShoppinglist />} />
             <Route path="fridgemanage" element={<FridgeManagePage />} />
             <Route path="shoppinglist" element={<ShoppingListPage />} />
             <Route path="addshoppinglist" element={<AddShoppingListPage />} />
             <Route path="sendfoodlist" element={<SendFoodListPage />} />
           </Route>
 
-
           <Route path="profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
+      {/* 想用的，可以打開註解 */}
       <Assistant />
     </div>
   );

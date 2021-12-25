@@ -11,25 +11,17 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Select,
   Typography,
 } from "@mui/material";
 import { actionTypes } from "../../../reducer";
 import { useStateValue } from "../../../StateProvider";
+import useSearch from "../../../hooks/useSearch";
+// import { useSpeechRecognition } from "react-speech-recognition";
+// import { split } from "lodash";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-// mock data
-const ingredientsData = [
-  { id: 1, name: "牛肉" },
-  { id: 2, name: "青菜" },
-  { id: 3, name: "漢堡包" },
-  { id: 4, name: "日清鬆餅粉" },
-  { id: 5, name: "牛奶" },
-  { id: 6, name: "雞蛋" },
-  { id: 7, name: "奶油" },
-];
-// monk unit data
+// mock unit data
 const unitData = [
   { id: 1, name: "公克" },
   { id: 2, name: "斤" },
@@ -44,6 +36,31 @@ const RecipeIngredients = () => {
     useStateValue();
 
   
+  // const [{ newRecipeData }, dispatch] = useStateValue();
+  const [searchTerm, setSearchTerm] = useState("");
+  const ingredientsData = useSearch("ingredients", searchTerm);
+  // const result = useSearch("recipes", searchTerm);
+  console.log("result: ", ingredientsData);
+  // console.log("selectedIngredientTags: ", selectedIngredientTags);
+  
+  // 以下註解是我用來測試食譜語音搜尋的實驗
+  // const commands = [
+  //   {
+  //     command: ["幫我搜尋*", "查詢*"],
+  //     callback: (command) => {
+  //       //  handleSpeakAndResponse("什麼事？");
+  //       console.log(command);
+  //       const query = split(finalTranscript, command).pop();
+  //       console.log(query);
+
+  //       setSearchTerm(query);
+  //     },
+  //     isFuzzyMatch: true, // 模糊匹配
+  //     bestMatchOnly: true,
+  //     matchInterim: true,
+  //   },
+  // ];
+  // const { finalTranscript } = useSpeechRecognition({ commands });
 
   // 修改份數 serving
   const handleServingCount = (e) => {
@@ -89,7 +106,7 @@ const RecipeIngredients = () => {
       newRecipeData: { ...newRecipeData, ingredientsInfo: info },
     });
   };
-  // console.log(selectedIngredientsInfo);
+
   // 選中食材單位
   const handleIngredientUnit = (id, value) => {
     // console.log(`selected: ${id} unit: ${unit}`);
@@ -104,6 +121,9 @@ const RecipeIngredients = () => {
       newRecipeData: { ...newRecipeData, ingredientsInfo: info },
     });
   };
+
+  // 搜尋欄 onChange 事件
+  const onSearchChange = (e) => setSearchTerm(e.target.value);
 
   useEffect(() => {
     if (newRecipeData.ingredientsInfo.length !== 0) {
@@ -160,7 +180,7 @@ const RecipeIngredients = () => {
         noOptionsText="查無，試試其他關鍵字！"
         loadingText="載入中"
         onChange={(_, value) => handleIngredientTags(value)}
-        onInputChange={(e) => console.log("fetch data from fireStore")}
+        onInputChange={onSearchChange}
         popupIcon={<SearchIcon />}
         disableCloseOnSelect
         isOptionEqualToValue={(option, value) => option.id === value.id}

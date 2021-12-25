@@ -766,60 +766,63 @@ img {
           flex-direction: column;
 }
 
-.RecipeCardlist .block {
+.recipeCardlist .block {
   margin-top: 130px;
 }
 
-.RecipeCardlist .area {
+.recipeCardlist .area {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;
   margin-top: 20px !important;
 }
 
-.RecipeCardlist .content {
+.recipeCardlist .content {
   margin-right: 80px;
 }
 
-.RecipeCardlist .img {
+.recipeCardlist .img {
   width: 150px;
   height: 150px;
   border-radius: 20px;
   margin-right: 40px;
 }
 
-.RecipeCardlist .words {
+.recipeCardlist .words {
   font-weight: bolder !important;
 }
 
-.RecipeCardlist .icon {
+.recipeCardlist .icon {
   vertical-align: -4px;
 }
 
-.RecipeSearchBar .appBar {
+.recipeSearchBar .appBar {
   color: #F5F5F5 !important;
   background-color: #FE8B83 !important;
 }
 
-.RecipeSearchBar .toolBar {
-  height: 100px;
+.recipeSearchBar .toolBar {
+  height: 90px;
 }
 
-.RecipeSearchBar .stack {
+.recipeSearchBar .stack {
+  margin-top: 14px;
   margin-bottom: 15px;
   margin-left: 18px;
   overflow: scroll;
 }
 
-.RecipeSearchBar .stack::-webkit-scrollbar {
+.recipeSearchBar .stack::-webkit-scrollbar {
   display: none;
 }
 
-.RecipeSearchBar .iconBar {
+.recipeSearchBar .iconBar {
   margin-left: 12px;
+  margin-top: 35px;
+  color: #F5F5F5 !important;
 }
 
-.RecipeSearchBar .inputBase {
+.recipeSearchBar .inputBase {
   width: 380px;
   font-size: large !important;
   margin-left: 15px;
@@ -827,7 +830,7 @@ img {
   border-radius: 20px;
 }
 
-.RecipeSearchBar .chip {
+.recipeSearchBar .chip {
   color: #707070 !important;
   font-size: large !important;
   font-weight: bolder !important;

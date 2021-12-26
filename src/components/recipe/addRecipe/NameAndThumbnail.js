@@ -9,20 +9,21 @@ import theme from "../../../function/theme";
 import CustomIcon from "../../Icon";
 import RecipeRating from "../../../components/recipe/addRecipe/RecipeRating";
 import { Typography } from "@mui/material";
-const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
+
+const NameAndThumbnail = ({ recipeData, setRecipeData , recipes }) => {
   const Input = styled("input")({
     display: "none",
   });
-  const [{ newRecipeData }, dispatch] = useStateValue();
+  const [{ newRecipeData,isUpdated}, dispatch] = useStateValue();
   const [name, setName] = useState("");
-
+    
   // 修改食譜名稱
   const handleRecipeName = (e) => {
     setName(e.target.value);
-    dispatch({
-      type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { ...newRecipeData, name: e.target.value },
-    });
+      dispatch({
+        type: actionTypes.SET_NEWRECIPEDATA,
+        newRecipeData: { ...newRecipeData, name: e.target.value },
+      });
   };
 
   // 顯示 食譜縮圖 (show recipe thumbnail)
@@ -58,10 +59,9 @@ const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
           maxRows={4}
           required
           margin="dense"
-          value={name}
           onChange={handleRecipeName}
-        />
-        {/* 食譜封面圖片 */}
+          value={isUpdated?newRecipeData?.name:name}
+        />        {/* 食譜封面圖片 */}
         <Typography variant="h6" gutterBottom component="div">
           食譜封面圖片
         </Typography>
@@ -73,12 +73,14 @@ const NameAndThumbnail = ({ recipeData, setRecipeData }) => {
               border: "1px dashed grey",
               minHeight: "300px",
               display: "flex",
+              flexDirection:"column",
               justifyContent: "center",
               alignItems: "center",
               color: "primary.main",
             }}
           >
-            <img src={newRecipeData?.thumbnail?.url} alt="" loading="lazy" />
+            {/* <img src={newRecipeData?.thumbnail?.url} alt="" loading="lazy" /> */}
+            <img src={isUpdated?newRecipeData?.thumbnail?.url:newRecipeData?.thumbnail?.url} alt="" loading="lazy" />
             <Input
               accept="image/*"
               id="icon-button-file"

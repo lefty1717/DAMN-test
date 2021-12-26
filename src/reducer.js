@@ -10,12 +10,15 @@ export const initialState = {
     steps: [],
   },
   navbarBtnId: 0,
+  isUpdated: false,
 };
 
 export const actionTypes = {
   SET_USER: "SET_USER",
   SET_NEWRECIPEDATA: "SET_NEWRECIPEDATA",
   SET_BOTTOMNAVBARID: "SET_BOTTOMNAVBARID",
+  SET_ISUPDATED: "SET_ISUPDATED",
+  SET_UPDATE_RECIPE_DATA: "SET_UPDATE_RECIPE_DATA",
 };
 
 const reducer = (state, action) => {
@@ -35,6 +38,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         navbarBtnId: action.navbarBtnId,
+      };
+    case actionTypes.SET_ISUPDATED:
+      return {
+        ...state,
+        isUpdated: action.isUpdated,
       };
 
     default:

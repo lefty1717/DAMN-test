@@ -32,7 +32,11 @@ const RecipeIngredients = () => {
   const [cookTime, setCookTime] = useState(0);
   const [selectedIngredientTags, setSelectedIngredientTags] = useState([]);
   const [selectedIngredientsInfo, setSelectedIngredientsInfo] = useState([]);
-  const [{ newRecipeData }, dispatch] = useStateValue();
+  const [{ newRecipeData,isUpdated }, dispatch] =
+    useStateValue();
+
+  
+  // const [{ newRecipeData }, dispatch] = useStateValue();
   const [searchTerm, setSearchTerm] = useState("");
   const ingredientsData = useSearch("ingredients", searchTerm);
   // const result = useSearch("recipes", searchTerm);
@@ -61,18 +65,18 @@ const RecipeIngredients = () => {
   // 修改份數 serving
   const handleServingCount = (e) => {
     setServingCount(e.target.value);
-    dispatch({
-      type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { ...newRecipeData, serving: parseInt(e.target.value) },
-    });
+      dispatch({
+        type: actionTypes.SET_NEWRECIPEDATA,
+        newRecipeData: { ...newRecipeData, serving: parseInt(e.target.value) },
+      });
   };
   // 修改料理時間 cookTime
   const handleCookTime = (e) => {
-    setCookTime(e.target.value);
-    dispatch({
-      type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { ...newRecipeData, cookTime: parseInt(e.target.value) },
-    });
+      setCookTime(e.target.value);
+      dispatch({
+        type: actionTypes.SET_NEWRECIPEDATA,
+        newRecipeData: { ...newRecipeData, cookTime: parseInt(e.target.value) },
+      });
   };
 
   // 食材標籤
@@ -142,7 +146,7 @@ const RecipeIngredients = () => {
         <OutlinedInput
           type="number"
           id="outlined-adornment-amount"
-          value={servingCount}
+          value={isUpdated ? newRecipeData?.serving : servingCount}
           onChange={handleServingCount}
           endAdornment={<InputAdornment position="start">人份</InputAdornment>}
           label="Serving"
@@ -157,7 +161,7 @@ const RecipeIngredients = () => {
         <OutlinedInput
           type="number"
           id="outlined-adornment-amount"
-          value={cookTime}
+          value={isUpdated ? newRecipeData?.cookTime : cookTime}
           onChange={handleCookTime}
           endAdornment={<InputAdornment position="start">分鐘</InputAdornment>}
           label="CookTime"
@@ -208,6 +212,7 @@ const RecipeIngredients = () => {
             id="standard-start-adornment"
             sx={{ my: 2, flex: 1 }}
             defaultValue={selectedIngredientsInfo[index]?.count}
+
             onChange={(e) =>
               handleIngredientCount(e, index, selectedIngredient?.name)
             }
@@ -226,7 +231,7 @@ const RecipeIngredients = () => {
             options={unitData}
             freeSolo
             getOptionLabel={(option) => option.name}
-            // defaultValue={selectedIngredient?.unit.name}
+            defaultValue={selectedIngredient?.unit.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(_, value) => handleIngredientUnit(index, value)}
             sx={[

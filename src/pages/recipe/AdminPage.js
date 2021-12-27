@@ -59,7 +59,7 @@ const AdminPage = () => {
               scrollButtons="auto"
             >
               <Tab label={isUpdated === true ? "修改食譜" :"新增食譜"} {...a11yProps(0)} />
-              <Tab label="新增食材" {...a11yProps(1)} />
+              <Tab label="管理食材" {...a11yProps(1)} />
               <Tab label="管理食譜" {...a11yProps(2)} />
               <Tab label="發布通知" {...a11yProps(3)} />
               {/* <Tab label="測試" {...a11yProps(4)} /> */}

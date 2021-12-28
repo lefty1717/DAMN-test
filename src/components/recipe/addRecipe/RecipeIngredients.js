@@ -231,7 +231,7 @@ const RecipeIngredients = () => {
             options={unitData}
             freeSolo
             getOptionLabel={(option) => option.name}
-            defaultValue={selectedIngredient?.unit.name}
+            defaultValue={selectedIngredient?.unit?.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(_, value) => handleIngredientUnit(index, value)}
             sx={[

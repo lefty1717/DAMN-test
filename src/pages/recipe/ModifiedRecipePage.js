@@ -21,7 +21,8 @@ import { db } from "../../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 import { useStateValue } from "../../StateProvider";
 import { actionTypes } from "../../reducer";
-import moment from 'moment'
+import moment from "moment";
+import Rating from "@mui/material/Rating";
 
 function ModifiedRecipePage() {
   const [deleted, setDeleted] = useState(0);
@@ -30,10 +31,9 @@ function ModifiedRecipePage() {
   //修改提醒
   const [open2, setOpen2] = React.useState(false);
   const [recordId, setRecordId] = React.useState("");
-  const [selectedRecipe , setSelectedRecipe ] = useState(null)
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const [{ isUpdated }, dispatch] = useStateValue();
-  
 
   console.log(isUpdated);
   console.log(recordId);
@@ -87,8 +87,8 @@ function ModifiedRecipePage() {
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
         temp.push({
-            id:doc.id,
-            ...doc.data()
+          id: doc.id,
+          ...doc.data(),
         });
       });
       console.log(temp);
@@ -106,7 +106,7 @@ function ModifiedRecipePage() {
             <TableRow>
               <TableCell>名稱</TableCell>
               <TableCell>作者</TableCell>
-              <TableCell>創造時間</TableCell>
+              <TableCell>創造/更新時間</TableCell>
               <TableCell>難度星等</TableCell>
               <TableCell>修改</TableCell>
               <TableCell>刪除</TableCell>
@@ -122,8 +122,12 @@ function ModifiedRecipePage() {
                   {recipe.name}
                 </TableCell>
                 <TableCell>{recipe.authorId}</TableCell>
-                <TableCell>{moment(recipe.createdAt.seconds*1000).format('YYYY/MM/DD')}</TableCell>
-                <TableCell>難度星等</TableCell>
+                <TableCell>
+                  {moment(recipe.createdAt.seconds * 1000).format("YYYY/MM/DD")}
+                </TableCell>
+                <TableCell>
+                  <Rating name="read-only" value={recipe.rating} readOnly />
+                </TableCell>
                 <TableCell>
                   <Button onClick={() => handleClickOpen2(recipe)}>
                     <EditIcon />

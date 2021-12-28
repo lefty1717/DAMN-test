@@ -37,7 +37,7 @@ function useSearch(index = "ingredients", value) {
   useEffect(() => {
     // 將 firestore 的資料，移到 algolia
     // 只需執行一次，之後 algolia 會監聽 firestore 的變化(理論上是)
-    // moveDataToAlgolia();
+    moveDataToAlgolia();
   }, []);
 
   // 每當 index 或是 value 有變動時，就重新 fetchData

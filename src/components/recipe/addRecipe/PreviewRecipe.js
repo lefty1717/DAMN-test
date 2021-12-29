@@ -10,8 +10,7 @@ import { Timestamp } from "firebase/firestore";
 import { updateDoc, doc, addDoc, collection } from "firebase/firestore";
 import { storage, db } from "../../../firebase";
 import { actionTypes } from "../../../reducer";
-
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 const PreviewRecipe = () => {
   const [{ newRecipeData, isUpdated }, dispatch] = useStateValue();
@@ -67,10 +66,11 @@ const PreviewRecipe = () => {
 
   // 取得遠端網址的方法
   const getSingleRemoteURL = async (file) => {
-    // 記得取出圖片檔案格式結尾 (e.g. .jpg .png ...
-    // const recipesRef = ref(storage, `recipes/${uuidv4()}.jpg`);
     if (!file) return;
-    const recipesRef = ref(storage, `recipes/${file.name}`);
+    // 記得取出圖片檔案格式結尾 (e.g. .jpg .png ...
+    const recipesRef = ref(storage, `recipes/${uuidv4()}.jpg`);
+
+    //const recipesRef = ref(storage, `recipes/${file.name}`);
     const metadata = { ...file };
     // {
     //   name: file.name,
@@ -80,7 +80,7 @@ const PreviewRecipe = () => {
     //   lastModifiedDate: file.lastModifiedDate,
     // };
     console.log(metadata);
-    uploadBytes(recipesRef, file, metadata)
+   await uploadBytes(recipesRef, file, metadata)
       .then((snapshot) => {
         console.log("Uploaded success");
       })

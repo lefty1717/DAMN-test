@@ -70,6 +70,7 @@ const RecipeIngredients = () => {
         newRecipeData: { ...newRecipeData, serving: parseInt(e.target.value) },
       });
   };
+  
   // 修改料理時間 cookTime
   const handleCookTime = (e) => {
       setCookTime(e.target.value);

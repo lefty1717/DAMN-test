@@ -14,8 +14,7 @@ import { actionTypes } from "../../../reducer";
 // import { v4 as uuidv4 } from "uuid";
 
 const PreviewRecipe = () => {
-  const [{ newRecipeData, isUpdated}, dispatch] = useStateValue();
-
+  const [{ newRecipeData, isUpdated }, dispatch] = useStateValue();
 
   console.log();
   // 表單送出
@@ -28,7 +27,7 @@ const PreviewRecipe = () => {
     };
     dispatch({
       type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { 
+      newRecipeData: {
         name: "",
         rating: 2,
         likes: 0,
@@ -46,8 +45,8 @@ const PreviewRecipe = () => {
     console.log(result);
 
     // 傳送至 fireStore
-    if (isUpdated === true) {
-      const washingtonRef = doc(db, "recipes",newRecipeData?.id);
+    if (isUpdated) {
+      const washingtonRef = doc(db, "recipes", newRecipeData?.id);
       await updateDoc(washingtonRef, {
         name: result.name,
         rating: result.rating,
@@ -59,8 +58,8 @@ const PreviewRecipe = () => {
         createdAt: Timestamp.now().toDate(),
       });
     } else {
-      const docRef = await addDoc(collection(db, "recipes"), result);
-      console.log("Document written with ID: ", docRef.id);
+      //const docRef = await addDoc(collection(db, "recipes"), result);
+      //console.log("Document written with ID: ", docRef.id);
     }
 
     // need to clear global state
@@ -72,7 +71,16 @@ const PreviewRecipe = () => {
     // const recipesRef = ref(storage, `recipes/${uuidv4()}.jpg`);
     if (!file) return;
     const recipesRef = ref(storage, `recipes/${file.name}`);
-    uploadBytes(recipesRef, file)
+    const metadata = { ...file };
+    // {
+    //   name: file.name,
+    //   contentType: file.type,
+    //   lastModified: file.lastModified,
+    //   size: file.size,
+    //   lastModifiedDate: file.lastModifiedDate,
+    // };
+    console.log(metadata);
+    uploadBytes(recipesRef, file, metadata)
       .then((snapshot) => {
         console.log("Uploaded success");
       })
@@ -122,7 +130,7 @@ const PreviewRecipe = () => {
           sx={{ mt: 2 }}
           variant="contained"
         >
-          {isUpdated === true ? "修改":"發布"}食譜
+          {isUpdated === true ? "修改" : "發布"}食譜
         </Button>
       </Box>
     </ThemeProvider>

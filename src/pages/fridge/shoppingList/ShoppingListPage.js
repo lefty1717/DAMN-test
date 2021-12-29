@@ -5,8 +5,8 @@ import ShoppingListBar from "../../../components/shoppingList/ShoppingListBar";
 export default function ShoppingListPage() {
   return(
         <div>
-            <ShoppingListBar/>
-            <ShoppingList />
+            <ShoppingListBar isInShoppingList/>
+            <ShoppingList isButtonDisable={true} />
         </div>
   )
 };

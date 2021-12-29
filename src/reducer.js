@@ -11,6 +11,8 @@ export const initialState = {
   },
   navbarBtnId: 0,
   isUpdated: false,
+  
+  checkedList: []
 };
 
 export const actionTypes = {
@@ -19,6 +21,7 @@ export const actionTypes = {
   SET_BOTTOMNAVBARID: "SET_BOTTOMNAVBARID",
   SET_ISUPDATED: "SET_ISUPDATED",
   SET_UPDATE_RECIPE_DATA: "SET_UPDATE_RECIPE_DATA",
+  SET_CHECKEDLIST: "SET_CHECKEDLIST",
 };
 
 const reducer = (state, action) => {
@@ -43,6 +46,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         isUpdated: action.isUpdated,
+      };
+    case actionTypes.SET_CHECKEDLIST:
+      return {
+        ...state,
+        checkedList: action.checkedList,
       };
 
     default:

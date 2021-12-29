@@ -23,6 +23,7 @@ import NotFound from "./pages/NotFoundPage";
 import { HashRouter } from "react-router-dom";
 import RecipeSearchPage from "./pages/RecipeSearchPage";
 import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
+import CheckFoodListPage from "./pages/fridge/shoppingList/CheckFoodListPage";
 
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
@@ -53,6 +54,7 @@ function App() {
             <Route path="shoppinglist" element={<ShoppingListPage />} />
             <Route path="addshoppinglist" element={<AddShoppingListPage />} />
             <Route path="sendfoodlist" element={<SendFoodListPage />} />
+            <Route path="checkfoodlist" element={<CheckFoodListPage />} />
           </Route>
 
           <Route path="profile" element={<ProfilePage />} />

@@ -11,8 +11,9 @@ import { updateDoc, doc, addDoc, collection } from "firebase/firestore";
 import { storage, db } from "../../../firebase";
 import { actionTypes } from "../../../reducer";
 import { v4 as uuidv4 } from "uuid";
-
+import { useNavigate } from "react-router-dom";
 const PreviewRecipe = () => {
+  const navigate = useNavigate();
   const [{ newRecipeData, isUpdated }, dispatch] = useStateValue();
 
   console.log();
@@ -57,11 +58,17 @@ const PreviewRecipe = () => {
         createdAt: Timestamp.now().toDate(),
       });
     } else {
-      //const docRef = await addDoc(collection(db, "recipes"), result);
-      //console.log("Document written with ID: ", docRef.id);
+      const docRef = await addDoc(collection(db, "recipes"), result);
+      console.log("Document written with ID: ", docRef.id);
     }
 
     // need to clear global state
+    dispatch({       
+      type: actionTypes.SET_NEWRECIPEDATA,
+      newRecipeData: {},
+    });
+    // navigate to homepage page
+    navigate("/");
   };
 
   // 取得遠端網址的方法
@@ -80,7 +87,7 @@ const PreviewRecipe = () => {
     //   lastModifiedDate: file.lastModifiedDate,
     // };
     console.log(metadata);
-   await uploadBytes(recipesRef, file, metadata)
+    await uploadBytes(recipesRef, file, metadata)
       .then((snapshot) => {
         console.log("Uploaded success");
       })

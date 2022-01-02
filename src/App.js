@@ -24,6 +24,7 @@ import { HashRouter } from "react-router-dom";
 import RecipeSearchPage from "./pages/RecipeSearchPage";
 import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
 import { auth } from "./firebase";
+import CheckFoodListPage from "./pages/fridge/shoppingList/CheckFoodListPage";
 
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
@@ -59,20 +60,16 @@ function App() {
                 <Route path="recipe/search" element={<RecipeSearchPage />} />
               </Route>
 
-              <Route path="/fridge">
-                <Route index element={<FridgePage />} />
-                <Route
-                  path="creatshoppinglist"
-                  element={<CreateShoppinglist />}
-                />
-                <Route path="fridgemanage" element={<FridgeManagePage />} />
-                <Route path="shoppinglist" element={<ShoppingListPage />} />
-                <Route
-                  path="addshoppinglist"
-                  element={<AddShoppingListPage />}
-                />
-                <Route path="sendfoodlist" element={<SendFoodListPage />} />
-              </Route>
+          {/* fridge */}
+          <Route path="/fridge">
+            <Route index element={<FridgePage />} />
+            <Route path="creatshoppinglist" element={<CreateShoppinglist />} />
+            <Route path="fridgemanage" element={<FridgeManagePage />} />
+            <Route path="shoppinglist" element={<ShoppingListPage />} />
+            <Route path="addshoppinglist" element={<AddShoppingListPage />} />
+            <Route path="sendfoodlist" element={<SendFoodListPage />} />
+            <Route path="checkfoodlist" element={<CheckFoodListPage />} />
+          </Route>
 
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="*" element={<NotFound />} />

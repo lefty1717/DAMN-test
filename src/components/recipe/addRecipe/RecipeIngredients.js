@@ -39,8 +39,13 @@ const RecipeIngredients = () => {
   // const [{ newRecipeData }, dispatch] = useStateValue();
   const [searchTerm, setSearchTerm] = useState("");
   const ingredientsData = useSearch("ingredients", searchTerm);
-  // const result = useSearch("recipes", searchTerm);
-  console.log("result: ", ingredientsData);
+  // 冰箱查詢
+  const result = useSearch(
+    "fridge",
+    searchTerm,
+    "3HuEsCE9jUlCm68eBQf4"
+  );
+  console.log("result: ", result);
   // console.log("selectedIngredientTags: ", selectedIngredientTags);
   
   // 以下註解是我用來測試食譜語音搜尋的實驗
@@ -70,6 +75,7 @@ const RecipeIngredients = () => {
         newRecipeData: { ...newRecipeData, serving: parseInt(e.target.value) },
       });
   };
+
   // 修改料理時間 cookTime
   const handleCookTime = (e) => {
       setCookTime(e.target.value);

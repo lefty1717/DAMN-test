@@ -1,19 +1,33 @@
 import React from "react";
-import { Card ,Typography} from "@mui/material";
+import { Card ,Input,Typography} from "@mui/material";
 import BuyDatePicker from "./BuyDatePicker";
 import WeightText from "./WeightText";
 import EndatePicker from "./EndDatePicker";
 import UnitSelecter from "./UnitSelecter";
 import FoodKindSelecter from "./FoodKindSelecter";
 import { display, height, width } from "@mui/system";
+import { actionTypes } from "../../../reducer";
+import { useStateValue } from "../../../StateProvider";
 
-export default function SendFoodListCard(){
+export default function SendFoodListCard(props){
+    const [{ checkedList }, dispatch] = useStateValue();
+    
+    const handleCheckListChange = function(e){
+        let oldList = [...checkedList];
+        oldList[props.index] = {...oldList[props.index],[e.target.name]:e.target.value}
+        dispatch({
+          type: actionTypes.SET_CHECKEDLIST,
+          checkedList: [...oldList],
+        });
+        
+    }
+
     return(
         <div >
             <Card sx={{
                 justifyContent:"space-between",
                 display:"flex",
-                flexDirection:"row",
+                flexDirection:"column",
                 alignItems:"center",
                 padding:"60px 0 50px 50px"
                 }}>
@@ -26,7 +40,7 @@ export default function SendFoodListCard(){
                     padding:"11px 20px",
                     boxShadow:"none",
                     }}>
-                    雞肉
+                    {props.item.name}
                     </Typography>
                 <Card sx={{
                     justifyContent:"space-around",
@@ -34,7 +48,7 @@ export default function SendFoodListCard(){
                     width:"50%",
                     boxShadow:"none",
                 }}>
-                  <FoodKindSelecter/>  
+                  <FoodKindSelecter/>
                 </Card>
                 
                 <Card sx={{
@@ -53,7 +67,7 @@ export default function SendFoodListCard(){
                     padding:"11px 0 26 0px",
                     boxShadow:"none",
                 }}>
-                    <WeightText/>
+                    <Input name="quantity" placeholder={props.item.quantity} onChange={handleCheckListChange} />
                 </Card>
                 
                 <Card sx={{
@@ -63,7 +77,7 @@ export default function SendFoodListCard(){
                     width:"50%",
                     boxShadow:"none",
                 }}>
-                    <UnitSelecter/>
+                    {props.item.unit}
                 </Card>
                 
             </Card>

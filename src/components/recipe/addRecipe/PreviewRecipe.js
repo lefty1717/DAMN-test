@@ -10,12 +10,11 @@ import { Timestamp } from "firebase/firestore";
 import { updateDoc, doc, addDoc, collection } from "firebase/firestore";
 import { storage, db } from "../../../firebase";
 import { actionTypes } from "../../../reducer";
-
-// import { v4 as uuidv4 } from "uuid";
-
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 const PreviewRecipe = () => {
-  const [{ newRecipeData, isUpdated}, dispatch] = useStateValue();
-
+  const navigate = useNavigate();
+  const [{ newRecipeData, isUpdated }, dispatch] = useStateValue();
 
   console.log();
   // 表單送出
@@ -28,7 +27,7 @@ const PreviewRecipe = () => {
     };
     dispatch({
       type: actionTypes.SET_NEWRECIPEDATA,
-      newRecipeData: { 
+      newRecipeData: {
         name: "",
         rating: 2,
         likes: 0,
@@ -46,8 +45,8 @@ const PreviewRecipe = () => {
     console.log(result);
 
     // 傳送至 fireStore
-    if (isUpdated === true) {
-      const washingtonRef = doc(db, "recipes",newRecipeData?.id);
+    if (isUpdated) {
+      const washingtonRef = doc(db, "recipes", newRecipeData?.id);
       await updateDoc(washingtonRef, {
         name: result.name,
         rating: result.rating,
@@ -64,15 +63,31 @@ const PreviewRecipe = () => {
     }
 
     // need to clear global state
+    dispatch({       
+      type: actionTypes.SET_NEWRECIPEDATA,
+      newRecipeData: {},
+    });
+    // navigate to homepage page
+    navigate("/");
   };
 
   // 取得遠端網址的方法
   const getSingleRemoteURL = async (file) => {
-    // 記得取出圖片檔案格式結尾 (e.g. .jpg .png ...
-    // const recipesRef = ref(storage, `recipes/${uuidv4()}.jpg`);
     if (!file) return;
-    const recipesRef = ref(storage, `recipes/${file.name}`);
-    uploadBytes(recipesRef, file)
+    // 記得取出圖片檔案格式結尾 (e.g. .jpg .png ...
+    const recipesRef = ref(storage, `recipes/${uuidv4()}.jpg`);
+
+    //const recipesRef = ref(storage, `recipes/${file.name}`);
+    const metadata = { ...file };
+    // {
+    //   name: file.name,
+    //   contentType: file.type,
+    //   lastModified: file.lastModified,
+    //   size: file.size,
+    //   lastModifiedDate: file.lastModifiedDate,
+    // };
+    console.log(metadata);
+    await uploadBytes(recipesRef, file, metadata)
       .then((snapshot) => {
         console.log("Uploaded success");
       })
@@ -122,7 +137,7 @@ const PreviewRecipe = () => {
           sx={{ mt: 2 }}
           variant="contained"
         >
-          {isUpdated === true ? "修改":"發布"}食譜
+          {isUpdated === true ? "修改" : "發布"}食譜
         </Button>
       </Box>
     </ThemeProvider>

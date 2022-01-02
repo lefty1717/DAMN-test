@@ -638,6 +638,10 @@ img {
           align-items: center;
 }
 
+.input-container .input-foodname h5 {
+  margin-top: 76px;
+}
+
 .input-container .input-foodname .css-kx6rml-MuiStack-root {
   margin: 0;
 }
@@ -873,13 +877,15 @@ img {
   padding: 0 20px 0 0;
 }
 
-.css-kx6rml-MuiStack-root {
+.inputcontainer {
+  margin-left: 20px;
   margin-top: 40px;
-  margin-right: 20px;
+  width: 144px;
+  height: 28px;
 }
 
-.css-wb57ya-MuiFormControl-root-MuiTextField-root {
-  background-color: white;
+.inputcontainer input {
+  border-color: #FFFFFF;
 }
 
 .upload {

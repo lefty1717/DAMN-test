@@ -126,7 +126,7 @@ function ModifiedRecipePage() {
                   {moment(recipe.createdAt.seconds * 1000).format("YYYY/MM/DD")}
                 </TableCell>
                 <TableCell>
-                  <Rating name="read-only" value={recipe.rating} readOnly />
+                  <Rating name="read-only" value={recipe.rating} precision={0.5} readOnly />
                 </TableCell>
                 <TableCell>
                   <Button onClick={() => handleClickOpen2(recipe)}>

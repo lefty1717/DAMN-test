@@ -23,40 +23,61 @@ import NotFound from "./pages/NotFoundPage";
 import { HashRouter } from "react-router-dom";
 import RecipeSearchPage from "./pages/RecipeSearchPage";
 import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
+import { auth } from "./firebase";
 
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
-  const [{ user, newRecipeData }, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
   // console.log(user);
+
+  useEffect(() => {
+    if (!user && localStorage.getItem("userUid")){
+      const userUid = localStorage.getItem("userUid")
+      dispatch({
+        type:actionTypes.SET_USER,
+        user:userUid,
+    })
+  }
+  }, []);
 
   return (
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/">
-            <Route index element={<RecipeHomePage />} />
-            <Route path="recipe/admin/add" element={<AdminPage />} />
-            <Route path="recipe/:id" element={<RecipeItemPage />} />
-            <Route path="recipe/search" element={<RecipeSearchPage />} />
-          </Route>
+          {!user ? (
+            <Route path="/">
+              <Route index element={<LoginPage />} />
+              <Route path="signup" element={<SignupPage />} />
+            </Route>
+          ) : (
+            <>
+              <Route path="/">
+                <Route index element={<RecipeHomePage />} />
+                <Route path="recipe/admin/add" element={<AdminPage />} />
+                <Route path="recipe/:id" element={<RecipeItemPage />} />
+                <Route path="recipe/search" element={<RecipeSearchPage />} />
+              </Route>
 
-          {/* login */}
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
+              <Route path="/fridge">
+                <Route index element={<FridgePage />} />
+                <Route
+                  path="creatshoppinglist"
+                  element={<CreateShoppinglist />}
+                />
+                <Route path="fridgemanage" element={<FridgeManagePage />} />
+                <Route path="shoppinglist" element={<ShoppingListPage />} />
+                <Route
+                  path="addshoppinglist"
+                  element={<AddShoppingListPage />}
+                />
+                <Route path="sendfoodlist" element={<SendFoodListPage />} />
+              </Route>
 
-          {/* fridge */}
-          <Route path="/fridge">
-            <Route index element={<FridgePage />} />
-            <Route path="creatshoppinglist" element={<CreateShoppinglist />} />
-            <Route path="fridgemanage" element={<FridgeManagePage />} />
-            <Route path="shoppinglist" element={<ShoppingListPage />} />
-            <Route path="addshoppinglist" element={<AddShoppingListPage />} />
-            <Route path="sendfoodlist" element={<SendFoodListPage />} />
-          </Route>
-
-          <Route path="profile" element={<ProfilePage />} />
-          <Route path="*" element={<NotFound />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="*" element={<NotFound />} />
+            </>
+          )}
         </Routes>
       </Router>
       {/* 想用的，可以打開註解 */}

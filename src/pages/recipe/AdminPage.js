@@ -70,7 +70,7 @@ const AdminPage = () => {
             <TabPanel value={isUpdated === true ? 0 :value} index={0}>
               <AddRecipeStepper />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={isUpdated === true ? 0 :value} index={1}>
               <AddIngredientPage />
             </TabPanel>
             <TabPanel value={isUpdated === true ? 0 :value} index={2} disabled>

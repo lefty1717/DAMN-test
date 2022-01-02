@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import { Link } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import facebookIcon from "../../src/images/facebookIcon.png";
 import googleIcon from "../../src/images/googleIcon.png";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -14,7 +11,7 @@ import { actionTypes } from '../reducer';
 import { useStateValue } from '../StateProvider';
 
 
-const LoginPage = (props) => {
+const LoginPage = () => {
     
   const [account, setAccount] = useState({
     email: "",
@@ -44,18 +41,15 @@ const LoginPage = (props) => {
           type:actionTypes.SET_USER,
           user:auth.currentUser,
       })
-        // console.log(auth.currentUser.displayName);
-        props.setStatus("signedIn");
+        console.log(auth.currentUser.displayName);
       }
+
+      localStorage.setItem("userUid",auth.currentUser.uid);
 
       setMessage("");
     } catch (error) {
       setMessage("" + error);
     }
-  };
-
-  const changeStatus = function () {
-    props.setStatus("signUp");
   };
 
 
@@ -81,11 +75,6 @@ const LoginPage = (props) => {
           <br />
           {message}
           <br />
-          <div align="right">
-            <Link sx={{ color: "#C4C4C4", textDecoration: "none" }}>
-              忘記密碼?
-            </Link>
-          </div>
         </Card>
 
         <Card className="login-sugnup-Button">
@@ -94,25 +83,16 @@ const LoginPage = (props) => {
           </Button>
         </Card>
 
-        <Card className="signupLink">
-          <div align="center">
-            還沒有帳號嗎？
-            <Link className="link" onClick={changeStatus}>
-              註冊一個
-            </Link>
-          </div>
-        </Card>
-
         <Card className="otherLoginOptions">
           <div align="center">
-            <Button>
+            {/* <Button>
               <Avatar src={googleIcon}></Avatar>
-            </Button>
+            </Button> */}
             <Button>
-              <Avatar src={facebookIcon} className="avatar"></Avatar>
+              忘記密碼
             </Button>
-            <Button>
-              <TwitterIcon className="twitterIcon"></TwitterIcon>
+            <Button href="signup">
+              註冊一個
             </Button>
           </div>
         </Card>

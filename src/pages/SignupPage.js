@@ -5,7 +5,9 @@ import Grid from "@mui/material/Grid";
 import { Link } from "@mui/material";
 
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {auth} from "../firebase";
+import { auth } from "../firebase";
+import { collection, addDoc ,doc,setDoc} from "firebase/firestore"; 
+import { db } from "../firebase";
 
 const SignupPage = (props) => {
   const [account, setAccount] = useState({
@@ -36,17 +38,26 @@ const SignupPage = (props) => {
         });
       }
 
+      await setDoc(doc(db, "users",`${auth.currentUser.uid}`), {
+        name:account.displayName,
+        auth:"normal",
+      });
+
+      await addDoc(collection(db,`users/${auth.currentUser.uid}`,"fridge"),{
+
+      });
+
+      await addDoc(collection(db,`users/${auth.currentUser.uid}`,"shoppingList"),{
+
+      });
+
       setMessage("");
+      console.log(auth.currentUser.uid)
+      console.log("註冊成功")
     } catch (error) {
       setMessage("" + error);
     }
   };
-
-  const changeStatus = function(){
-
-    props.setStatus("signIn");
-
-  }
 
   return (
     <div className="login-signup-Page">
@@ -85,10 +96,12 @@ const SignupPage = (props) => {
         </Card>
 
         <Card className="login-sugnup-Button">
-          <Button fullWidth onClick={handleSubmit}>
-            註冊
-          </Button>
-          <Link className="link"onClick={changeStatus} >我要登入</Link>
+          <div align="center">
+            <Button fullWidth onClick={handleSubmit}>
+              註冊
+            </Button>
+            <Button href="/">馬上登入</Button>
+          </div>
         </Card>
       </Grid>
     </div>
@@ -96,4 +109,3 @@ const SignupPage = (props) => {
 };
 
 export default SignupPage;
-

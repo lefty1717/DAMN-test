@@ -23,7 +23,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-
 const CATEGORIES = [
   { id: 1, name: "肉類" },
   { id: 2, name: "豆類" },
@@ -50,7 +49,6 @@ const AddIngredientPage = () => {
     setRecordId(id);
   };
 
-
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
@@ -64,7 +62,7 @@ const AddIngredientPage = () => {
       name: name,
       category: category,
     });
-    setAdd(add+1);
+    setAdd(add + 1);
     console.log("new ingredient:", docRef.id);
   };
 
@@ -91,8 +89,7 @@ const AddIngredientPage = () => {
     }
     console.log(ingredients);
     readData();
-  }, [db,deleted,add]);
-
+  }, [db, deleted, add]);
 
   const deleteData = async function (id) {
     try {
@@ -123,7 +120,7 @@ const AddIngredientPage = () => {
           variant="outlined"
           onChange={handleChangeName}
         />
-        <FormControl fullWidth>
+        <FormControl>
           <InputLabel id="demo-simple-select-label">Category</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -133,9 +130,7 @@ const AddIngredientPage = () => {
             onChange={handleChangeCategory}
           >
             {CATEGORIES.map(({ id, name }) => (
-              <MenuItem key={id} value={name}>
-                {name}
-              </MenuItem>
+              <MenuItem value={name} key={id} sx={{display:'block'}}>{name}</MenuItem>
             ))}
           </Select>
         </FormControl>

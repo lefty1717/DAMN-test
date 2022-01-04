@@ -19,7 +19,6 @@ export default function SendFoodListCard(props){
           type: actionTypes.SET_CHECKEDLIST,
           checkedList: [...oldList],
         });
-        
     }
 
     return(
@@ -48,7 +47,7 @@ export default function SendFoodListCard(props){
                     width:"50%",
                     boxShadow:"none",
                 }}>
-                  <FoodKindSelecter/>
+                  <FoodKindSelecter index={props.index} />
                 </Card>
                 
                 <Card sx={{
@@ -57,8 +56,8 @@ export default function SendFoodListCard(props){
                     padding:"10px 0 0 20px",
                     boxShadow:"none",                   
                 }}>
-                    <BuyDatePicker/> 
-                    <EndatePicker/>   
+                    <BuyDatePicker index={props.index}/>
+                    <EndatePicker index={props.index} />
                 </Card>
                 
                 <Card sx={{

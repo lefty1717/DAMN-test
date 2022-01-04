@@ -5,7 +5,16 @@ import { AppBar, Button } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Typography from '@mui/material/Typography';
 
+//跳轉頁面
+import { useNavigate } from 'react-router-dom';
+
+import SendCheckedList from "./SendCheckedList";
+
 export default function SendListBar(){
+    const navigate = useNavigate()
+    const goCheckFoodListPage = function(){
+        navigate('/fridge/checkfoodlist');
+    }
     return(
         <ThemeProvider theme={theme}>
             <AppBar sx={{
@@ -18,7 +27,7 @@ export default function SendListBar(){
                 padding:"13px",
                 }}>
                 
-                <Button>
+                <Button onClick={goCheckFoodListPage}>
                     <ArrowBackIosNewIcon sx={{
                         color:"#FFFFFF",
                         display:"flex",
@@ -32,7 +41,9 @@ export default function SendListBar(){
                         color:"#FFFFFF",
                         justifyContent:"space-between",
                         alignItems:"center",
-                        }}>
+                    }}
+                    onClick={SendCheckedList}
+                    >
                         送出
                     </Button>
                 </Typography>

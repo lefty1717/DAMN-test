@@ -13,7 +13,7 @@ const theme = createTheme({
 
 
 
-export default function BasicButtons() {
+export default function BasicButtons(props) {
   return (
       <ThemeProvider theme={theme}>
       <Button variant="contained" color="submit" size="large">送出</Button>

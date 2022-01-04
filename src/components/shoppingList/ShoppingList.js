@@ -34,6 +34,10 @@ export default function ShoppingList(props){
                     notes:doc.data().notes,
                     id:doc.id,
                     checked:false,
+                    startDate:"",
+                    endDate:"",
+                    isFrozen:"",
+                    ingredientTags:"",
                 });
             });
             setFridge([...temp]);

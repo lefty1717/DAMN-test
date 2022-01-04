@@ -5,16 +5,28 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-export default function EndDatePicker() {
-  const [value, setValue] = React.useState(null);
+import { actionTypes } from "../../../reducer";
+import { useStateValue } from "../../../StateProvider";
+
+export default function EndDatePicker(props) {
+  const [{ checkedList }, dispatch] = useStateValue();
+    
+  const handleCheckListChange = function(newValue){
+      let oldList = [...checkedList];
+      oldList[props.index] = {...oldList[props.index],endDate:newValue}
+      dispatch({
+        type: actionTypes.SET_CHECKEDLIST,
+        checkedList: [...oldList],
+      });
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="截止日期"
-        value={value}
+        value={checkedList[props.index].endDate}
         onChange={(newValue) => {
-          setValue(newValue);
+          handleCheckListChange(newValue);
         }}
         renderInput={(params) => <TextField {...params} />}
       />

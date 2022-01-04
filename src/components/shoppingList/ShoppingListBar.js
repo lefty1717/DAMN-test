@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import { AppBar, Button, ButtonGroup, Toolbar } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Typography from '@mui/material/Typography';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SortButton from "../fridge/SortButton";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function ShoppingListBar(){
 
@@ -25,7 +25,7 @@ export default function ShoppingListBar(){
 
             <div className="RightButton">
                 <Button className="insertButton" sx={{textAlign:"right !important"}}>
-                        <AddCircleOutlineIcon/>
+                        <DeleteIcon/>
                     </Button>
 
                     <SortButton  className="top_bar"/>

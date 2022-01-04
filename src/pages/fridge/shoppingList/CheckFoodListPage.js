@@ -5,7 +5,7 @@ import SendFoodList from "../../../components/fridge/sendfoodList/SendFoodList";
 import { useNavigate } from 'react-router-dom';
 
 export default function CheckFoodList(props){
-        const navigate = useNavigate()
+    const navigate = useNavigate()
     const handleSendCheckedList = function(){
         navigate('/fridge/sendfoodlist');
     }

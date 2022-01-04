@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
+
+//components
 import TopBar from '../../../components/fridge/CreateShoppinglistBar';
-import UploadButtons from '../../../components/fridge/UploadImage';
-import FreeSolo from '../../../components/fridge/Input';
-import BasicButtons from  '../../../components/fridge/SubmitButton';
+import CustomIcon from "../../../components/Icon";
+
 //firebase
 import { db, storage } from '../../../firebase';
 import { collection, addDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
+//mui
 import { Button, Input } from '@mui/material';
-import { borderRadius, Box, ThemeProvider, width } from "@mui/system";
+import { Box } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
-import CustomIcon from "../../../components/Icon";
 import { styled } from "@mui/material/styles";
+
+//跳轉頁面
+import { useNavigate } from 'react-router-dom';
 
 
 function CreateShoppinglist () {
-
+    const navigate = useNavigate()
     const ThumbnailInput = styled("input")({
         display: "none",
     });
@@ -33,11 +37,11 @@ function CreateShoppinglist () {
         imageURL:"",
     })
 
-    //set to shoppingList
+    //set shoppingList
     const handleClick = function(e){
         setShoppingList({...shoppingList,[e.target.name]:e.target.value})
     }
-    
+    //縮圖
     const handleThumbnail = (e) => {
         const thumbnail = {
           file: e.target.files[0],
@@ -45,7 +49,6 @@ function CreateShoppinglist () {
         };
         setShoppingList({...shoppingList,imageURL:thumbnail.url, imageFile:thumbnail.file})
     };
-    console.log(shoppingList.imageFile);
 
     //uplode image
     const upload = async function(file){
@@ -57,9 +60,8 @@ function CreateShoppinglist () {
 
     //add to firebase
     async function addData(){
+        navigate('/fridge/shoppinglist');
         const imgurl = await upload(shoppingList.imageFile)
-        
-        console.log(imgurl);
 
         const docRef = await addDoc(collection(db, 'users', '3HuEsCE9jUlCm68eBQf4', 'shoppingList'),{
             name:shoppingList.name,
@@ -137,7 +139,7 @@ function CreateShoppinglist () {
                     <h5>備 註：</h5>
                     <Input type="text" name="notes" value={shoppingList.notes} onChange={handleClick}/>
                 </div>
-
+                
                 <div className="submit">
                     <Button 
                     sx={{

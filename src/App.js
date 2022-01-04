@@ -5,7 +5,7 @@ import RecipeHomePage from "./pages/recipe";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 
-import FridgePage from "./pages/fridge";
+import FridgePage from "./pages/fridge/FridgePage";
 import FridgeManagePage from "./pages/fridge/FridgeManagePage/index";
 import ShoppingListPage from "./pages/fridge/shoppingList/ShoppingListPage";
 import AddShoppingListPage from "./pages/fridge/shoppingList/AddShoppingListPage";
@@ -66,7 +66,6 @@ function App() {
             <Route path="creatshoppinglist" element={<CreateShoppinglist />} />
             <Route path="fridgemanage" element={<FridgeManagePage />} />
             <Route path="shoppinglist" element={<ShoppingListPage />} />
-            <Route path="addshoppinglist" element={<AddShoppingListPage />} />
             <Route path="sendfoodlist" element={<SendFoodListPage />} />
             <Route path="checkfoodlist" element={<CheckFoodListPage />} />
           </Route>

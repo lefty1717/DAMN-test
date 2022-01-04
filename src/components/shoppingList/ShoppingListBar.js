@@ -5,16 +5,24 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Typography from '@mui/material/Typography';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SortButton from "../fridge/SortButton";
+//跳轉頁面
+import { useNavigate } from 'react-router-dom';
 
 export default function ShoppingListBar(){
-
+    const navigate = useNavigate()
+    const goToFridgePage = function(){
+        navigate('/fridge');
+    }
+    const goToCheckfoodListPage = function(){
+        navigate('/fridge/checkfoodlist');
+    }
 
     return(
         <div className="fridgeBar">
         <AppBar className="top_bar" position="sticky"sx={{boxShadow:"none"}}>
 
             <div className="LeftButton"> 
-                <Button>
+                <Button onClick={goToFridgePage}>
                     <ArrowBackIosNewIcon/>
                 </Button>
 
@@ -24,7 +32,7 @@ export default function ShoppingListBar(){
             </div>
 
             <div className="RightButton">
-                <Button className="insertButton" sx={{textAlign:"right !important"}}>
+                <Button className="insertButton" sx={{textAlign:"right !important"}} onClick={goToCheckfoodListPage}>
                         <AddCircleOutlineIcon/>
                     </Button>
 

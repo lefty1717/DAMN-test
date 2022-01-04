@@ -60,7 +60,6 @@ function CreateShoppinglist () {
 
     //add to firebase
     async function addData(){
-        navigate('/fridge/shoppinglist');
         const imgurl = await upload(shoppingList.imageFile)
 
         const docRef = await addDoc(collection(db, 'users', '3HuEsCE9jUlCm68eBQf4', 'shoppingList'),{
@@ -74,6 +73,7 @@ function CreateShoppinglist () {
             ingredientTags:shoppingList.ingredientTags,
             imageURL:imgurl,
         });
+        navigate('/fridge/shoppinglist');
     }
 
     return(

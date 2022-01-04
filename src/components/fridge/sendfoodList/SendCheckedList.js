@@ -15,7 +15,6 @@ export default function SendCheckedList(){
     //add to firebase
     const [{ checkedList }] = useStateValue();
     async function addData(){
-        navigate('/fridge/fridgemanage');
 
         const docRef = await addDoc(collection(db, 'users', '3HuEsCE9jUlCm68eBQf4', 'fridge'),{
             name:checkedList.name,
@@ -35,5 +34,6 @@ export default function SendCheckedList(){
         {checkedList.map((id, index) =>
             deleteData(checkedList[index].id)
         )}
+        navigate('/fridge/fridgemanage');
     }
 }

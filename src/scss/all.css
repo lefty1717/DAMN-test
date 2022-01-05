@@ -615,77 +615,78 @@ img {
 
 .CreateShoppinglist {
   background-color: #C7E3EE;
-  height: 1500px;
+  height: 100%;
 }
 
-.input-container {
-  padding: 40px 0 33px 66px;
-  line-height: 40px;
+.CreateShoppinglist .input-container {
+  padding: 0 0 0 33px;
   color: white;
 }
 
-.input-container h5 {
+.CreateShoppinglist .input-container h5 {
   font-size: 24px;
-  margin: 40px 0 20px 0;
-}
-
-.input-container .input-foodname {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.input-container .input-foodname h5 {
-  margin-top: 76px;
-}
-
-.input-container .input-foodname .css-kx6rml-MuiStack-root {
   margin: 0;
 }
 
-.input-container .input-amount {
+.CreateShoppinglist .input-container input {
+  background-color: white;
+  width: 144px;
+}
+
+.CreateShoppinglist .input-container .input-foodname {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 40px 0;
 }
 
-.input-container .input-amount h5 {
-  word-spacing: 44px;
+.CreateShoppinglist .input-container .input-foodname .css-kx6rml-MuiStack-root {
+  margin: 0;
 }
 
-.input-container .input-unit {
+.CreateShoppinglist .input-container .input-amount {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 40px 0;
 }
 
-.input-container .input-unit h5 {
+.CreateShoppinglist .input-container .input-amount h5 {
   word-spacing: 44px;
 }
 
-.input-container .input-remark {
+.CreateShoppinglist .input-container .input-unit {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 40px 0;
 }
 
-.input-container .input-remark h5 {
+.CreateShoppinglist .input-container .input-unit h5 {
   word-spacing: 44px;
 }
 
-.input-container .input-remark .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+.CreateShoppinglist .input-container .input-remark {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 40px 0;
+}
+
+.CreateShoppinglist .input-container .input-remark h5 {
+  word-spacing: 44px;
+}
+
+.CreateShoppinglist .input-container .input-remark .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   background-color: white;
 }
 
-.input-container .input-remark .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+.CreateShoppinglist .input-container .input-remark .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
   background-color: white;
 }
 
-.input-container .submit {
-  margin-top: 100px;
+.CreateShoppinglist .input-container .submit {
+  margin-top: 70px;
   margin-left: 84px;
 }
 

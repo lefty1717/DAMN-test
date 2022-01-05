@@ -1,16 +1,33 @@
-import { Avatar, Button, Card, Grid, Typography } from "@mui/material";
 import React from "react";
+import { Avatar, Button, Card, Grid, Typography } from "@mui/material";
 //mui icon
 import RestaurantIcon from "@mui/icons-material/Restaurant";
+import AddIcon from "@mui/icons-material/Add";
+//image
 import manage from "../../images/fridgeManage.png";
 import shoppingCart from "../../images/fridgeShoppingCart.png";
-import AddIcon from "@mui/icons-material/Add";
 import foodIcon1 from "../../images/fridgeFoodIcon1.jpeg";
 import foodIcon2 from "../../images/fridgeFoodIcon2.jpeg";
 import foodIcon3 from "../../images/fridgeFoodIcon3.jpeg";
 import background from "../../images/fridgeIndexBar.jpg";
+//component
 import BottomNav from "../../components/BottomNav";
-const index = () => {
+
+//跳轉頁面
+import { useNavigate } from 'react-router-dom';
+
+export default function FridgePage() {
+  const navigate = useNavigate()
+  const goToShoppingListPage = function(){
+    navigate('/fridge/shoppinglist');
+  }
+  const goToCreatShoppingListPage = function(){
+    navigate('/fridge/creatshoppinglist');
+  }
+  const goToFridgeManagePage = function(){
+    navigate('/fridge/fridgemanage');
+  }
+
   return (
     <div className="fridgeIndex">
       <Grid className="box">
@@ -31,12 +48,12 @@ const index = () => {
         </Card>
 
         <Card className="function">
-          <Button>
+          <Button onClick={goToFridgeManagePage}>
             <img src={manage}></img>
             <Typography>保存管理</Typography>
           </Button>
 
-          <Button>
+          <Button onClick={goToShoppingListPage}>
             <img src={shoppingCart} className="shoppingListIcon"></img>
             <Typography>購物清單</Typography>
           </Button>
@@ -46,10 +63,10 @@ const index = () => {
         </Card>
 
         <Card className="addFood">
-          <Button fullWidth>
+          <Button fullWidth onClick={goToCreatShoppingListPage}>
             <div className="discription">
               <RestaurantIcon className="fork" />
-              <h2>新增食材</h2>
+              <h2>新增購物清單</h2>
               <h3>輸入你冰箱中的食材吧！</h3>
             </div>
 
@@ -77,5 +94,3 @@ const index = () => {
     </div>
   );
 };
-
-export default index;

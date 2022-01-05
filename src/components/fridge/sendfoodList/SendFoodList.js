@@ -3,7 +3,6 @@ import SendFoodListCard from "./SendFoodListCard";
 import { useStateValue } from "../../../StateProvider";
 
 export default function SendFoodList(){
-    //props.checkedList
     const [{ checkedList }] = useStateValue();
 
     return(

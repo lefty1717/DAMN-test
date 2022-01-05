@@ -4,17 +4,28 @@ import { AppBar, Button, ButtonGroup, Toolbar } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Typography from '@mui/material/Typography';
 import SortButton from "../fridge/SortButton";
+
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function ShoppingListBar(){
+//跳轉頁面
+import { useNavigate } from 'react-router-dom';
 
+
+export default function ShoppingListBar(){
+    const navigate = useNavigate()
+    const goToFridgePage = function(){
+        navigate('/fridge');
+    }
+    const goToCheckfoodListPage = function(){
+        navigate('/fridge/checkfoodlist');
+    }
 
     return(
         <div className="fridgeBar">
         <AppBar className="top_bar" position="sticky"sx={{boxShadow:"none"}}>
 
             <div className="LeftButton"> 
-                <Button>
+                <Button onClick={goToFridgePage}>
                     <ArrowBackIosNewIcon/>
                 </Button>
 
@@ -26,6 +37,8 @@ export default function ShoppingListBar(){
             <div className="RightButton">
                 <Button className="insertButton" sx={{textAlign:"right !important"}}>
                         <DeleteIcon/>
+                <Button className="insertButton" sx={{textAlign:"right !important"}} onClick={goToCheckfoodListPage}>
+                        <AddCircleOutlineIcon/>
                     </Button>
 
                     <SortButton  className="top_bar"/>

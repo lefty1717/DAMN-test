@@ -10,14 +10,19 @@ import milk from "../../images/icons8-milk-carton-30.png"
 import beans from "../../images/icons8-peanuts-30.png"
 import apple from "../../images/icons8-plum-30.png"
 import SortButton from "./SortButton"
+import { useNavigate } from 'react-router-dom';
 
 export default function FridgeBar(){
+    const navigate = useNavigate()
+    const goToFridge = function(){
+        navigate('/fridge');
+    }
     return (
         <div className="fridgeBar">
             <AppBar className="top_bar" position="sticky">
 
                 <div className="LeftButton"> 
-                    <Button>
+                    <Button onClick={goToFridge}>
                         <ArrowBackIosNewIcon/>
                     </Button>
 

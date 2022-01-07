@@ -37,8 +37,9 @@ export default function ShoppingListBar(){
             <div className="RightButton">
                 <Button className="insertButton" sx={{textAlign:"right !important"}}>
                         <DeleteIcon/>
+                        </Button>
                 <Button className="insertButton" sx={{textAlign:"right !important"}} onClick={goToCheckfoodListPage}>
-                        <AddCircleOutlineIcon/>
+                        {/* <AddCircleOutlineIcon/> */}
                     </Button>
 
                     <SortButton  className="top_bar"/>

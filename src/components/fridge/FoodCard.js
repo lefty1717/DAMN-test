@@ -19,8 +19,6 @@ import moment from 'moment';
 
 
 function FoodCard(props){
-    const enddate = props.food.endDate
-    // const enddate = moment(props.food.endDate).format('YYYY年MM月DD日');
 
     const [isSelected, setIsSelected] = useState(false)
     const [deleted, setDeleted] = useState(0);
@@ -92,7 +90,7 @@ function FoodCard(props){
                         <br/>
                         {props.food.isFrozen}
                         <br/>
-                        到期日：{enddate}
+                        到期日：{props.food.endDate}
                         <br/>
                     </Typography>
 

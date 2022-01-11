@@ -25,7 +25,7 @@ export default function ShoppingListCard(props){
     const [selectedFridge , setSelectedFridge ] = useState(null)
 
   
-    console.log(recordId);
+    // console.log(recordId);
 
     const handleClickOpen = (id) => {
         setOpen(true);
@@ -42,14 +42,14 @@ export default function ShoppingListCard(props){
           await deleteDoc(doc(db, `users/${user}/shoppingList`, id));
           setOpen(false);
           setDeleted(deleted + 1);
-          console.log();
+        //   console.log();
         } catch (error) {
-          console.log(error);
+        //   console.log(error);
         }
       };
 
       const[user,setUser] = useState([])
-      console.log(user);
+    //   console.log(user);
 
       useEffect(() => {
         async function readData() {
@@ -57,12 +57,12 @@ export default function ShoppingListCard(props){
           const temp = [];
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             temp.push(
               doc.id,
             );
           });
-          console.log(temp);
+        //   console.log(temp);
           setUser([...temp]);
         }
         readData();

@@ -10,23 +10,27 @@ import { useNavigate } from 'react-router-dom';
 //delete
 import { doc, deleteDoc } from "firebase/firestore";
 
+import { Button } from "@mui/material";
+
 export default function SendCheckedList(){
     const navigate = useNavigate()
-    //add to firebase
+    //add to firebase 
     const [{ checkedList }] = useStateValue();
-    async function addData(){
 
-        const docRef = await addDoc(collection(db, 'users', '3HuEsCE9jUlCm68eBQf4', 'fridge'),{
-            name:checkedList.name,
-            quantity:checkedList.quantity,
-            unit:checkedList.unit,
-            notes:checkedList.notes,
-            startDate:checkedList.startDate,
-            endDate:checkedList.endDate,
-            isFrozen:checkedList.isFrozen,
-            ingredientTags:checkedList.ingredientTags,
-            imageURL:checkedList.imageURL,
-        });
+    async function addData(){
+        for (var i = 0; i < checkedList.length; i++) {
+            const docRef = await addDoc(collection(db, 'users', '3HuEsCE9jUlCm68eBQf4', 'fridge'),{
+                name:checkedList[i].name,
+                quantity:checkedList[i].quantity,
+                unit:checkedList[i].unit,
+                notes:checkedList[i].notes,
+                startDate:checkedList[i].startDate,
+                endDate:checkedList[i].endDate,
+                isFrozen:checkedList[i].isFrozen,
+                ingredientTags:checkedList[i].ingredientTags,
+                imageURL:checkedList[i].imageURL,
+            });
+        }
         //delete
         const deleteData = async function(id){
         await deleteDoc(doc(db, 'users', '3HuEsCE9jUlCm68eBQf4', 'shoppingList', id));
@@ -36,4 +40,19 @@ export default function SendCheckedList(){
         )}
         navigate('/fridge/fridgemanage');
     }
+
+    return(
+        <div>
+            <Button 
+            sx={{
+                color:"#FFFFFF",
+                justifyContent:"space-between",
+                alignItems:"center",
+            }}
+            onClick={addData}
+            >
+                送出
+            </Button>
+        </div>
+    )
 }

@@ -15,8 +15,12 @@ import { doc, deleteDoc } from "firebase/firestore";
 import { useStateValue } from "../../StateProvider";
 import { actionTypes } from "../../reducer";
 
+import moment from 'moment';
+
 
 function FoodCard(props){
+    const enddate = props.food.endDate
+    // const enddate = moment(props.food.endDate).format('YYYY年MM月DD日');
 
     const [isSelected, setIsSelected] = useState(false)
     const [deleted, setDeleted] = useState(0);
@@ -42,14 +46,14 @@ function FoodCard(props){
           await deleteDoc(doc(db, `users/${user}/fridge`, id));
           setOpen(false);
           setDeleted(deleted + 1);
-          console.log();
+        //   console.log();
         } catch (error) {
-          console.log(error);
+        //   console.log(error);
         }
       };
 
       const[user,setUser] = useState([])
-      console.log(user);
+    //   console.log(user);
 
       useEffect(() => {
         async function readData() {
@@ -57,12 +61,12 @@ function FoodCard(props){
           const temp = [];
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             temp.push(
               doc.id,
             );
           });
-          console.log(temp);
+        //   console.log(temp);
           setUser([...temp]);
         }
         readData();
@@ -88,7 +92,7 @@ function FoodCard(props){
                         <br/>
                         {props.food.isFrozen}
                         <br/>
-                        到期日：{props.food.endDate}
+                        到期日：{enddate}
                         <br/>
                     </Typography>
 

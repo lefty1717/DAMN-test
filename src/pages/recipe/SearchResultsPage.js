@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchResultsCardsList from '../../components/receipe/SearchResultsCardsList'
+import SearchResultsCardsList from '../../components/recipe/SearchResultsCardsList'
 const SearchResultsPage = () => {
     return (
       <div>

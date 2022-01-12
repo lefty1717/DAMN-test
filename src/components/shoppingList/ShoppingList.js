@@ -67,7 +67,6 @@ export default function ShoppingList(props){
         }
         <CheckFoodList checkedList={checkedList} />
     }
-    console.log(checkedList);
     
     return(
         <div>

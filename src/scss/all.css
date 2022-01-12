@@ -916,6 +916,63 @@ img {
   display: flex;
 }
 
+.FridgeCardlist {
+  margin-left: 12px;
+}
+
+.FridgeCardlist .block {
+  margin-top: 60px;
+}
+
+.FridgeCardlist .area {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  margin-top: 20px !important;
+  background-color: #F5F5F5;
+}
+
+.FridgeCardlist .content {
+  width: 350px;
+  height: 142px;
+  white-space: nowrap;
+}
+
+.FridgeCardlist .content h6 {
+  font-size: 14px;
+}
+
+.FridgeCardlist .content button {
+  margin: 4px 15px 0 130px;
+  width: 18px;
+  height: 18px;
+  border-style: none;
+  color: #FF0000;
+}
+
+.FridgeCardlist .content .edit button {
+  color: #418DE1;
+  border-style: none;
+  margin-bottom: 11px;
+  margin-top: 0;
+}
+
+.FridgeCardlist .img {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.FridgeCardlist .words {
+  font-weight: bolder !important;
+}
+
+.FridgeCardlist .icon {
+  vertical-align: -4px;
+}
+
 .foodCard .box {
   width: 100%;
   display: -webkit-box;
@@ -1023,6 +1080,16 @@ img {
 
 .fridgeBar .top_bar .LeftButton p {
   font-size: 26px;
+}
+
+.fridgeBar .top_bar .MiddleButton {
+  margin-top: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .fridgeBar .top_bar .RightButton {

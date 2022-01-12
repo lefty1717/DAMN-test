@@ -1,13 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { AppBar, Button, ButtonGroup, Toolbar } from "@mui/material";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Typography from '@mui/material/Typography';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import Typography from "@mui/material/Typography";
 import SortButton from "../fridge/SortButton";
-
-import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 //跳轉頁面
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -42,9 +43,24 @@ export default function ShoppingListBar(){
                         {/* <AddCircleOutlineIcon/> */}
                     </Button>
 
-                    <SortButton  className="top_bar"/>
-                </div>
-        </AppBar>
+        <div className="RightButton">
+          <Button
+            className="insertButton"
+            sx={{ textAlign: "right !important" }}
+          >
+            <DeleteIcon />
+          </Button>
+          <Button
+            className="insertButton"
+            sx={{ textAlign: "right !important" }}
+            onClick={goToCheckfoodListPage}
+          >
+            <AddCircleOutlineIcon />
+          </Button>
+
+          <SortButton className="top_bar" />
         </div>
-    )
+      </AppBar>
+    </div>
+  );
 }

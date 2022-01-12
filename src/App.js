@@ -26,7 +26,7 @@ import SearchResultsPage from "./pages/recipe/SearchResultsPage";
 import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
 import { auth } from "./firebase";
 import CheckFoodListPage from "./pages/fridge/shoppingList/CheckFoodListPage";
-
+import FridgeSearchResult from "./pages/fridge/FridgeManagePage/FridgeSearchResult"
 // 陳泓棣delete掉整個repository，所以我要重新PR
 
 function App() {
@@ -69,6 +69,7 @@ function App() {
             <Route path="shoppinglist" element={<ShoppingListPage />} />
             <Route path="sendfoodlist" element={<SendFoodListPage />} />
             <Route path="checkfoodlist" element={<CheckFoodListPage />} />
+            <Route path="search" element={<FridgeSearchResult/>} />
           </Route>
 
               <Route path="/profile" element={<ProfilePage />} />

@@ -37,15 +37,7 @@ export default function SendListBar(){
                 </Button>
 
                 <Typography>
-                    <Button sx={{
-                        color:"#FFFFFF",
-                        justifyContent:"space-between",
-                        alignItems:"center",
-                    }}
-                    onClick={SendCheckedList}
-                    >
-                        送出
-                    </Button>
+                    <SendCheckedList />
                 </Typography>
 
             </AppBar>

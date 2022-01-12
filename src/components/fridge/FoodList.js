@@ -33,8 +33,8 @@ export default function FoodList(){
                     quantity:doc.data().quantity,
                     unit:doc.data().unit,
                     isFrozen:fro(doc.data().isFrozen),
-                    startDate:moment(doc.data().startDate, "YYYYMMDD").format("YYYY/MM/DD"),
-                    endDate:moment(doc.data().endDate, "YYYYMMDD").format("YYYY/MM/DD"),
+                    startDate:moment(doc.data().startDate.seconds*1000).format('MM月DD日'),
+                    endDate:moment(doc.data().endDate.seconds*1000).format('MM月DD日'),
                     imageURL:doc.data().imageURL,
                     toEnd:moment().to(doc.data().endDate)
                 });
@@ -43,6 +43,7 @@ export default function FoodList(){
         }
         readData();
     },[db]);
+    console.log(fridge);
 
     return(
         <div>

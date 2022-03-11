@@ -64,6 +64,21 @@ function HotCard({ data }) {
       await updateDoc(isLikedindb, {
         isLiked: true,
       });
+    } else {
+      await setDoc(
+        doc(db, "users", `${userUid}`, "isLikedrecipes", `${data.id}`),
+        {
+          recipe: `${data.name}`,
+          isLiked: true,
+        }
+      );
+      await updateDoc(recipesLikes, {
+        likes: data.likes + 1,
+      });
+      setDataLikes(data.likes + 1);
+      await updateDoc(isLikedindb, {
+        isLiked: true,
+      });
     }
   };
 

@@ -8,27 +8,32 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 //跳轉頁面
-import { useNavigate } from "react-router-dom";
 
-export default function ShoppingListBar() {
-  const navigate = useNavigate();
-  const goToFridgePage = function () {
-    navigate("/fridge");
-  };
-  const goToCheckfoodListPage = function () {
-    navigate("/fridge/checkfoodlist");
-  };
+import { useNavigate } from 'react-router-dom';
 
-  return (
-    <div className="fridgeBar">
-      <AppBar className="top_bar" position="sticky" sx={{ boxShadow: "none" }}>
-        <div className="LeftButton">
-          <Button onClick={goToFridgePage}>
-            <ArrowBackIosNewIcon />
-          </Button>
 
-          <Typography>購物清單</Typography>
-        </div>
+export default function ShoppingListBar(){
+    const navigate = useNavigate()
+    const goToFridgePage = function(){
+        navigate('/fridge');
+    }
+    const goToCheckfoodListPage = function(){
+        navigate('/fridge/checkfoodlist');
+    }
+
+    return(
+        <div className="fridgeBar">
+        <AppBar className="top_bar" position="sticky"sx={{boxShadow:"none"}}>
+
+            <div className="LeftButton"> 
+                <Button onClick={goToFridgePage}>
+                    <ArrowBackIosNewIcon/>
+                </Button>
+
+                <Typography>
+                    購物清單
+                </Typography>
+            </div>
 
         <div className="RightButton">
           <Button

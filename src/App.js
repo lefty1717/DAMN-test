@@ -21,7 +21,8 @@ import AdminPage from "./pages/recipe/AdminPage";
 import NotFound from "./pages/NotFoundPage";
 
 import { HashRouter } from "react-router-dom";
-import RecipeSearchPage from "./pages/RecipeSearchPage";
+import RecipeSearchPage from "./pages/recipe/RecipeSearchPage";
+import SearchResultsPage from "./pages/recipe/SearchResultsPage";
 import CreateShoppinglist from "./pages/fridge/shoppingList/CreateShoppinglist";
 import { auth } from "./firebase";
 import CheckFoodListPage from "./pages/fridge/shoppingList/CheckFoodListPage";

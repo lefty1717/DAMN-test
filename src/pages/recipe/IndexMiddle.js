@@ -24,6 +24,7 @@ function IndexMiddle() {
   useEffect(() => {
     fetchHitoRecipes();
   }, []);
+
   return (
     <div className="recipeIndexMiddle">
       <div className="recipeIndexMiddle__title">
@@ -35,11 +36,8 @@ function IndexMiddle() {
       </div>
       <div className="recipeIndexMiddle__cards">
         {hitoRecipes?.map((item) => (
-          <HotCard key={item.id} data={item} />
+          <HotCard key={item.id} data={item}  />
         ))}
-        {/* <HotCard />
-        <HotCard />
-        <HotCard /> */}
       </div>
       <div className="recipeIndexMiddle__title">
         <h4>推薦</h4>
